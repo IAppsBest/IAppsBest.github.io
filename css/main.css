@@ -98,6 +98,7 @@ html, body {
 }
 
 .logo {
+    margin-left: auto;
     margin-right: auto;
     color: var(--header-text);
     font-size: 24px;
@@ -148,6 +149,9 @@ html, body {
 .dark-mode-btn {
     order: 9;
 
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -429,6 +433,128 @@ html, body {
 
 .copyright p + p {
     margin-top: 0.5em;
+}
+
+
+/* Оформление панели */
+#side-checkbox {
+    display: none;
+}
+.side-panel {
+    border-radius: 10px;
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: -360px;
+    background: #5C62EC;
+    transition: all 0.5s;   
+    width: 220px;
+    height: 100vh;
+    box-shadow: 10px 0 20px rgba(0,0,0,0.4);
+    color: #FFF;
+    padding: 40px 20px;
+}
+.side-title {
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #BFE2FF;
+    height: 36px;
+}
+
+.side-panel p {
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.side-panel a {
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+.side-panel p {
+    text-align: center;
+}
+
+.instructions {
+    margin-top: 10%
+}
+/* Оформление кнопки на странице */
+.side-button-1-wr {
+    left: 20px;
+    top: 20px; /* Контейнер для кнопки, чтобы было удобнее ее разместить */
+}
+.side-button-1 {
+    display: inline-block;
+}
+.side-button-1 .side-b {
+    left: 10px;
+    top: 5px;
+    text-decoration: none;
+    position: fixed;
+    font-size: 45px;
+    font-weight: 500;
+    color: #FFF;
+    background: #272727;
+    cursor: pointer; 
+    height: 1px;
+    width: 1px;
+}
+.side-button-1 .side-b:hover,
+.side-button-1 .side-b:active,
+.side-button-1 .side-b:focus {
+    color: #FFF;
+}
+.side-button-1 .side-b:after,
+.side-button-1 .side-b:before {
+    position: absolute;
+    height: 4px;
+    left: 50%;
+    bottom: -6px;
+    content: "";
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+.side-button-1 .side-b:before {
+    top: -6px;
+}
+.side-button-1 .side-b:hover:after,
+.side-button-1 .side-b:hover:before {
+    width: 100%;
+    left: 0;
+}
+/* Переключатели кнопки 1 */
+.side-button-1 .side-close {
+    display: none;
+}
+#side-checkbox:checked + .side-panel + .side-button-1-wr .side-button-1 .side-open {
+    display: none;
+}
+#side-checkbox:checked + .side-panel + .side-button-1-wr .side-button-1 .side-close {
+    display: block;
+}
+#side-checkbox:checked + .side-panel {
+    left: 0;
+}
+/* Оформление кнопки на панеле */
+.side-button-2 {
+    font-size: 30px;
+    border-radius: 20px;
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    transform: rotate(45deg);
+    color: #BFE2FF;    
+    transition: all 280ms ease-in-out;    
+}
+.side-button-2:hover {
+    transform: rotate(45deg) scale(1.1);    
+    color: #FFF;
 }
 
 @media (max-width: 620px) {
