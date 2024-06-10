@@ -147,90 +147,95 @@
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
-            <h2>Форма для добавления данных</h2>
-            <button for="jsonFileInput" class="custom-file-upload">
-                Загрузить .JSON
-                <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
-            </button>
-        </div>
-
-        <div class="form-container">
-            <h2>JSON данные</h2>
-            <pre id="jsonDataDisplay" style="display: none;"></pre>
-        </div>
-
-        <div class="form-container">
-            <h2>Objective-C данные</h2>
-            <pre id="objcDataDisplay" style="display: none;"></pre>
-        </div>
+    <div class="form-container">
+        <h2>Форма для добавления данных</h2>
+        <button for="jsonFileInput" class="custom-file-upload">
+            Загрузить .JSON
+            <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
+        </button>
+        
+        <label for="appName">Название:</label>
+        <input type="text" id="appName">
+        
+        <label for="appVersion">Версия:</label>
+        <input type="text" id="appVersion">
+        
+        <label for="appImage">Ссылка на изображение:</label>
+        <input type="text" id="appImage">
+        
+        <label for="appPackage">Ссылка на приложение:</label>
+        <input type="text" id="appPackage">
+        
+        <label for="appDescription">Описание приложения:</label>
+        <textarea id="appDescription" rows="4"></textarea>
+        <label for="appCategory">Категория:</label>
+        <select id="appCategory">
+            <option value="0">Приложение</option>
+            <option value="1">Игра</option>
+        </select>
+        <button onclick="applyChanges()">Применить изменения</button>
+        <button onclick="installJSON()">Установить .JSON</button>
     </div>
-
-    <script>
-        var jsonData;
-
-        function loadJSON() {
-            var input = document.getElementById('jsonFileInput');
-            var file = input.files[0];
-            var reader = new FileReader();
-
-            reader.onload = function() {
-                jsonData = JSON.parse(reader.result);
-                displayJSON();
-                displayOBJC();
-            };
-
-            reader.readAsText(file);
+    <div class="form-container">
+        <h2>JSON данные</h2>
+        <pre id="jsonDataDisplay" style="display: none;"></pre>
+    </div>
+</div>
+<script>
+    var jsonData;
+    
+    function loadJSON() {
+        var input = document.getElementById('jsonFileInput');
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function() {
+            jsonData = JSON.parse(reader.result);
+            displayJSON();
+        };
+        reader.readAsText(file);
+    }
+    function displayJSON() {
+        if (jsonData) {
+            var jsonDataDisplay = document.getElementById('jsonDataDisplay');
+            jsonDataDisplay.innerHTML = '';
+            var formattedJSON = JSON.stringify(jsonData, null, 2);
+            var preElement = document.createElement('pre');
+            preElement.classList.add('json-display');
+            preElement.innerHTML = syntaxHighlight(formattedJSON);
+            jsonDataDisplay.appendChild(preElement);
+            jsonDataDisplay.style.display = "block";
         }
-
-        function displayJSON() {
-            if (jsonData) {
-                var jsonDataDisplay = document.getElementById('jsonDataDisplay');
-                jsonDataDisplay.innerHTML = '';
-
-                var formattedJSON = JSON.stringify(jsonData, null, 2);
-                jsonDataDisplay.textContent = formattedJSON;
-                jsonDataDisplay.style.display = "block";
+    }
+    function syntaxHighlight(json) {
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+            var cls = 'json-key';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'json-key';
+                } else {
+                    cls = 'json-string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'json-boolean';
+            } else if (/null/.test(match)) {
+                cls = 'json-null';
             }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+    function convertJSONtoObjC() {
+        if (!jsonData) return;
+        var objCString = 'NSDictionary *data = @{';
+        for (var key in jsonData) {
+            objCString += '"' + key + '": ' + JSON.stringify(jsonData[key]) + ', ';
         }
-
-        function displayOBJC() {
-            if (jsonData) {
-                var objcString = jsonToObjC(jsonData);
-
-                var objcDataDisplay = document.getElementById('objcDataDisplay');
-                objcDataDisplay.textContent = objcString;
-                objcDataDisplay.style.display = "block";
-            }
-        }
-
-        function jsonToObjC(value, level=0) {
-            var indentation = "\t".repeat(level);
-            var nextIndentation = "\t".repeat(level + 1);
-            if (value === true) {
-                return '@YES';
-            } else if (value === false) {
-                return '@NO';
-            } else if (typeof value === 'string') {
-                return @${value};
-            } else if (typeof value === 'number') {
-                return @${value};
-            } else if (value === null) {
-                return 'NSNull.null';
-            } else if (Array.isArray(value)) {
-                var objcArrayItems = value.map(item => jsonToObjC(item, level+1));
-                var indentedObjCArray = @[\n${nextIndentation}${objcArrayItems.join(',\n' + nextIndentation)}\n${indentation}];
-                return indentedObjCArray;
-            } else if (typeof value === 'object') {
-                var objcDictItems = Object.entries(value).map(([key, val]) => {
-                    var objcKey = typeof key === 'string' ? @"${key}" : key;
-                    var objcVal = jsonToObjC(val, level+1);
-                    return ${nextIndentation}${objcKey}: ${objcVal};
-                });
-                var indentedObjCDict = @{\n${objcDictItems.join(',\n')}\n${indentation}};
-                return indentedObjCDict;
-            }
-        }
-    </script>
+        objCString = objCString.slice(0, -2); // Remove trailing comma and space
+        objCString += '};';
+        console.log(objCString);
+    }
+    function installJSON() {
+        convertJSONtoObjC();
+    }
+</script>
 </body>
 </html>
