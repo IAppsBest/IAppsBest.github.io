@@ -178,6 +178,7 @@
             reader.onload = function() {
                 jsonData = JSON.parse(reader.result);
                 displayJSON();
+                displayOBJC();
             };
 
             reader.readAsText(file);
@@ -194,12 +195,7 @@
             }
         }
 
-        function installOBJC() {
-            if (!jsonData) {
-                alert('Сначала загрузите .JSON!');
-                return;
-            }
-
+        function displayOBJC() {
             var objcString = jsonToObjC(jsonData);
 
             var objcDataDisplay = document.getElementById('objcDataDisplay');
