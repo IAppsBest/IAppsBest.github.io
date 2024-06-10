@@ -171,7 +171,7 @@
             };
             reader.readAsText(file.files[0]);
         }
-        function JSONToObjC(value, level = -1) {
+        function JSONToObjC(value, level = 0) {
     var indentation = "\t".repeat(level);
     var nextIndentation = "\t".repeat(level + 1);
     if (value === true) {
