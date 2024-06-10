@@ -167,8 +167,8 @@
             reader.onload = function() {
                 try {
                     var json = JSON.parse(reader.result);
-                    var objC = convertJSONtoObjC(json);
-                    document.getElementById('objCData').textContent = objC; // Исправлено: используем textContent вместо value
+                    var objCData = convertJSONtoObjC(json);
+                    document.getElementById('objCData').textContent = objCData;
                 } catch (e) {
                     console.error('Ошибка при парсинге JSON:', e);
                 }
@@ -176,14 +176,31 @@
             reader.readAsText(input.files[0]);
         }
         function convertJSONtoObjC(json) {
-            var objC = JSON.stringify(json, null, 2);
-            objC = objC.replace(/"(\w+)"\s*:/g, function(match, p1) {
-                return p1 + ':';
-            });
-            objC = objC.replace(/true/g, '@YES').replace(/false/g, '@NO').replace(/null/g, 'NSNull.null');
-            objC = objC.replace(/"([^"]+)"\s*:/g, '@$1:'); // Исправлено: используем [^"]+ для корректного захвата строки
-            objC = objC.replace(/(\d+)\s*:/g, '@$1:');
-            return objC;
+            var objCString = JSONtoObjCString(json);
+            return objCString;
+        }
+        function JSONtoObjCString(json) {
+            if (json === null) {
+                return 'NSNull.null';
+            } else if (typeof json === 'boolean') {
+                return json ? '@YES' : '@NO';
+            } else if (typeof json === 'number') {
+                return '@' + json;
+            } else if (typeof json === 'string') {
+                return '@"' + json.replace(/"/g, '\\"') + '"';
+            } else if (typeof json === 'object') {
+                if (Array.isArray(json)) {
+                    return '(@' + json.map(JSONtoObjCString).join(', ') + ')';
+                } else {
+                    var keys = Object.keys(json);
+                    var objCArray = keys.map(function(key) {
+                        var value = json[key];
+                        var objCValue = JSONtoObjCString(value);
+                        return '@"' + key + '": ' + objCValue;
+                    });
+                    return '{ ' + objCArray.join(', ') + ' }';
+                }
+            }
         }
         function applyChanges() {
             // Здесь можно добавить код для применения изменений
