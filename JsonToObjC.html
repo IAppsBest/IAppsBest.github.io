@@ -176,8 +176,6 @@
             var indentation = "    ".repeat(level);
             var nextIndentation = "    ".repeat(level + 1);
         
-            console.log(`Level: ${level}, Indentation: "${indentation.replace(/\t/g, '\\t')}", NextIndentation: "${nextIndentation.replace(/\t/g, '\\t')}"`);
-        
             if (value === true) {
                 return '@YES';
             } else if (value === false) {
