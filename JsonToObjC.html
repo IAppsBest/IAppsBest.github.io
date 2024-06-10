@@ -170,37 +170,24 @@
                     var objCData = convertJSONtoObjC(json);
                     document.getElementById('objCData').textContent = objCData;
                 } catch (e) {
-                    console.error('Ошибка при парсинге JSON:', e);
+                    console.error('Ошибка при чтении JSON:', e);
                 }
             };
             reader.readAsText(input.files[0]);
         }
         function convertJSONtoObjC(json) {
-            var objCString = JSONtoObjCString(json);
-            return objCString;
-        }
-        function JSONtoObjCString(json) {
-            if (json === null) {
-                return 'NSNull.null';
-            } else if (typeof json === 'boolean') {
-                return json ? '@YES' : '@NO';
-            } else if (typeof json === 'number') {
-                return '@' + json;
-            } else if (typeof json === 'string') {
-                return '@"' + json.replace(/"/g, '\\"') + '"';
-            } else if (typeof json === 'object') {
-                if (Array.isArray(json)) {
-                    return '(@' + json.map(JSONtoObjCString).join(', ') + ')';
-                } else {
-                    var keys = Object.keys(json);
-                    var objCArray = keys.map(function(key) {
-                        var value = json[key];
-                        var objCValue = JSONtoObjCString(value);
-                        return '@"' + key + '": ' + objCValue;
-                    });
-                    return '{ ' + objCArray.join(', ') + ' }';
-                }
+            if (typeof json !== 'object' || json === null) {
+                return json;
             }
+            if (Array.isArray(json)) {
+                return '@[' + json.map(convertJSONtoObjC).join(', ') + ']';
+            }
+            var result = '{';
+            for (var key in json) {
+                result += '\n' + '    ' + '@"' + key + '": ' + convertJSONtoObjC(json[key]) + ',';
+            }
+            result = result.slice(0, -1) + '\n' + '}';
+            return result;
         }
         function applyChanges() {
             // Здесь можно добавить код для применения изменений
