@@ -153,7 +153,6 @@
                 Загрузить .JSON
                 <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
             </button>
-            <button onclick="installOBJC()">Установить .OBJC</button>
         </div>
 
         <div class="form-container">
@@ -196,11 +195,13 @@
         }
 
         function displayOBJC() {
-            var objcString = jsonToObjC(jsonData);
+            if (jsonData) {
+                var objcString = jsonToObjC(jsonData);
 
-            var objcDataDisplay = document.getElementById('objcDataDisplay');
-            objcDataDisplay.textContent = objcString;
-            objcDataDisplay.style.display = "block";
+                var objcDataDisplay = document.getElementById('objcDataDisplay');
+                objcDataDisplay.textContent = objcString;
+                objcDataDisplay.style.display = "block";
+            }
         }
 
         function jsonToObjC(value, level=0) {
@@ -218,7 +219,7 @@
                 return 'NSNull.null';
             } else if (Array.isArray(value)) {
                 var objcArrayItems = value.map(item => jsonToObjC(item, level+1));
-                var indentedObjCArray = @[\n${nextIndentation}${objcArrayItems.join(,\n${nextIndentation}`)}\n${indentation}]`;
+                var indentedObjCArray = @[\n${nextIndentation}${objcArrayItems.join(',\n' + nextIndentation)}\n${indentation}];
                 return indentedObjCArray;
             } else if (typeof value === 'object') {
                 var objcDictItems = Object.entries(value).map(([key, val]) => {
@@ -226,7 +227,7 @@
                     var objcVal = jsonToObjC(val, level+1);
                     return ${nextIndentation}${objcKey}: ${objcVal};
                 });
-                var indentedObjCDict = @{\n${objcDictItems.join(,\n`)}\n${indentation}}`;
+                var indentedObjCDict = @{\n${objcDictItems.join(',\n')}\n${indentation}};
                 return indentedObjCDict;
             }
         }
