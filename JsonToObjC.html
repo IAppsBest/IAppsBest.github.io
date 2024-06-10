@@ -162,47 +162,38 @@
     </div>
     <script>
         function loadJSON() {
-            var file = document.getElementById('jsonFileInput').files[0];
+            var file = document.getElementById('jsonFileInput');
             var reader = new FileReader();
-            reader.onload = function(e) {
-                var json = JSON.parse(e.target.result);
+            reader.onload = function() {
+                var json = JSON.parse(reader.result);
                 var objCData = JSONToObjC(json);
                 document.getElementById('objCData').textContent = objCData;
             };
-            reader.readAsText(file);
+            reader.readAsText(file.files[0]);
         }
         function JSONToObjC(value, level = 0) {
             var indentation = "\t".repeat(level);
             var nextIndentation = "\t".repeat(level + 1);
-            if (typeof value === 'object' && value !== null) {
-                if (Array.isArray(value)) {
-                    return '[' + value.map(v => JSONToObjC(v, level + 1)).join(',') + ']';
-                } else {
-                    var keys = Object.keys(value);
-                    var objCString = '{';
-                    for (var i = 0; i < keys.length; i++) {
-                        var key = keys[i];
-                        var val = value[key];
-                        objCString += '\n' + nextIndentation + '@"' + key + '": ' + JSONToObjC(val, level + 1);
-                        if (i < keys.length - 1) {
-                            objCString += ',';
-                        }
-                    }
-                    objCString += '\n' + indentation + '}';
-                    return objCString;
-                }
-            } else if (typeof value === 'boolean') {
-                return value ? '@YES' : '@NO';
-            } else if (typeof value === 'string') {
-                return '@"' + value + '"';
-            } else if (typeof value === 'number') {
-                return '@' + value;
+            if (value === true) {
+                return '@YES';
+            } else if (value === false) {
+                return '@NO';
             } else if (value === null) {
                 return 'NSNull.null';
+            } else if (typeof value === 'string') {
+                return `@\"${value}\"`;
+            } else if (typeof value === 'number') {
+                return `@${value}`;
+            } else if (Array.isArray(value)) {
+                return `[\n${value.map(v => `${nextIndentation}${JSONToObjC(v, level + 1)}`).join(',\n')}\n${indentation}]`;
+            } else if (typeof value === 'object' && value !== null) {
+                var keys = Object.keys(value);
+                return `{\n${keys.map(key => `${nextIndentation}@\"${key}\": ${JSONToObjC(value[key], level + 1)}`).join(',\n')}\n${indentation}}`;
             }
+            return '';
         }
         function applyChanges() {
-            // Применить изменения
+            // Здесь можно добавить код для применения изменений
         }
     </script>
 </body>
