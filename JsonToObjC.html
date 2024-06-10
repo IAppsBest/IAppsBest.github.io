@@ -162,35 +162,46 @@
     </div>
     <script>
         function loadJSON() {
-            var input = document.getElementById('jsonFileInput');
+            var file = document.getElementById('jsonFileInput').files[0];
             var reader = new FileReader();
-            reader.onload = function() {
-                try {
-                    var json = JSON.parse(reader.result);
-                    var objCData = convertJSONtoObjC(json);
-                    document.getElementById('objCData').textContent = objCData;
-                } catch (e) {
-                    console.error('Ошибка при чтении JSON:', e);
-                }
+            reader.onload = function(e) {
+                var json = JSON.parse(e.target.result);
+                var objCData = jsonToObjC(json);
+                document.getElementById('objCData').textContent = objCData;
             };
-            reader.readAsText(input.files[0]);
-        }
-        function convertJSONtoObjC(json) {
-            if (typeof json !== 'object' || json === null) {
-                return json;
-            }
-            if (Array.isArray(json)) {
-                return '@[' + json.map(convertJSONtoObjC).join(', ') + ']';
-            }
-            var result = '{';
-            for (var key in json) {
-                result += '\n' + '    ' + '@"' + key + '": ' + convertJSONtoObjC(json[key]) + ',';
-            }
-            result = result.slice(0, -1) + '\n' + '}';
-            return result;
+            reader.readAsText(file);
         }
         function applyChanges() {
             // Здесь можно добавить код для применения изменений
+        }
+        function jsonToObjC(value, level = 0) {
+            const indentation = '\t'.repeat(level);
+            const nextIndentation = '\t'.repeat(level + 1);
+            if (value === true) {
+                return '@YES';
+            } else if (value === false) {
+                return '@NO';
+            } else if (typeof value === 'string') {
+                return @"${value}";
+            } else if (typeof value === 'number') {
+                return @${value};
+            } else if (value === null) {
+                return 'NSNull.null';
+            } else if (Array.isArray(value)) {
+                const objcArrayItems = value.map(item => jsonToObjC(item, level + 1));
+                const indentedObjcArray = @[\n${nextIndentation} + objcArrayItems.join(`,
+${nextIndentation}`) + \n${indentation}];
+                return indentedObjcArray;
+            } else if (typeof value === 'object') {
+                const objcDictItems = [];
+                for (const [key, val] of Object.entries(value)) {
+                    const objcKey = typeof key === 'string' ? @"${key}" : key;
+                    const objcVal = jsonToObjC(val, level + 1);
+                    objcDictItems.push(`${nextIndentation}${objcKey}: ${objcVal}`);
+                }
+                const indentedObjcDict = @{\n + objcDictItems.join(',\n') + \n${indentation}};
+                return indentedObjcDict;
+            }
         }
     </script>
 </body>
