@@ -165,43 +165,41 @@
             var file = document.getElementById('jsonFileInput').files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
-                var json = JSON.parse(e.target.result);
-                var objCData = jsonToObjC(json);
-                document.getElementById('objCData').textContent = objCData;
+                try {
+                    var json = JSON.parse(e.target.result);
+                    document.getElementById('objCData').textContent = JSONToObjC(json, 0);
+                } catch (error) {
+                    console.error('Ошибка при парсинге JSON:', error);
+                }
             };
             reader.readAsText(file);
         }
-        function applyChanges() {
-            // Здесь можно добавить код для применения изменений
-        }
-        function jsonToObjC(value, level = 0) {
-            const indentation = '\t'.repeat(level);
-            const nextIndentation = '\t'.repeat(level + 1);
-            if (value === true) {
+        function JSONToObjC(json, level) {
+            var indentation = '\t'.repeat(level);
+            var nextIndentation = '\t'.repeat(level + 1);
+            if (json === true) {
                 return '@YES';
-            } else if (value === false) {
+            } else if (json === false) {
                 return '@NO';
-            } else if (typeof value === 'string') {
-                return @"${value}";
-            } else if (typeof value === 'number') {
-                return @${value};
-            } else if (value === null) {
+            } else if (json === null) {
                 return 'NSNull.null';
-            } else if (Array.isArray(value)) {
-                const objcArrayItems = value.map(item => jsonToObjC(item, level + 1));
-                const indentedObjcArray = @[\n${nextIndentation} + objcArrayItems.join(`,
-${nextIndentation}`) + \n${indentation}];
-                return indentedObjcArray;
-            } else if (typeof value === 'object') {
-                const objcDictItems = [];
-                for (const [key, val] of Object.entries(value)) {
-                    const objcKey = typeof key === 'string' ? @"${key}" : key;
-                    const objcVal = jsonToObjC(val, level + 1);
-                    objcDictItems.push(`${nextIndentation}${objcKey}: ${objcVal}`);
-                }
-                const indentedObjcDict = @{\n + objcDictItems.join(',\n') + \n${indentation}};
-                return indentedObjcDict;
+            } else if (typeof json === 'string') {
+                return `@"${json}"`;
+            } else if (typeof json === 'number') {
+                return `@${json}`;
+            } else if (Array.isArray(json)) {
+                return '[' + json.map(value => JSONToObjC(value, level + 1)).join(',\n' + nextIndentation) + '\n' + indentation + ']';
+            } else if (typeof json === 'object' && json !== null) {
+                var result = '{';
+                Object.keys(json).forEach((key, index) => {
+                    result += `\n${nextIndentation}@${JSONToObjC(key, level + 1)}: ${JSONToObjC(json[key], level + 1)}${index < Object.keys(json).length - 1 ? ',' : ''}`;
+                });
+                return result + '\n' + indentation + '}';
             }
+            return '';
+        }
+        function applyChanges() {
+            // Логика для применения изменений
         }
     </script>
 </body>
