@@ -172,8 +172,8 @@
             reader.readAsText(file.files[0]);
         }
         function JSONToObjC(value, level = 0) {
-    var indentation = "\t".repeat(level);
-    var nextIndentation = "\t".repeat(level + 1);
+    var indentation = "    ".repeat(level);
+    var nextIndentation = "    ".repeat(level + 1);
 
     console.log(`Level: ${level}, Indentation: "${indentation.replace(/\t/g, '\\t')}", NextIndentation: "${nextIndentation.replace(/\t/g, '\\t')}"`);
 
