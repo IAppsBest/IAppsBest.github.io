@@ -153,89 +153,38 @@
             Загрузить .JSON
             <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
         </button>
-        
-        <label for="appName">Название:</label>
-        <input type="text" id="appName">
-        
-        <label for="appVersion">Версия:</label>
-        <input type="text" id="appVersion">
-        
-        <label for="appImage">Ссылка на изображение:</label>
-        <input type="text" id="appImage">
-        
-        <label for="appPackage">Ссылка на приложение:</label>
-        <input type="text" id="appPackage">
-        
-        <label for="appDescription">Описание приложения:</label>
-        <textarea id="appDescription" rows="4"></textarea>
-        <label for="appCategory">Категория:</label>
-        <select id="appCategory">
-            <option value="0">Приложение</option>
-            <option value="1">Игра</option>
-        </select>
         <button onclick="applyChanges()">Применить изменения</button>
-        <button onclick="installJSON()">Установить .JSON</button>
     </div>
     <div class="form-container">
         <h2>JSON данные</h2>
-        <pre id="jsonDataDisplay" style="display: none;"></pre>
+        <pre id="objCData"></pre>
     </div>
 </div>
 <script>
-    var jsonData;
-    
-    function loadJSON() {
-        var input = document.getElementById('jsonFileInput');
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function() {
-            jsonData = JSON.parse(reader.result);
-            displayJSON();
-        };
-        reader.readAsText(file);
-    }
-    function displayJSON() {
-        if (jsonData) {
-            var jsonDataDisplay = document.getElementById('jsonDataDisplay');
-            jsonDataDisplay.innerHTML = '';
-            var formattedJSON = JSON.stringify(jsonData, null, 2);
-            var preElement = document.createElement('pre');
-            preElement.classList.add('json-display');
-            preElement.innerHTML = syntaxHighlight(formattedJSON);
-            jsonDataDisplay.appendChild(preElement);
-            jsonDataDisplay.style.display = "block";
+function loadJSON() {
+    var input = document.getElementById('jsonFileInput');
+    var reader = new FileReader();
+    reader.onload = function() {
+        try {
+            var json = JSON.parse(reader.result);
+            var objC = convertJSONtoObjC(json);
+            document.getElementById('objCData').value = objC;
+        } catch (e) {
+            console.error('Ошибка при парсинге JSON:', e);
         }
-    }
-    function syntaxHighlight(json) {
-        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-            var cls = 'json-key';
-            if (/^"/.test(match)) {
-                if (/:$/.test(match)) {
-                    cls = 'json-key';
-                } else {
-                    cls = 'json-string';
-                }
-            } else if (/true|false/.test(match)) {
-                cls = 'json-boolean';
-            } else if (/null/.test(match)) {
-                cls = 'json-null';
-            }
-            return '<span class="' + cls + '">' + match + '</span>';
-        });
-    }
-    function convertJSONtoObjC() {
-        if (!jsonData) return;
-        var objCString = 'NSDictionary *data = @{';
-        for (var key in jsonData) {
-            objCString += '"' + key + '": ' + JSON.stringify(jsonData[key]) + ', ';
-        }
-        objCString = objCString.slice(0, -2); // Remove trailing comma and space
-        objCString += '};';
-        console.log(objCString);
-    }
-    function installJSON() {
-        convertJSONtoObjC();
-    }
+    };
+    reader.readAsText(input.files[0]);
+}
+function convertJSONtoObjC(json) {
+    var objC = JSON.stringify(json, null, 2);
+    objC = objC.replace(/"(\w+)"\s*:/g, function(match, p1) {
+        return p1 + ':';
+    });
+    objC = objC.replace(/true/g, '@YES').replace(/false/g, '@NO').replace(/null/g, 'NSNull.null');
+    objC = objC.replace(/("[^"]+")\s*:/g, '@$1:');
+    objC = objC.replace(/(\d+)\s*:/g, '@$1:');
+    return objC;
+}
 </script>
 </body>
 </html>
