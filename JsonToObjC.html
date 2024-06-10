@@ -165,41 +165,44 @@
             var file = document.getElementById('jsonFileInput').files[0];
             var reader = new FileReader();
             reader.onload = function(e) {
-                try {
-                    var json = JSON.parse(e.target.result);
-                    document.getElementById('objCData').textContent = JSONToObjC(json, 0);
-                } catch (error) {
-                    console.error('Ошибка при парсинге JSON:', error);
-                }
+                var json = JSON.parse(e.target.result);
+                var objCData = JSONToObjC(json);
+                document.getElementById('objCData').textContent = objCData;
             };
             reader.readAsText(file);
         }
-        function JSONToObjC(json, level) {
-            var indentation = '\t'.repeat(level);
-            var nextIndentation = '\t'.repeat(level + 1);
-            if (json === true) {
-                return '@YES';
-            } else if (json === false) {
-                return '@NO';
-            } else if (json === null) {
+        function JSONToObjC(value, level = 0) {
+            var indentation = "\t".repeat(level);
+            var nextIndentation = "\t".repeat(level + 1);
+            if (typeof value === 'object' && value !== null) {
+                if (Array.isArray(value)) {
+                    return '[' + value.map(v => JSONToObjC(v, level + 1)).join(',') + ']';
+                } else {
+                    var keys = Object.keys(value);
+                    var objCString = '{';
+                    for (var i = 0; i < keys.length; i++) {
+                        var key = keys[i];
+                        var val = value[key];
+                        objCString += '\n' + nextIndentation + '@"' + key + '": ' + JSONToObjC(val, level + 1);
+                        if (i < keys.length - 1) {
+                            objCString += ',';
+                        }
+                    }
+                    objCString += '\n' + indentation + '}';
+                    return objCString;
+                }
+            } else if (typeof value === 'boolean') {
+                return value ? '@YES' : '@NO';
+            } else if (typeof value === 'string') {
+                return '@"' + value + '"';
+            } else if (typeof value === 'number') {
+                return '@' + value;
+            } else if (value === null) {
                 return 'NSNull.null';
-            } else if (typeof json === 'string') {
-                return `@"${json}"`;
-            } else if (typeof json === 'number') {
-                return `@${json}`;
-            } else if (Array.isArray(json)) {
-                return '[' + json.map(value => JSONToObjC(value, level + 1)).join(',\n' + nextIndentation) + '\n' + indentation + ']';
-            } else if (typeof json === 'object' && json !== null) {
-                var result = '{';
-                Object.keys(json).forEach((key, index) => {
-                    result += `\n${nextIndentation}@${JSONToObjC(key, level + 1)}: ${JSONToObjC(json[key], level + 1)}${index < Object.keys(json).length - 1 ? ',' : ''}`;
-                });
-                return result + '\n' + indentation + '}';
             }
-            return '';
         }
         function applyChanges() {
-            // Логика для применения изменений
+            // Применить изменения
         }
     </script>
 </body>
