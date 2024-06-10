@@ -147,44 +147,47 @@
 </head>
 <body>
     <div class="container">
-    <div class="form-container">
-        <h2>Форма для добавления данных</h2>
-        <button for="jsonFileInput" class="custom-file-upload">
-            Загрузить .JSON
-            <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
-        </button>
-        <button onclick="applyChanges()">Применить изменения</button>
+        <div class="form-container">
+            <h2>Форма для добавления данных</h2>
+            <button for="jsonFileInput" class="custom-file-upload">
+                Загрузить .JSON
+                <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
+            </button>
+            <button onclick="applyChanges()">Применить изменения</button>
+        </div>
+        <div class="form-container">
+            <h2>JSON данные</h2>
+            <pre id="objCData"></pre>
+        </div>
     </div>
-    <div class="form-container">
-        <h2>JSON данные</h2>
-        <pre id="objCData"></pre>
-    </div>
-</div>
-<script>
-function loadJSON() {
-    var input = document.getElementById('jsonFileInput');
-    var reader = new FileReader();
-    reader.onload = function() {
-        try {
-            var json = JSON.parse(reader.result);
-            var objC = convertJSONtoObjC(json);
-            document.getElementById('objCData').value = objC;
-        } catch (e) {
-            console.error('Ошибка при парсинге JSON:', e);
+    <script>
+        function loadJSON() {
+            var input = document.getElementById('jsonFileInput');
+            var reader = new FileReader();
+            reader.onload = function() {
+                try {
+                    var json = JSON.parse(reader.result);
+                    var objC = convertJSONtoObjC(json);
+                    document.getElementById('objCData').textContent = objC; // Исправлено: используем textContent вместо value
+                } catch (e) {
+                    console.error('Ошибка при парсинге JSON:', e);
+                }
+            };
+            reader.readAsText(input.files[0]);
         }
-    };
-    reader.readAsText(input.files[0]);
-}
-function convertJSONtoObjC(json) {
-    var objC = JSON.stringify(json, null, 2);
-    objC = objC.replace(/"(\w+)"\s*:/g, function(match, p1) {
-        return p1 + ':';
-    });
-    objC = objC.replace(/true/g, '@YES').replace(/false/g, '@NO').replace(/null/g, 'NSNull.null');
-    objC = objC.replace(/("[^"]+")\s*:/g, '@$1:');
-    objC = objC.replace(/(\d+)\s*:/g, '@$1:');
-    return objC;
-}
-</script>
+        function convertJSONtoObjC(json) {
+            var objC = JSON.stringify(json, null, 2);
+            objC = objC.replace(/"(\w+)"\s*:/g, function(match, p1) {
+                return p1 + ':';
+            });
+            objC = objC.replace(/true/g, '@YES').replace(/false/g, '@NO').replace(/null/g, 'NSNull.null');
+            objC = objC.replace(/"([^"]+)"\s*:/g, '@$1:'); // Исправлено: используем [^"]+ для корректного захвата строки
+            objC = objC.replace(/(\d+)\s*:/g, '@$1:');
+            return objC;
+        }
+        function applyChanges() {
+            // Здесь можно добавить код для применения изменений
+        }
+    </script>
 </body>
 </html>
