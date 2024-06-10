@@ -148,70 +148,91 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <h2>Форма для загрузки JSON</h2>
+            <h2>Форма для добавления данных</h2>
             <button for="jsonFileInput" class="custom-file-upload">
                 Загрузить .JSON
                 <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
             </button>
+            <button onclick="installOBJC()">Установить .OBJC</button>
         </div>
 
         <div class="form-container">
-            <h2>Результат в формате Objective-C</h2>
-            <pre id="objcResult" style="display: none;"></pre>
-            <button onclick="installObjC()">Установить Objective-C файл</button>
+            <h2>JSON данные</h2>
+            <pre id="jsonDataDisplay" style="display: none;"></pre>
+        </div>
+
+        <div class="form-container">
+            <h2>Objective-C данные</h2>
+            <pre id="objcDataDisplay" style="display: none;"></pre>
         </div>
     </div>
 
     <script>
+        var jsonData;
+
         function loadJSON() {
             var input = document.getElementById('jsonFileInput');
             var file = input.files[0];
             var reader = new FileReader();
 
             reader.onload = function() {
-                var jsonData = JSON.parse(reader.result);
-                displayJSON(jsonData);
+                jsonData = JSON.parse(reader.result);
+                displayJSON();
             };
 
             reader.readAsText(file);
         }
 
-        function displayJSON(jsonData) {
-            var formattedJSON = JSON.stringify(jsonData, null, 2);
-            var preElement = document.createElement('pre');
-            preElement.innerHTML = formattedJSON;
-            document.getElementById('objcResult').innerHTML = jsonToObjC(jsonData);
-            document.getElementById('objcResult').style.display = "block";
+        function displayJSON() {
+            if (jsonData) {
+                var jsonDataDisplay = document.getElementById('jsonDataDisplay');
+                jsonDataDisplay.innerHTML = '';
+
+                var formattedJSON = JSON.stringify(jsonData, null, 2);
+                jsonDataDisplay.textContent = formattedJSON;
+                jsonDataDisplay.style.display = "block";
+            }
         }
 
-        function jsonToObjC(jsonData, level=0) {
+        function installOBJC() {
+            if (!jsonData) {
+                alert('Сначала загрузите .JSON!');
+                return;
+            }
+
+            var objcString = jsonToObjC(jsonData);
+
+            var objcDataDisplay = document.getElementById('objcDataDisplay');
+            objcDataDisplay.textContent = objcString;
+            objcDataDisplay.style.display = "block";
+        }
+
+        function jsonToObjC(value, level=0) {
             var indentation = "\t".repeat(level);
             var nextIndentation = "\t".repeat(level + 1);
-            var objcCode = "";
-
-            Object.entries(jsonData).forEach(([key, value]) => {
-                var objcKey = typeof key === 'string' ? @"${key}" : key;
-
-                if (typeof value === 'object' && !Array.isArray(value)) {
-                    var innerObjcCode = jsonToObjC(value, level + 1);
-                    objcCode += ${nextIndentation}${objcKey}: ${innerObjcCode},\n;
-                } else {
-                    var objcValue = typeof value === 'string' ? @"${value}" : value;
-                    objcCode += ${nextIndentation}${objcKey}: ${objcValue},\n;
-                }
-            });
-
-            return @{\n${objcCode}${indentation}};
-        }
-
-        function installObjC() {
-            var objcCode = document.getElementById('objcResult').innerText;
-            var blob = new Blob([objcCode], {type: 'text/plain'});
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'generated_code.m';
-            a.click();
+            if (value === true) {
+                return '@YES';
+            } else if (value === false) {
+                return '@NO';
+            } else if (typeof value === 'string') {
+                return @"${value}";
+            } else if (typeof value === 'number') {
+                return @${value};
+            } else if (value === null) {
+                return 'NSNull.null';
+            } else if (Array.isArray(value)) {
+                var objcArrayItems = value.map(item => jsonToObjC(item, level+1));
+                var indentedObjCArray = @[\n${nextIndentation}${objcArrayItems.join(,\n${nextIndentation}`)}\n${indentation}]`;
+                return indentedObjCArray;
+            } else if (typeof value === 'object') {
+                var objcDictItems = Object.entries(value).map(([key, val]) => {
+                    var objcKey = typeof key === 'string' ? @"${key}" : key;
+                    var objcVal = jsonToObjC(val, level+1);
+                    return ${nextIndentation}${objcKey}: ${objcVal};
+                });
+                var indentedObjCDict = @{\n${objcDictItems.join(,\n`)}\n${indentation}}`;
+                return indentedObjCDict;
+            }
         }
     </script>
 </body>
