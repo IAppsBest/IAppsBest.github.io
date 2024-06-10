@@ -153,7 +153,6 @@
                 Загрузить .JSON
                 <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
             </button>
-            <button onclick="convertToObjC()">Преобразовать в Objective-C</button>
         </div>
 
         <div class="form-container">
@@ -181,52 +180,38 @@
             var formattedJSON = JSON.stringify(jsonData, null, 2);
             var preElement = document.createElement('pre');
             preElement.innerHTML = formattedJSON;
-            document.getElementById('objcResult').innerHTML = formattedJSON;
+            document.getElementById('objcResult').innerHTML = jsonToObjC(jsonData);
             document.getElementById('objcResult').style.display = "block";
         }
 
-        function convertToObjC() {
-            var jsonData = JSON.parse(document.getElementById('objcResult').innerHTML);
-            var objcCode = json_value_to_objc(jsonData);
-            document.getElementById('objcResult').innerHTML = objcCode;
+        function jsonToObjC(jsonData, level=0) {
+            var indentation = "\t".repeat(level);
+            var nextIndentation = "\t".repeat(level + 1);
+            var objcCode = "";
+
+            Object.entries(jsonData).forEach(([key, value]) => {
+                var objcKey = typeof key === 'string' ? @"${key}" : key;
+
+                if (typeof value === 'object' && !Array.isArray(value)) {
+                    var innerObjcCode = jsonToObjC(value, level + 1);
+                    objcCode += ${nextIndentation}${objcKey}: ${innerObjcCode},\n;
+                } else {
+                    var objcValue = typeof value === 'string' ? @"${value}" : value;
+                    objcCode += ${nextIndentation}${objcKey}: ${objcValue},\n;
+                }
+            });
+
+            return @{\n${objcCode}${indentation}};
         }
 
         function installObjC() {
-            var objcCode = document.getElementById('objcResult').innerHTML;
+            var objcCode = document.getElementById('objcResult').innerText;
             var blob = new Blob([objcCode], {type: 'text/plain'});
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
             a.download = 'generated_code.m';
             a.click();
-        }
-
-        function json_value_to_objc(value, level=0) {
-            var indentation = "\t".repeat(level);
-            var next_indentation = "\t".repeat(level + 1);
-            if (value === true) {
-                return '@YES';
-            } else if (value === false) {
-                return '@NO';
-            } else if (typeof value === 'string') {
-                return @"${value}";
-            } else if (typeof value === 'number') {
-                return @${value};
-            } else if (value === null) {
-                return 'NSNull.null';
-            } else if (Array.isArray(value)) {
-                var objc_array_items = value.map(item => json_value_to_objc(item, level+1));
-                var indented_objc_array = @[\n${next_indentation}${objc_array_items.join(,\n${next_indentation}`)}\n${indentation}]`;
-                return indented_objc_array;
-            } else if (typeof value === 'object') {
-                var objc_dict_items = Object.entries(value).map(([key, val]) => {
-                    var objc_key = typeof key === 'string' ? @"${key}" : key;
-                    var objc_val = json_value_to_objc(val, level+1);
-                    return ${next_indentation}${objc_key}: ${objc_val};
-                });
-                var indented_objc_dict = @{\n${objc_dict_items.join(,\n`)}\n${indentation}}`;
-                return indented_objc_dict;
-            }
         }
     </script>
 </body>
