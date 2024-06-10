@@ -212,7 +212,7 @@
             } else if (value === false) {
                 return '@NO';
             } else if (typeof value === 'string') {
-                return @"${value}";
+                return @${value};
             } else if (typeof value === 'number') {
                 return @${value};
             } else if (value === null) {
