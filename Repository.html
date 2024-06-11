@@ -125,24 +125,30 @@
 
         .autocomplete-items {
             border: 1px solid #d4d4d4;
-            border-bottom: none;
             border-top: none;
-            z-index: 99;
             position: absolute;
             background-color: white;
-            max-height: 150px;
+            max-height: 100px;
             overflow-y: auto;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
     
         .autocomplete-item {
             padding: 10px;
             cursor: pointer;
+            border-bottom: 1px solid #d4d4d4;
+        }
+    
+        .autocomplete-item:last-child {
+            border-bottom: none;
         }
     
         .autocomplete-item:hover {
             background-color: #e9e9e9;
         }
-        
+
         @media screen and (min-width: 801px) {
             .container {
                 gap: 20px;
@@ -239,26 +245,25 @@
         }
 
         function showMatches() {
-        var input = document.getElementById('appName').value;
-        var matchesList = document.getElementById('matchesList');
-        matchesList.innerHTML = '';
-
-        if (!input) return;
-
-        var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().includes(input.toLowerCase()));
-
-        matches.forEach(match => {
-            var div = document.createElement('div');
-            div.classList.add('autocomplete-item');
-            div.textContent = match.appName;
-            div.onclick = function() {
-                document.getElementById('appName').value = match.appName;
-                matchesList.innerHTML = '';
-            };
-            matchesList.appendChild(div);
-        });
-    }
-
+            var input = document.getElementById('appName').value;
+            var matchesList = document.getElementById('matchesList');
+            matchesList.innerHTML = '';
+    
+            if (input.length < 2) return;
+    
+            var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().includes(input.toLowerCase()));
+    
+            matches.slice(0, 10).forEach(match => { // Limit to 10 matches for display
+                var div = document.createElement('div');
+                div.classList.add('autocomplete-item');
+                div.textContent = match.appName;
+                div.onclick = function() {
+                    document.getElementById('appName').value = match.appName;
+                    matchesList.innerHTML = '';
+                };
+                matchesList.appendChild(div);
+            });
+        }
 
         function syntaxHighlight(json) {
             return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
