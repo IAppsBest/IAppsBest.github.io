@@ -123,16 +123,16 @@
             color: goldenrod;
         }
 
-        .autocomplete-items {
+         .autocomplete-items {
             border: 1px solid #d4d4d4;
             border-top: none;
             position: absolute;
             background-color: white;
             max-height: 100px;
             overflow-y: auto;
-            width: 90%;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 99;
         }
     
         .autocomplete-item {
@@ -148,6 +148,7 @@
         .autocomplete-item:hover {
             background-color: #e9e9e9;
         }
+
 
         @media screen and (min-width: 801px) {
             .container {
@@ -251,7 +252,7 @@
     
             if (input.length < 2) return;
     
-            var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().includes(input.toLowerCase()));
+            var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().startsWith(input.toLowerCase()));
     
             matches.slice(0, 10).forEach(match => { // Limit to 10 matches for display
                 var div = document.createElement('div');
@@ -259,10 +260,15 @@
                 div.textContent = match.appName;
                 div.onclick = function() {
                     document.getElementById('appName').value = match.appName;
+                    document.getElementById('appDescription').value = match.appDescription || ''; // Fill the description
                     matchesList.innerHTML = '';
                 };
                 matchesList.appendChild(div);
             });
+    
+            // Set the width of matchesList to the width of the input field
+            var inputField = document.getElementById('appName');
+            matchesList.style.width = inputField.offsetWidth + 'px';
         }
 
         function syntaxHighlight(json) {
