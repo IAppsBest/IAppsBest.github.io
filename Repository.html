@@ -254,13 +254,14 @@
     
             var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().startsWith(input.toLowerCase()));
     
-            matches.slice(0, 10).forEach(match => { // Limit to 10 matches for display
+            matches.slice(0, 3).forEach(match => {
                 var div = document.createElement('div');
                 div.classList.add('autocomplete-item');
                 div.textContent = match.appName;
                 div.onclick = function() {
                     document.getElementById('appName').value = match.appName;
-                    document.getElementById('appDescription').value = match.appDescription || ''; // Fill the description
+                    document.getElementById('appDescription').value = match.appDescription || '';
+                    document.getElementById('appImage').value = match.appImage || '';
                     matchesList.innerHTML = '';
                 };
                 matchesList.appendChild(div);
