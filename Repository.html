@@ -273,6 +273,15 @@
             matchesList.style.width = inputField.offsetWidth + 'px';
         }
 
+        document.addEventListener('click', function(event) {
+            var matchesList = document.getElementById('matchesList');
+            var inputField = document.getElementById('appName');
+            if (!matchesList.contains(event.target) && !inputField.contains(event.target)) {
+                matchesList.innerHTML = '';
+            }
+        });
+
+
         function syntaxHighlight(json) {
             return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
                 var cls = 'json-key';
