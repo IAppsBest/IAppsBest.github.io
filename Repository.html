@@ -123,6 +123,26 @@
             color: goldenrod;
         }
 
+        .autocomplete-items {
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            border-top: none;
+            z-index: 99;
+            position: absolute;
+            background-color: white;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+    
+        .autocomplete-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+    
+        .autocomplete-item:hover {
+            background-color: #e9e9e9;
+        }
+        
         @media screen and (min-width: 801px) {
             .container {
                 gap: 20px;
@@ -147,42 +167,43 @@
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
-            <h2>Форма для добавления данных</h2>
-            <button for="jsonFileInput" class="custom-file-upload">
-                Загрузить .JSON
-                <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
-            </button>
-            
-            <label for="appName">Название:</label>
-            <input type="text" id="appName">
-            
-            <label for="appVersion">Версия:</label>
-            <input type="text" id="appVersion">
-            
-            <label for="appImage">Ссылка на изображение:</label>
-            <input type="text" id="appImage">
-            
-            <label for="appPackage">Ссылка на приложение:</label>
-            <input type="text" id="appPackage">
-            
-            <label for="appDescription">Описание приложения:</label>
-            <textarea id="appDescription" rows="4"></textarea>
+    <div class="form-container">
+        <h2>Форма для добавления данных</h2>
+        <button for="jsonFileInput" class="custom-file-upload">
+            Загрузить .JSON
+            <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
+        </button>
+        
+        <label for="appName">Название:</label>
+        <input type="text" id="appName" oninput="showMatches()">
+        <div id="matchesList" class="autocomplete-items"></div>
+        
+        <label for="appVersion">Версия:</label>
+        <input type="text" id="appVersion">
+        
+        <label for="appImage">Ссылка на изображение:</label>
+        <input type="text" id="appImage">
+        
+        <label for="appPackage">Ссылка на приложение:</label>
+        <input type="text" id="appPackage">
+        
+        <label for="appDescription">Описание приложения:</label>
+        <textarea id="appDescription" rows="4"></textarea>
 
-            <label for="appCategory">Категория:</label>
-            <select id="appCategory">
-                <option value="0">Приложение</option>
-                <option value="1">Игра</option>
-            </select>
-            <button onclick="applyChanges()">Применить изменения</button>
-            <button onclick="installJSON()">Установить .JSON</button>
-        </div>
-
-        <div class="form-container">
-            <h2>JSON данные</h2>
-            <pre id="jsonDataDisplay" style="display: none;"></pre>
-        </div>
+        <label for="appCategory">Категория:</label>
+        <select id="appCategory">
+            <option value="0">Приложение</option>
+            <option value="1">Игра</option>
+        </select>
+        <button onclick="applyChanges()">Применить изменения</button>
+        <button onclick="installJSON()">Установить .JSON</button>
     </div>
+
+    <div class="form-container">
+        <h2>JSON данные</h2>
+        <pre id="jsonDataDisplay" style="display: none;"></pre>
+    </div>
+</div>
 
     <script>
         var jsonData;
@@ -216,6 +237,28 @@
                 jsonDataDisplay.style.display = "block";
             }
         }
+
+        function showMatches() {
+        var input = document.getElementById('appName').value;
+        var matchesList = document.getElementById('matchesList');
+        matchesList.innerHTML = '';
+
+        if (!input) return;
+
+        var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().includes(input.toLowerCase()));
+
+        matches.forEach(match => {
+            var div = document.createElement('div');
+            div.classList.add('autocomplete-item');
+            div.textContent = match.appName;
+            div.onclick = function() {
+                document.getElementById('appName').value = match.appName;
+                matchesList.innerHTML = '';
+            };
+            matchesList.appendChild(div);
+        });
+    }
+
 
         function syntaxHighlight(json) {
             return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
