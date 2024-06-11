@@ -254,7 +254,7 @@
     
             var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().startsWith(input.toLowerCase()));
     
-            matches.slice(0, 3).forEach(match => {
+            matches.slice(0, 5).forEach(match => {
                 var div = document.createElement('div');
                 div.classList.add('autocomplete-item');
                 div.textContent = match.appName;
@@ -262,6 +262,7 @@
                     document.getElementById('appName').value = match.appName;
                     document.getElementById('appDescription').value = match.appDescription || '';
                     document.getElementById('appImage').value = match.appImage || '';
+                    document.getElementById('appPackage').value = match.appPackage || '';
                     matchesList.innerHTML = '';
                 };
                 matchesList.appendChild(div);
