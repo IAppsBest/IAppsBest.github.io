@@ -187,6 +187,12 @@
         
         <label for="appVersion">Версия:</label>
         <input type="text" id="appVersion">
+
+        <label for="appVersion">Вес:</label>
+        <input type="text" id="appSize">
+
+        <label for="appVersion">Версия iOS:</label>
+        <input type="text" id="appVersionIOS">
         
         <label for="appImage">Ссылка на изображение:</label>
         <input type="text" id="appImage">
@@ -303,12 +309,14 @@
         function applyChanges() {
             var appName = document.getElementById('appName').value;
             var appVersion = document.getElementById('appVersion').value;
+            var appSize = document.getElementById('appSize').value;
+            var appVersionIOS = document.getElementById('appVersionIOS').value;
             var appImage = document.getElementById('appImage').value;
             var appPackage = document.getElementById('appPackage').value;
             var appDescription = document.getElementById('appDescription').value;
             var appCategory = document.getElementById('appCategory').value;
 
-            if (!appName || !appVersion || !appImage || !appPackage || !appDescription) {
+            if (!appName || !appVersion || !appImage || !appPackage || !appDescription || !appSize || !appVersionIOS) {
                 alert('Заполните все поля формы!');
                 return;
             };
@@ -330,7 +338,7 @@
                     "appCateIndex": appCategory,
                     "appUpdateTime": new Date().toISOString(),
                     "appName": appName,
-                    "appVersion": appVersion,
+                    "appVersion": `${appVersion} | ${appSize} | ${appVersionIOS}`,
                     "appImage": appImage,
                     "appPackage": appPackage,
                     "appDescription": appDescription
@@ -343,7 +351,7 @@
                     "appCateIndex": appCategory,
                     "appUpdateTime": new Date().toISOString(),
                     "appName": appName,
-                    "appVersion": appVersion,
+                    "appVersion": `${appVersion} | ${appSize} | ${appVersionIOS}`,
                     "appImage": appImage,
                     "appPackage": appPackage,
                     "appDescription": appDescription
