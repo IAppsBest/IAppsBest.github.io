@@ -181,8 +181,8 @@
             <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
         </button>
 
-        <label for="appCategory">Тип:</label>
-        <select id="appCategory">
+        <label for="appType">Тип:</label>
+        <select id="appType">
             <option value=true>Платное</option>
             <option value=false>Бесплатное</option>
         </select>
@@ -314,6 +314,8 @@
         }
 
         function applyChanges() {
+            var appType = document.getElementById('appType').value;
+            var appCategory = document.getElementById('appCategory').value;
             var appName = document.getElementById('appName').value;
             var appVersion = document.getElementById('appVersion').value;
             var appSize = document.getElementById('appSize').value;
@@ -321,7 +323,6 @@
             var appImage = document.getElementById('appImage').value;
             var appPackage = document.getElementById('appPackage').value;
             var appDescription = document.getElementById('appDescription').value;
-            var appCategory = document.getElementById('appCategory').value;
 
             if (!appName || !appVersion || !appImage || !appPackage || !appDescription || !appSize || !appVersionIOS) {
                 alert('Заполните все поля формы!');
@@ -340,7 +341,7 @@
 
             if (existingAppIndex !== -1) {
                 jsonData.appRepositories[existingAppIndex] = {
-                    "lock": true,
+                    "lock": appType,
                     "appType": "SELF_SIGN",
                     "appCateIndex": appCategory,
                     "appUpdateTime": new Date().toISOString(),
@@ -353,7 +354,7 @@
                 alert('Данные успешно изменены!');
             } else {
                 var newApp = {
-                    "lock": true,
+                    "lock": appType,
                     "appType": "SELF_SIGN",
                     "appCateIndex": appCategory,
                     "appUpdateTime": new Date().toISOString(),
