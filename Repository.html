@@ -183,8 +183,8 @@
 
         <label for="appType">Тип:</label>
         <select id="appType">
-            <option value=true>Платное</option>
-            <option value=false>Бесплатное</option>
+            <option value="true">Платное</option>
+            <option value="false">Бесплатное</option>
         </select>
         
         <label for="appCategory">Категория:</label>
@@ -314,7 +314,7 @@
         }
 
         function applyChanges() {
-            var appType = document.getElementById('appType').value;
+            var appType = JSON.parse(document.getElementById('appType').value);
             var appCategory = document.getElementById('appCategory').value;
             var appName = document.getElementById('appName').value;
             var appVersion = document.getElementById('appVersion').value;
