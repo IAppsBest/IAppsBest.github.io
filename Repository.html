@@ -180,6 +180,18 @@
             Загрузить .JSON
             <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
         </button>
+
+        <label for="appCategory">Тип:</label>
+        <select id="appCategory">
+            <option value=true>Платное</option>
+            <option value=false>Бесплатное</option>
+        </select>
+        
+        <label for="appCategory">Категория:</label>
+        <select id="appCategory">
+            <option value="0">Приложение</option>
+            <option value="1">Игра</option>
+        </select>
         
         <label for="appName">Название:</label>
         <input type="text" id="appName" oninput="showMatches()">
@@ -202,12 +214,7 @@
         
         <label for="appDescription">Описание приложения:</label>
         <textarea id="appDescription" rows="4"></textarea>
-
-        <label for="appCategory">Категория:</label>
-        <select id="appCategory">
-            <option value="0">Приложение</option>
-            <option value="1">Игра</option>
-        </select>
+        
         <button onclick="applyChanges()">Применить изменения</button>
         <button onclick="installJSON()">Установить .JSON</button>
     </div>
