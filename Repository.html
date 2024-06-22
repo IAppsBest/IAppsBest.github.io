@@ -313,7 +313,22 @@
             });
         }
 
+        function appUpdateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timezoneOffset = now.getTimezoneOffset();
+            const timezoneHours = Math.floor(-timezoneOffset / 60);
+            const timezoneMinutes = -timezoneOffset - timezoneHours * 60;
+            return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}+${String(timezoneHours).padStart(2, '0')}${String(timezoneMinutes).padStart(2, '0')}`;
+        }
+    
         function applyChanges() {
+            const currentTime = appUpdateTime();
             var appType = JSON.parse(document.getElementById('appType').value);
             var appCategory = document.getElementById('appCategory').value;
             var appName = document.getElementById('appName').value;
@@ -344,7 +359,7 @@
                     "lock": appType,
                     "appType": "SELF_SIGN",
                     "appCateIndex": appCategory,
-                    "appUpdateTime": new Date().toISOString(),
+                    "appUpdateTime": currentTime,
                     "appName": appName,
                     "appVersion": `${appVersion} | ${appSize} MB | IOS ${appVersionIOS}`,
                     "appImage": appImage,
@@ -356,7 +371,7 @@
                 var newApp = {
                     "lock": appType,
                     "appType": "SELF_SIGN",
-                    "appCateIndex": appCategory,
+                    "appCateIndex": currentTime,
                     "appUpdateTime": new Date().toISOString(),
                     "appName": appName,
                     "appVersion": `${appVersion} | ${appSize} MB | IOS ${appVersionIOS}`,
