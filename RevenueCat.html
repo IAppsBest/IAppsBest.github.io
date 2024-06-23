@@ -152,6 +152,7 @@
             <label for="bearerKey">Bearer Key:</label>
             <input type="text" id="bearerKey">
             <button onclick="getProductID()">Получить ProductID</button>
+            <button onclick="installJSON()">Установить .JSON</button>
         </div>
 
         <div class="form-container">
@@ -161,6 +162,7 @@
     </div>
 
     <script>
+        var jsonData = null;
         function getProductID() {
             var bearerKey = document.getElementById('bearerKey').value;
             if (!bearerKey) {
@@ -196,6 +198,7 @@
             })
             .then(response => response.json())
             .then(data => {
+                jsonData = data;
                 var jsonDataDisplay = document.getElementById('jsonDataDisplay');
                 jsonDataDisplay.textContent = JSON.stringify(data, null, 2);
                 jsonDataDisplay.style.display = "block";
@@ -205,6 +208,24 @@
             .catch(error => {
                 console.error('Ошибка:', error);
             });
+        }
+
+        function installJSON() {
+            if (!jsonData) {
+                alert('Сначала загрузите .Entitlements и примените изменения!');
+                return;
+            }
+
+            var jsonString = JSON.stringify(jsonData);
+
+            var blob = new Blob([jsonString], {type: 'application/json'});
+
+            var url = URL.createObjectURL(blob);
+
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'appData.json';
+            a.click();
         }
 
         function syntaxHighlight(element) {
