@@ -216,7 +216,7 @@
                 return;
             }
 
-            var jsonString = JSON.stringify(jsonData);
+            var jsonString = JSON.stringify(jsonData, null, 4);
 
             var blob = new Blob([jsonString], {type: 'application/json'});
 
