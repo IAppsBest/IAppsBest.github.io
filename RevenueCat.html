@@ -200,7 +200,7 @@
             .then(data => {
                 jsonData = data;
                 var jsonDataDisplay = document.getElementById('jsonDataDisplay');
-                jsonDataDisplay.textContent = JSON.stringify(data, null, 2);
+                jsonDataDisplay.textContent = JSON.stringify(data, null, 4);
                 jsonDataDisplay.style.display = "block";
             
                 syntaxHighlight(jsonDataDisplay);
