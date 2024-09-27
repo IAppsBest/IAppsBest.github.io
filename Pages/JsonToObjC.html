@@ -206,6 +206,9 @@ label {
         function JSONToObjC(value, level = 0) {
             var indentation = "    ".repeat(level);
             var nextIndentation = "    ".repeat(level + 1);
+
+            var objCData = document.getElementById('objCData');
+            objCData.style.display = "block"
         
             if (value === true) {
                 return '@YES';
