@@ -11,7 +11,7 @@ closeButton.addEventListener('click', () => {
     navigationMenu.classList.add('hide');
 });
 
-document.querySelector('.cta-button').addEventListener('click', function() {
+document.querySelector('.close-banner').addEventListener('click', function() {
     document.getElementById('banner').style.display = 'none';
 });
 
