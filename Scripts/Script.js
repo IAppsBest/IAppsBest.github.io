@@ -1,4 +1,3 @@
-
 const button = document.getElementById('avatar-navbar');
 const closeButton = document.querySelector('.close-button');
 const navigationMenu = document.querySelector('.navigation__menu');
@@ -10,6 +9,10 @@ button.addEventListener('click', () => {
 
 closeButton.addEventListener('click', () => {
     navigationMenu.classList.add('hide');
+});
+
+document.querySelector('.cta-button').addEventListener('click', function() {
+    document.getElementById('banner').style.display = 'none';
 });
 
 
