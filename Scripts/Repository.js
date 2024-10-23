@@ -23,12 +23,14 @@ function displayApps() {
         const formattedDescription = app.appDescription.replace(/\n/g, '<br>');
         appList.innerHTML += `
             <div class="app-item">
-                <img src="${app.appImage}" alt="${app.appName}" style="width: 50px;">
-                <div>
-                    <h3>${app.appName}</h3>
-                    <p>${app.appVersion}</p>
-                    <p>${formattedDescription}</p>
+                <div class="app-header">
+                    <img src="${app.appImage}" alt="${app.appName}" style="width: 50px;">
+                    <div>
+                        <h3>${app.appName}</h3>
+                        <p>${app.appVersion}</p>
+                    </div>
                 </div>
+                <p class="app-description">${formattedDescription}</p>
             </div>
         `;
     });
