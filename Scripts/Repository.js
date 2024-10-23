@@ -20,13 +20,14 @@ function displayApps() {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     filteredApps.slice(start, end).forEach(app => {
+        const formattedDescription = app.appDescription.replace(/\n/g, '<br>');
         appList.innerHTML += `
             <div class="app-item">
                 <img src="${app.appImage}" alt="${app.appName}" style="width: 50px;">
                 <div>
                     <h3>${app.appName}</h3>
                     <p>${app.appVersion}</p>
-                    <p>${app.appDescription}</p>
+                    <p>${formattedDescription}</p>
                 </div>
             </div>
         `;
