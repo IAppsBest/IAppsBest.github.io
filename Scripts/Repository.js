@@ -14,7 +14,7 @@ fetch('Repo.json')
     });
 
 function displayApps() {
-    appList.innerHTML = '';  // Clear previous apps
+    appList.innerHTML = '';  // Очистить предыдущие приложения
     const filteredApps = apps.filter(app => app.AppName.toLowerCase().includes(searchInput.value.toLowerCase()));
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -30,20 +30,24 @@ function displayApps() {
             </div>
         `;
     });
+    setupPagination(filteredApps);  // Обновить пагинацию для отфильтрованных приложений
 }
 
-function setupPagination() {
-    pagination.innerHTML = '';  // Clear previous pagination
-    const totalPages = Math.ceil(apps.length / itemsPerPage);
+function setupPagination(filteredApps = apps) {
+    pagination.innerHTML = '';  // Очистить предыдущую пагинацию
+    const totalPages = Math.ceil(filteredApps.length / itemsPerPage);
     for (let i = 1; i <= totalPages; i++) {
         const pageBtn = document.createElement('button');
         pageBtn.innerText = i;
         pageBtn.addEventListener('click', () => {
             currentPage = i;
-            displayApps();
+            displayApps();  // Перерисовать текущую страницу
         });
         pagination.appendChild(pageBtn);
     }
 }
 
-searchInput.addEventListener('input', displayApps);
+searchInput.addEventListener('input', () => {
+    currentPage = 1;  // Сбросить текущую страницу на 1 при новом поиске
+    displayApps();
+});
