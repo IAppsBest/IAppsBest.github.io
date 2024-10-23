@@ -624,7 +624,7 @@ body {
 }
 
 /* Медиазапросы для адаптивного дизайна */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     .full-button, .time-button, .activate_banner_button {
         width: 100%; /* Устанавливаем ширину кнопок на 100% */
         max-width: 180px; /* Максимальная ширина кнопок */
