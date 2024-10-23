@@ -392,8 +392,8 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
-    width: 100%;
-    min-width: 100%;
+    width: 50%;
+    min-width: 50%;
 }
 
 .app-header {
@@ -431,8 +431,8 @@ body {
 }
 
 .app-container {
-    max-width: 100%;
-    min-width: 100%;
+    max-width: 50%;
+    min-width: 50%;
     margin: 20px auto;
     padding: 20px;
 }
