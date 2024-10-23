@@ -387,13 +387,20 @@ body {
 /* Основные стили для контейнера приложения */
 .app-item {
     display: flex;
-    align-items: center;
-    background-color: #2e2e2e;  /* Темный фон контейнера */
-    border-radius: 15px;  /* Более сильное закругление */
-    padding: 20px;  /* Увеличен padding */
+    flex-direction: column;  /* Изменим на столбик, если нужно */
+    align-items: flex-start;
+    background-color: #2e2e2e;
+    border-radius: 15px;
+    padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Более глубокая тень */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
+    width: 100%;  /* Контейнер будет занимать всю доступную ширину */
+    word-wrap: break-word;  /* Обеспечиваем перенос слов */
+}
+
+.app-item p, .app-item h3 {
+    width: 100%;  /* Текст будет подстраиваться под ширину контейнера */
 }
 
 .app-item:hover {
@@ -419,8 +426,8 @@ body {
 
 /* Контейнер для всех приложений */
 .app-container {
-    max-width: 850px;  /* Увеличена ширина контейнера */
-    margin: 20px auto;  /* Отступы между строкой поиска и контейнером уменьшены */
+    max-width: 500px;  /* Совпадает с max-width строки поиска */
+    margin: 20px auto;
     padding: 20px;
 }
 
@@ -428,14 +435,14 @@ body {
 #search {
     display: block;
     width: 100%;
-    max-width: 500px;  /* Увеличен максимальный размер строки поиска */
-    margin: 80px auto 10px auto;  /* Строка поиска опущена ниже, отступ между ней и контейнером уменьшен */
+    max-width: 500px;  /* Совпадает с max-width контейнера */
+    margin: 80px auto 10px auto;
     padding: 12px;
-    font-size: 1.1rem;  /* Немного увеличен шрифт */
+    font-size: 1.1rem;
     border-radius: 8px;
-    border: 1px solid #444;  /* Темная рамка */
-    background-color: #1c1c1c;  /* Темный фон строки поиска */
-    color: #fff;  /* Белый текст */
+    border: 1px solid #444;
+    background-color: #1c1c1c;
+    color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
 }
