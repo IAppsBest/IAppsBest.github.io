@@ -383,6 +383,34 @@ body {
     fill: var(--github);
 }
 
+/* Общие стили для кнопок */
+.full-button, .time-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    margin: 0 0.5rem; /* Отступы между кнопками */
+    cursor: pointer;
+    height: 2.5rem; /* Высота кнопки */
+    padding: 0 1rem; /* Горизонтальные отступы внутри кнопки */
+    background-color: var(--button-bg, #007bff); /* Фоновый цвет кнопки */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем рамку */
+    transition: background-color 0.3s ease-in-out; /* Плавный переход при наведении */
+}
+
+/* Эффект при наведении на кнопки */
+.full-button:hover, .time-button:hover {
+    background-color: var(--button-hover-bg, #0056b3); /* Цвет фона при наведении */
+}
+
+/* Стили для родительского контейнера кнопок */
+div {
+    display: flex; /* Включаем Flexbox */
+    justify-content: center; /* Центрируем кнопки по горизонтали */
+    margin-bottom: 1rem; /* Отступ снизу для контейнера кнопок */
+}
+
 .app-item {
     display: flex;
     flex-direction: column;
