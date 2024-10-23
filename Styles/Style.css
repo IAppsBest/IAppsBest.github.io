@@ -413,11 +413,33 @@ body {
 
 .full_time_buttons {
     display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
+    flex-direction: column; /* Вертикальное расположение кнопок */
+    align-items: center; /* Центрирование кнопок по горизонтали */
 }
 
-.full-button, .time-button, .banner_cards_buttons {
+.button-wrapper {
+    display: flex; /* Горизонтальное расположение первых двух кнопок */
+    margin-bottom: 0.5rem; /* Отступ между первой/второй кнопкой и кнопкой "Купить" */
+}
+
+.banner_cards_buttons {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: rgba(255, 255, 255, 0);
+    color: gray;
+    border: 2px solid gray;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: calc(200px + 0.5rem + 200px); /* Ширина кнопки "Купить" = ширина первой кнопки + отступ + ширина второй кнопки */
+    text-align: center;
+}
+
+.full-button, .time-button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
