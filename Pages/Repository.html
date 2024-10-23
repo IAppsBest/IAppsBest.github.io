@@ -451,9 +451,6 @@ label {
                 appUpdateTime: app.appUpdateTime // Добавляем поле времени обновления
             }));
         
-            // Сортировать данные по времени обновления (от новых к старым)
-            filteredData.sort((a, b) => new Date(b.appUpdateTime) - new Date(a.appUpdateTime));
-        
             // Преобразовать отфильтрованные и отсортированные данные в строку JSON
             const jsonString = JSON.stringify(filteredData, null, 4);
         
