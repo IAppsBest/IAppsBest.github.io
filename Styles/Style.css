@@ -404,13 +404,6 @@ body {
     background-color: var(--button-hover-bg, #0056b3); /* Цвет фона при наведении */
 }
 
-/* Стили для родительского контейнера кнопок */
-div {
-    display: flex; /* Включаем Flexbox */
-    justify-content: center; /* Центрируем кнопки по горизонтали */
-    margin-bottom: 1rem; /* Отступ снизу для контейнера кнопок */
-}
-
 .app-item {
     display: flex;
     flex-direction: column;
