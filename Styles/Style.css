@@ -463,7 +463,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: calc(200px + 0.5rem + 200px); /* Ширина кнопки "Купить" = ширина первой кнопки + отступ + ширина второй кнопки */
+    width: calc(200px + 0.5rem + 200px + 0.5rem); /* Ширина кнопки "Купить" = ширина первой кнопки + отступ + ширина второй кнопки */
     text-align: center;
 }
 
