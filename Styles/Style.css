@@ -388,41 +388,41 @@ body {
 .app-item {
     display: flex;
     align-items: center;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #2e2e2e;  /* Темный фон контейнера */
+    border-radius: 15px;  /* Более сильное закругление */
+    padding: 20px;  /* Увеличен padding */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Более глубокая тень */
     transition: transform 0.2s ease-in-out;
 }
 
 .app-item:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);  /* Легкое увеличение при наведении */
 }
 
 .app-item img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-right: 15px;
+    width: 80px;  /* Увеличен размер изображения */
+    height: 80px;  /* Квадратная форма */
+    border-radius: 15px;  /* Скругленные углы изображения */
+    margin-right: 20px;  /* Увеличен отступ между изображением и текстом */
 }
 
 .app-item h3 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;  /* Увеличен размер заголовка */
     margin: 0;
-    color: #333;
+    color: #fff;  /* Белый текст для контраста */
 }
 
 .app-item p {
-    font-size: 0.9rem;
-    color: #777;
-    margin: 5px 0;
+    font-size: 1rem;
+    color: #bbb;  /* Более светлый серый для описания */
+    margin: 8px 0;  /* Увеличены отступы между абзацами */
 }
 
 /* Контейнер для всех приложений */
 .app-container {
-    max-width: 800px;
-    margin: 50px auto; /* Добавлен отступ сверху */
+    max-width: 850px;  /* Увеличена ширина контейнера */
+    margin: 100px auto 20px auto;  /* Опустили контейнер ниже */
     padding: 20px;
 }
 
@@ -430,26 +430,28 @@ body {
 #search {
     display: block;
     width: 100%;
-    max-width: 400px;
-    margin: 20px auto 40px auto;
-    padding: 10px;
-    font-size: 1rem;
+    max-width: 500px;  /* Увеличен максимальный размер строки поиска */
+    margin: 40px auto 20px auto;  /* Отступы между строкой поиска и контейнером уменьшены */
+    padding: 12px;
+    font-size: 1.1rem;  /* Немного увеличен шрифт */
     border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #444;  /* Темная рамка */
+    background-color: #1c1c1c;  /* Темный фон строки поиска */
+    color: #fff;  /* Белый текст */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
 }
 
 #search:focus {
     outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Пагинация */
 .pagination {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 10px 0;  /* Отступы между контейнером и пагинацией уменьшены */
 }
 
 .pagination button {
