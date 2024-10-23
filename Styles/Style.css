@@ -401,8 +401,6 @@ body {
 }
 
 .app-item img {
-    width: 160px;
-    height: 80px;
     border-radius: 15px;  /* Скругленные углы изображения */
     margin-right: 20px;  /* Увеличен отступ между изображением и текстом */
 }
