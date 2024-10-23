@@ -53,48 +53,6 @@ body {
     flex-wrap: wrap;
 }
 
-.card {
-    background: var(--github-dark-lighter);
-    border: 1px solid var(--github-dark-border);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    transition: background 0.3s ease;
-    width: calc(33.333% - 1rem);
-    margin-top: 2rem;
-}
-
-.card:hover {
-    background: var(--hover-color);
-}
-
-.card img {
-    max-width: 100%;
-    border-radius: 0.5rem;
-}
-
-.card h3 {
-    color: var(--github);
-    margin: 1rem 0 0.5rem;
-}
-
-.card p {
-    color: var(--color);
-}
-
-.buy-button {
-    background: var(--highlight-color);
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.buy-button:hover {
-    background: var(--focus-color);
-}
-
 /* styles.css */
 #banner {
     position: fixed;
@@ -108,6 +66,7 @@ body {
     align-items: center;
     z-index: 1000;
     border: 1px solid var(--github-dark-border);
+    padding: 1rem;
 }
 
 .banner-content {
@@ -117,33 +76,77 @@ body {
     background-color: var(--github-dark);
     border-radius: 0.5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 .banner-content h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: var(--highlight-color);
-}
-
-.banner-content p {
-    font-size: 1.2em;
-    margin-bottom: 40px;
-    color: var(--color);
-}
-
-.cta-button {
-    padding: 15px 30px;
-    font-size: 1.2em;
     color: white;
-    background-color: var(--highlight-color);
-    border: none;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
-    background-color: var(--focus-color);
+.cards__wrapper {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    background: var(--github-dark-lighter);
+    border: 1px solid var(--github-dark-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: 250px;
+    text-align: center;
+}
+
+.card h3 {
+    color: var(--highlight-color);
+    margin-bottom: 1rem;
+}
+
+.card p {
+    color: var(--color);
+    margin-bottom: 1rem;
+}
+
+.banner_cards_buttons {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: rgba(255, 255, 255, 0);
+    color: gray;
+    border: 2px solid gray;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.banner_cards_buttons:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.banner_cards_buttons:active {
+    background-color: rgba(46, 46, 46, 0.9);
+    transform: translateY(4px);
+}
+
+.close-banner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
 }
 
 .slider {
