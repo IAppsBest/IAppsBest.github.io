@@ -400,19 +400,32 @@ body {
     cursor: pointer;
     height: 2.5rem; /* Высота кнопки */
     padding: 0 1rem; /* Горизонтальные отступы внутри кнопки */
-    background-color: var(--button-bg, #007bff); /* Фоновый цвет кнопки */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем рамку */
-    transition: background-color 0.3s ease-in-out; /* Плавный переход при наведении */
+    background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный фон */
+    color: gray; /* Цвет текста */
+    border: 2px solid gray; /* Серый цвет рамки */
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Плавный переход при наведении и изменении размера */
     width: 200px; /* Фиксированная ширина для кнопок */
     text-align: center; /* Центрируем текст */
 }
 
 /* Эффект при наведении на кнопки */
 .full-button:hover, .time-button:hover {
-    background-color: var(--button-hover-bg, #0056b3); /* Цвет фона при наведении */
+    background-color: rgba(0, 0, 0, 0.1); /* Легкий затемняющий фон при наведении */
 }
 
+/* Эффект для активной кнопки */
+.full-button.active, .time-button.active {
+    background-color: rgba(46, 46, 46, 0.7); /* Полупрозрачный серый фон для активной кнопки */
+    color: white; /* Белый цвет текста для активной кнопки */
+    border: 2px solid #2e2e2e; /* Темно-серая рамка для активной кнопки */
+    transform: translateY(2px); /* Эффект "впуклости" при активации */
+}
+
+/* Эффект при нажатии на кнопки */
+.full-button:active, .time-button:active {
+    background-color: rgba(46, 46, 46, 0.9); /* Более темный фон при нажатии */
+    transform: translateY(4px); /* Более сильный эффект "впуклости" при нажатии */
+}
 
 .app-item {
     display: flex;
