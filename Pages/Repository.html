@@ -442,15 +442,19 @@ label {
                 return;
             }
         
-            // Отфильтровать необходимые поля из appRepositories
+            // Отфильтровать необходимые поля из appRepositories и добавить время обновления
             const filteredData = jsonData.appRepositories.map(app => ({
                 appName: app.appName,
                 appImage: app.appImage,
                 appVersion: app.appVersion,
-                appDescription: app.appDescription
+                appDescription: app.appDescription,
+                appUpdateTime: app.appUpdateTime // Добавляем поле времени обновления
             }));
         
-            // Преобразовать отфильтрованные данные в строку JSON
+            // Сортировать данные по времени обновления (от новых к старым)
+            filteredData.sort((a, b) => new Date(b.appUpdateTime) - new Date(a.appUpdateTime));
+        
+            // Преобразовать отфильтрованные и отсортированные данные в строку JSON
             const jsonString = JSON.stringify(filteredData, null, 4);
         
             // Создать Blob и скачать файл
