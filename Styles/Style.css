@@ -383,48 +383,43 @@ body {
     fill: var(--github);
 }
 
-/* Стили для контейнера кнопок */
 .full_time_buttons {
-    display: flex; /* Используем flex для расположения кнопок в строку */
-    justify-content: center; /* Центрируем кнопки по горизонтали */
-    margin-bottom: 1rem; /* Отступ снизу для контейнера кнопок */
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
-/* Общие стили для кнопок */
 .full-button, .time-button {
-    display: inline-flex; /* Используем inline-flex для кнопок */
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
-    margin: 0 0.5rem; /* Отступы между кнопками */
+    margin: 0 0.5rem;
     cursor: pointer;
-    height: 2.5rem; /* Высота кнопки */
-    padding: 0 1rem; /* Горизонтальные отступы внутри кнопки */
-    background-color: rgba(255, 255, 255, 0); /* Полупрозрачный фон */
-    color: gray; /* Цвет текста */
-    border: 2px solid gray; /* Серый цвет рамки */
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Плавный переход при наведении и изменении размера */
-    width: 200px; /* Фиксированная ширина для кнопок */
-    text-align: center; /* Центрируем текст */
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: rgba(255, 255, 255, 0);
+    color: gray;
+    border: 2px solid gray;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: 200px;
+    text-align: center;
 }
 
-/* Эффект при наведении на кнопки */
 .full-button:hover, .time-button:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Легкий затемняющий фон при наведении */
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Эффект для активной кнопки */
 .full-button.active, .time-button.active {
-    background-color: rgba(46, 46, 46, 0.7); /* Полупрозрачный серый фон для активной кнопки */
-    color: white; /* Белый цвет текста для активной кнопки */
-    border: 2px solid #2e2e2e; /* Темно-серая рамка для активной кнопки */
-    transform: translateY(2px); /* Эффект "впуклости" при активации */
+    background-color: rgba(46, 46, 46, 0.7);
+    color: white;
+    border: 2px solid #2e2e2e;
+    transform: translateY(2px);
 }
 
-/* Эффект при нажатии на кнопки */
 .full-button:active, .time-button:active {
-    background-color: rgba(46, 46, 46, 0.9); /* Более темный фон при нажатии */
-    transform: translateY(4px); /* Более сильный эффект "впуклости" при нажатии */
+    background-color: rgba(46, 46, 46, 0.9);
+    transform: translateY(4px);
 }
 
 .app-item {
@@ -516,37 +511,37 @@ body {
 }
 
 .pagination button {
-    background-color: transparent; /* Полностью прозрачный фон */
-    color: gray; /* Серый цвет текста */
-    border: 2px solid gray; /* Серая рамка */
+    background-color: transparent;
+    color: gray;
+    border: 2px solid gray;
     border-radius: 5px;
     padding: 10px 15px;
     margin: 0 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Переход для фона, цвета и эффекта нажатия */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
 .pagination button:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Легкий затемняющий фон при наведении */
-    color: black; /* Черный цвет текста при наведении */
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
 }
 
 .pagination button[disabled] {
-    background-color: transparent; /* Прозрачный фон для отключенной кнопки */
-    color: lightgray; /* Светло-серый текст для отключенной кнопки */
-    border: 2px solid lightgray; /* Светло-серая рамка */
+    background-color: transparent;
+    color: lightgray;
+    border: 2px solid lightgray;
     cursor: not-allowed;
 }
 
 .pagination button.active {
-    background-color: #2e2e2e; /* Цвет для активной кнопки */
-    color: white; /* Белый цвет текста для активной кнопки */
-    border: 2px solid #2e2e2e; /* Серая рамка для активной кнопки */
-    transform: translateY(2px); /* Эффект "впуклости" для активной кнопки */
+    background-color: #2e2e2e;
+    color: white;
+    border: 2px solid #2e2e2e;
+    transform: translateY(2px);
 }
 
 .pagination button:active {
-    transform: translateY(4px); /* Более сильный эффект "впуклости" при нажатии */
+    transform: translateY(4px);
 }
 
 @keyframes fadeInAnimation {
