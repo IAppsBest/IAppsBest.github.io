@@ -383,7 +383,6 @@ body {
     fill: var(--github);
 }
 
-/* Основные стили для контейнера приложения */
 .app-item {
     display: flex;
     flex-direction: column;
@@ -393,8 +392,8 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
-    width: 100%;  /* Контейнер занимает всю ширину родительского блока */
-    box-sizing: border-box;  /* Учитываем padding в ширину контейнера */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .app-header {
@@ -431,12 +430,11 @@ body {
     margin: 0;
 }
 
-/* Контейнер для всех приложений */
 .app-container {
     max-width: 500px;
-    margin: 20px auto;  /* Авто-отступы для центрирования */
+    margin: 20px auto;
     padding: 20px;
-    width: 100%;  /* Устанавливаем ширину 100% от родительского блока */
+    width: 100%;
 }
 
 
