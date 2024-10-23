@@ -422,8 +422,27 @@ body {
 /* Контейнер для всех приложений */
 .app-container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 50px auto; /* Добавлен отступ сверху */
     padding: 20px;
+}
+
+/* Стили для строки поиска */
+#search {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#search:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Пагинация */
