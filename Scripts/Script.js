@@ -1,6 +1,9 @@
 const button = document.getElementById('avatar-navbar');
 const closeButton = document.querySelector('.close-button');
 const navigationMenu = document.querySelector('.navigation__menu');
+const banner = document.getElementById('banner');
+const activateButton = document.getElementById('activate_banner');
+const closeButton = document.querySelector('.close-banner');
 
 button.addEventListener('click', () => {
     navigationMenu.classList.remove('none');
@@ -11,8 +14,14 @@ closeButton.addEventListener('click', () => {
     navigationMenu.classList.add('hide');
 });
 
-document.querySelector('.close-banner').addEventListener('click', function() {
-    document.getElementById('banner').style.display = 'none';
+// Функция для активации баннера
+activateButton.addEventListener('click', () => {
+    banner.style.display = 'flex'; // Показываем баннер
+});
+
+// Функция для закрытия баннера
+closeButton.addEventListener('click', () => {
+    banner.style.display = 'none'; // Скрываем баннер
 });
 
 
