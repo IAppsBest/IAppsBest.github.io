@@ -463,7 +463,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: calc(200px + 1.0rem + 200px); /* Ширина кнопки "Купить" = ширина первой кнопки + отступ + ширина второй кнопки */
+    width: calc(200px + 0.5rem + 200px); /* Ширина кнопки "Купить" = ширина первой кнопки + отступ + ширина второй кнопки */
     text-align: center;
 }
 
@@ -472,7 +472,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
-    margin: 0 0.5rem;
+    margin: 0 0.5rem; /* Отступ между кнопками по горизонтали */
     cursor: pointer;
     height: 2.5rem;
     padding: 0 1rem;
@@ -635,11 +635,15 @@ body {
     .button-wrapper {
         flex-direction: column; /* Меняем направление на вертикальное */
         align-items: center; /* Центрируем кнопки по горизонтали */
+        margin-bottom: 0; /* Убираем отступ между кнопками, чтобы он не увеличивался */
     }
 
-    .full-button,
+    .full-button {
+        margin-bottom: 0.5rem; /* Устанавливаем фиксированный отступ между кнопками */
+    }
+
     .time-button {
-        margin-bottom: 0.5rem; /* Отступ между кнопками */
+        margin-bottom: 0.5rem; /* Устанавливаем фиксированный отступ между кнопками */
     }
 }
 
