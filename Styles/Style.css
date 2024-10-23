@@ -385,7 +385,7 @@ body {
 
 /* Общие стили для кнопок */
 .full-button, .time-button {
-    display: flex;
+    display: inline-flex; /* Используем inline-flex, чтобы кнопки располагались в одну строку */
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
@@ -397,6 +397,9 @@ body {
     color: white; /* Цвет текста */
     border: none; /* Убираем рамку */
     transition: background-color 0.3s ease-in-out; /* Плавный переход при наведении */
+    width: auto; /* Устанавливаем автоматическую ширину для кнопок */
+    min-width: 120px; /* Минимальная ширина кнопки (можете изменить по желанию) */
+    text-align: center; /* Центрируем текст */
 }
 
 /* Эффект при наведении на кнопки */
