@@ -413,14 +413,6 @@ body {
     background-color: rgba(0, 0, 0, 0.1); /* Легкий затемняющий фон при наведении */
 }
 
-/* Эффект для активной кнопки */
-.full-button.active, .time-button.active {
-    background-color: rgba(46, 46, 46, 0.7); /* Полупрозрачный серый фон для активной кнопки */
-    color: white; /* Белый цвет текста для активной кнопки */
-    border: 2px solid #2e2e2e; /* Темно-серая рамка для активной кнопки */
-    transform: translateY(2px); /* Эффект "впуклости" при активации */
-}
-
 /* Эффект при нажатии на кнопки */
 .full-button:active, .time-button:active {
     background-color: rgba(46, 46, 46, 0.9); /* Более темный фон при нажатии */
