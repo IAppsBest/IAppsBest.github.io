@@ -401,7 +401,7 @@ body {
 }
 
 .app-item img {
-    width: 80px;
+    width: 160px;
     height: 80px;
     object-fit: cover;  /* Обеспечивает квадратную форму картинки независимо от исходного размера */
     border-radius: 15px;  /* Скругленные углы изображения */
