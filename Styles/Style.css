@@ -516,28 +516,37 @@ body {
 }
 
 .pagination button {
-    background-color: #007bff;
-    color: white;
-    border: none;
+    background-color: transparent; /* Полностью прозрачный фон */
+    color: gray; /* Серый цвет текста */
+    border: 2px solid gray; /* Серая рамка */
     border-radius: 5px;
     padding: 10px 15px;
     margin: 0 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Переход для фона, цвета и эффекта нажатия */
 }
 
 .pagination button:hover {
-    background-color: #0056b3;
+    background-color: rgba(0, 0, 0, 0.1); /* Легкий затемняющий фон при наведении */
+    color: black; /* Черный цвет текста при наведении */
 }
 
 .pagination button[disabled] {
-    background-color: #ccc;
+    background-color: transparent; /* Прозрачный фон для отключенной кнопки */
+    color: lightgray; /* Светло-серый текст для отключенной кнопки */
+    border: 2px solid lightgray; /* Светло-серая рамка */
     cursor: not-allowed;
 }
 
 .pagination button.active {
-    background-color: #0056b3;
-    font-weight: bold;
+    background-color: #2e2e2e; /* Цвет для активной кнопки */
+    color: white; /* Белый цвет текста для активной кнопки */
+    border: 2px solid #2e2e2e; /* Серая рамка для активной кнопки */
+    transform: translateY(2px); /* Эффект "впуклости" для активной кнопки */
+}
+
+.pagination button:active {
+    transform: translateY(4px); /* Более сильный эффект "впуклости" при нажатии */
 }
 
 @keyframes fadeInAnimation {
