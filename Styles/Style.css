@@ -438,6 +438,7 @@ body {
     fill: var(--github);
 }
 
+/* Общие стили кнопок */
 .full_time_buttons {
     display: flex;
     flex-direction: column; /* Вертикальное расположение кнопок */
@@ -620,6 +621,26 @@ body {
 
 .pagination button:active {
     transform: translateY(4px);
+}
+
+/* Медиазапросы для адаптивного дизайна */
+@media (max-width: 600px) {
+    .full-button, .time-button, .activate_banner_button {
+        width: 100%; /* Устанавливаем ширину кнопок на 100% */
+        max-width: 300px; /* Максимальная ширина кнопок */
+        height: 2rem; /* Уменьшаем высоту кнопок */
+        font-size: 0.9rem; /* Уменьшаем размер шрифта */
+    }
+
+    .button-wrapper {
+        flex-direction: column; /* Меняем направление на вертикальное */
+        align-items: center; /* Центрируем кнопки по горизонтали */
+    }
+
+    .full-button,
+    .time-button {
+        margin-bottom: 0.5rem; /* Отступ между кнопками */
+    }
 }
 
 @keyframes fadeInAnimation {
