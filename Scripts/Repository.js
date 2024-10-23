@@ -5,7 +5,7 @@ let apps = [];
 let currentPage = 1;
 const itemsPerPage = 20;
 
-fetch('Repo.json')
+fetch('Repository.json')
     .then(response => response.json())
     .then(data => {
         apps = data;
