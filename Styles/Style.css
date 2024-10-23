@@ -464,7 +464,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: calc(200px + 0.5rem + 200px); /* Ширина кнопки "Купить" */
+    width: calc(200px + 0.5rem + 200px + 0.5rem); /* Ширина кнопки "Купить" */
     text-align: center;
 }
 
@@ -633,7 +633,7 @@ body {
     }
 
     .activate_banner_button {
-        width: 100%; /* Устанавливаем ширину кнопки "Купить" равной ширине первой или второй кнопки */
+        width: calc(50% + 1rem); /* Устанавливаем ширину кнопки "Купить" равной ширине первой или второй кнопки */
     }
 }
 
