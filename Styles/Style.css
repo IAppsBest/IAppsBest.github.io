@@ -395,6 +395,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
     width: 100%;  /* Контейнер занимает всю ширину */
+    min-width: 500px;
 }
 
 /* Верхний блок с картинкой, названием и версией */
@@ -438,6 +439,7 @@ body {
     max-width: 500px;  /* Совпадает с max-width строки поиска */
     margin: 20px auto;
     padding: 20px;
+    min-width: 500px;
 }
 
 /* Описание приложения расположено ниже */
