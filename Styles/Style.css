@@ -112,33 +112,6 @@ body {
     margin-bottom: 1rem;
 }
 
-.banner_cards_buttons {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.4rem;
-    margin: 0 0.5rem;
-    cursor: pointer;
-    height: 2.5rem;
-    padding: 0 1rem;
-    background-color: rgba(255, 255, 255, 0);
-    color: gray;
-    border: 2px solid gray;
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: 200px;
-    text-align: center;
-    text-decoration: none;
-}
-
-.banner_cards_buttons:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.banner_cards_buttons:active {
-    background-color: rgba(46, 46, 46, 0.9);
-    transform: translateY(4px);
-}
-
 .close-banner {
     position: absolute;
     top: 10px;
@@ -444,7 +417,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.full-button, .time-button {
+.full-button, .time-button, .banner_cards_buttons {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -461,18 +434,18 @@ body {
     text-align: center;
 }
 
-.full-button:hover, .time-button:hover {
+.full-button:hover, .time-button:hover, .banner_cards_buttons:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.full-button.active, .time-button.active {
+.full-button.active, .time-button.active, .banner_cards_buttons.active {
     background-color: rgba(46, 46, 46, 0.7);
     color: white;
     border: 2px solid #2e2e2e;
     transform: translateY(2px);
 }
 
-.full-button:active, .time-button:active {
+.full-button:active, .time-button:active, .banner_cards_buttons:active {
     background-color: rgba(46, 46, 46, 0.9);
     transform: translateY(4px);
 }
