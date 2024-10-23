@@ -387,16 +387,15 @@ body {
 /* Основные стили для контейнера приложения */
 .app-item {
     display: flex;
-    flex-direction: column;  /* Изменим на столбик, если нужно */
-    align-items: flex-start;
+    align-items: center;  /* Вернем выравнивание по центру */
     background-color: #2e2e2e;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
-    width: 100%;  /* Контейнер будет занимать всю доступную ширину */
-    word-wrap: break-word;  /* Обеспечиваем перенос слов */
+    width: 100%;  /* Контейнер занимает всю ширину */
+    word-wrap: break-word;  /* Перенос слов при необходимости */
 }
 
 .app-item p, .app-item h3 {
@@ -408,20 +407,24 @@ body {
 }
 
 .app-item img {
-    border-radius: 15px;  /* Скругленные углы изображения */
-    margin-right: 20px;  /* Увеличен отступ между изображением и текстом */
+    flex-shrink: 0;  /* Изображение не сжимается */
+    border-radius: 15px;
+    margin-right: 20px;
+    max-width: 100px;  /* Установим максимальную ширину для изображений */
+    height: auto;  /* Автоматическая высота для сохранения пропорций */
 }
 
 .app-item h3 {
-    font-size: 1.4rem;  /* Увеличен размер заголовка */
+    font-size: 1.4rem;
     margin: 0;
-    color: #fff;  /* Белый текст для контраста */
+    color: #fff;
 }
 
 .app-item p {
     font-size: 1rem;
-    color: #bbb;  /* Более светлый серый для описания */
-    margin: 8px 0;  /* Увеличены отступы между абзацами */
+    color: #bbb;
+    margin: 8px 0;
+    flex-grow: 1;  /* Текст занимает оставшееся пространство */
 }
 
 /* Контейнер для всех приложений */
@@ -435,7 +438,7 @@ body {
 #search {
     display: block;
     width: 100%;
-    max-width: 500px;  /* Совпадает с max-width контейнера */
+    max-width: 500px;
     margin: 80px auto 10px auto;
     padding: 12px;
     font-size: 1.1rem;
