@@ -383,9 +383,16 @@ body {
     fill: var(--github);
 }
 
+/* Стили для контейнера кнопок */
+.full_time_buttons {
+    display: flex; /* Используем flex для расположения кнопок в строку */
+    justify-content: center; /* Центрируем кнопки по горизонтали */
+    margin-bottom: 1rem; /* Отступ снизу для контейнера кнопок */
+}
+
 /* Общие стили для кнопок */
 .full-button, .time-button {
-    display: inline-flex; /* Используем inline-flex, чтобы кнопки располагались в одну строку */
+    display: inline-flex; /* Используем inline-flex для кнопок */
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
@@ -397,8 +404,7 @@ body {
     color: white; /* Цвет текста */
     border: none; /* Убираем рамку */
     transition: background-color 0.3s ease-in-out; /* Плавный переход при наведении */
-    width: 120px; /* Устанавливаем автоматическую ширину для кнопок */
-    min-width: 120px; /* Минимальная ширина кнопки (можете изменить по желанию) */
+    width: 200px; /* Фиксированная ширина для кнопок */
     text-align: center; /* Центрируем текст */
 }
 
@@ -406,6 +412,7 @@ body {
 .full-button:hover, .time-button:hover {
     background-color: var(--button-hover-bg, #0056b3); /* Цвет фона при наведении */
 }
+
 
 .app-item {
     display: flex;
