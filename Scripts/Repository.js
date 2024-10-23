@@ -5,6 +5,7 @@ let apps = [];
 let currentPage = 1;
 const itemsPerPage = 20;
 const maxVisiblePages = 5;
+let displayMode = 'full'; // Новая переменная для отслеживания режима отображения
 
 fetch('Repo.json')
     .then(response => response.json())
@@ -14,9 +15,27 @@ fetch('Repo.json')
         setupPagination();
     });
 
+document.getElementById('full-list-btn').addEventListener('click', () => {
+    displayMode = 'full'; // Установить режим на полный список
+    currentPage = 1; // Сбросить на первую страницу
+    displayApps();
+});
+
+document.getElementById('time-list-btn').addEventListener('click', () => {
+    displayMode = 'time'; // Установить режим на список по времени
+    currentPage = 1; // Сбросить на первую страницу
+    displayApps();
+});
+
 function displayApps() {
     appList.innerHTML = '';
-    const filteredApps = apps.filter(app => app.appName.toLowerCase().includes(searchInput.value.toLowerCase()));
+    let filteredApps = apps.filter(app => app.appName.toLowerCase().includes(searchInput.value.toLowerCase()));
+
+    // Сортировка, если выбран режим по времени
+    if (displayMode === 'time') {
+        filteredApps.sort((a, b) => new Date(b.appUpdateTime) - new Date(a.appUpdateTime));
+    }
+
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     filteredApps.slice(start, end).forEach(app => {
