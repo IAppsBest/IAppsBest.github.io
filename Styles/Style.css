@@ -387,7 +387,7 @@ body {
 /* Основные стили для контейнера приложения */
 .app-item {
     display: flex;
-    align-items: center;  /* Вернем выравнивание по центру */
+    flex-direction: column;  /* Переключаем на колонку для правильного расположения */
     background-color: #2e2e2e;
     border-radius: 15px;
     padding: 20px;
@@ -395,10 +395,16 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
     width: 100%;  /* Контейнер занимает всю ширину */
-    word-wrap: break-word;  /* Перенос слов при необходимости */
 }
 
-.app-item p, .app-item h3 {
+/* Верхний блок с картинкой, названием и версией */
+.app-header {
+    display: flex;
+    align-items: center;  /* Выровнять элементы по центру по вертикали */
+    margin-bottom: 10px;  /* Добавим отступ снизу для отделения описания */
+}
+
+.app-header p, .app-header h3 {
     width: 100%;  /* Текст будет подстраиваться под ширину контейнера */
 }
 
@@ -406,32 +412,40 @@ body {
     transform: scale(1.03);  /* Легкое увеличение при наведении */
 }
 
-.app-item img {
+.app-header img {
     flex-shrink: 0;  /* Изображение не сжимается */
     border-radius: 15px;
-    margin-right: 20px;
-    max-width: 100px;  /* Установим максимальную ширину для изображений */
-    height: auto;  /* Автоматическая высота для сохранения пропорций */
+    margin-right: 20px;  /* Увеличен отступ между изображением и текстом */
+    width: 50px;
+    height: auto;  /* Сохраняем пропорции изображения */
 }
 
-.app-item h3 {
+.app-header h3 {
     font-size: 1.4rem;
     margin: 0;
     color: #fff;
 }
 
-.app-item p {
-    font-size: 1rem;
+.app-header p {
+    font-size: 0.9rem;  /* Размер шрифта для версии приложения */
     color: #bbb;
-    margin: 8px 0;
-    flex-grow: 1;  /* Текст занимает оставшееся пространство */
+    margin: 0;
 }
+
 
 /* Контейнер для всех приложений */
 .app-container {
     max-width: 500px;  /* Совпадает с max-width строки поиска */
     margin: 20px auto;
     padding: 20px;
+}
+
+/* Описание приложения расположено ниже */
+.app-description {
+    font-size: 1rem;
+    color: #bbb;
+    margin-top: 10px;  /* Отступ сверху для разделения с верхней частью */
+    word-wrap: break-word;  /* Перенос слов при необходимости */
 }
 
 /* Стили для строки поиска */
