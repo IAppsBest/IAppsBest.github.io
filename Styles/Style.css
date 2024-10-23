@@ -449,7 +449,7 @@ body {
 .pagination {
     display: flex;
     justify-content: center;
-    margin: 10px 0;  /* Отступы между контейнером и пагинацией уменьшены */
+    margin: 5px 0;  /* Отступы между контейнером и пагинацией уменьшены */
 }
 
 .pagination button {
