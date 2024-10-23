@@ -10,7 +10,6 @@
     --navigation-hover: #292F36;
     --navbar-height: 4rem;
 
-    /* Дополнительные цвета для улучшения темы */
     --hover-color: #282C34;
     --focus-color: #007bff;
     --highlight-color: #58A6FF;
@@ -25,7 +24,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Устанавливаем минимальную высоту для фиксации футера */
+    min-height: 100vh;
 }
 
 * {
@@ -38,14 +37,14 @@ body {
     padding: 2rem;
     max-width: 1200px;
     margin: auto;
-    margin-top: 4rem; /* Увеличиваем отступ сверху */
+    margin-top: 4rem;
 }
 
 .slider__section {
     padding: 2rem;
     max-width: 1200px;
     margin: auto;
-    margin-top: 2rem; /* Увеличиваем отступ сверху */
+    margin-top: 2rem;
 }
 
 .cards__wrapper {
@@ -121,7 +120,7 @@ body {
     color: var(--color);
     padding: 2rem;
     text-align: center;
-    margin-top: auto; /* Поднимаем футер вниз */
+    margin-top: auto;
 }
 
 .footer__container {
@@ -384,41 +383,39 @@ body {
     fill: var(--github);
 }
 
-/* Основные стили для контейнера приложения */
 .app-item {
     display: flex;
-    flex-direction: column;  /* Переключаем на колонку для правильного расположения */
+    flex-direction: column;
     background-color: #2e2e2e;
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
-    width: 100%;  /* Контейнер занимает всю ширину */
+    width: 100%;
     min-width: 500px;
 }
 
-/* Верхний блок с картинкой, названием и версией */
 .app-header {
     display: flex;
-    align-items: center;  /* Выровнять элементы по центру по вертикали */
-    margin-bottom: 10px;  /* Добавим отступ снизу для отделения описания */
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .app-header p, .app-header h3 {
-    width: 100%;  /* Текст будет подстраиваться под ширину контейнера */
+    width: 100%;
 }
 
 .app-item:hover {
-    transform: scale(1.03);  /* Легкое увеличение при наведении */
+    transform: scale(1.03);
 }
 
 .app-header img {
-    flex-shrink: 0;  /* Изображение не сжимается */
+    flex-shrink: 0;
     border-radius: 15px;
-    margin-right: 20px;  /* Увеличен отступ между изображением и текстом */
+    margin-right: 20px;
     width: 50px;
-    height: auto;  /* Сохраняем пропорции изображения */
+    height: auto;
 }
 
 .app-header h3 {
@@ -428,29 +425,25 @@ body {
 }
 
 .app-header p {
-    font-size: 0.9rem;  /* Размер шрифта для версии приложения */
+    font-size: 0.9rem;
     color: #bbb;
     margin: 0;
 }
 
-
-/* Контейнер для всех приложений */
 .app-container {
-    max-width: 500px;  /* Совпадает с max-width строки поиска */
+    max-width: 500px;
     margin: 20px auto;
     padding: 20px;
     min-width: 500px;
 }
 
-/* Описание приложения расположено ниже */
 .app-description {
     font-size: 1rem;
     color: #bbb;
-    margin-top: 10px;  /* Отступ сверху для разделения с верхней частью */
-    word-wrap: break-word;  /* Перенос слов при необходимости */
+    margin-top: 10px;
+    word-wrap: break-word;
 }
 
-/* Стили для строки поиска */
 #search {
     display: block;
     width: 100%;
@@ -475,7 +468,7 @@ body {
 .pagination {
     display: flex;
     justify-content: center;
-    margin: 5px 0;  /* Отступы между контейнером и пагинацией уменьшены */
+    margin: 5px 0;
 }
 
 .pagination button {
