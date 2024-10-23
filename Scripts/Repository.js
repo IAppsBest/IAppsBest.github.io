@@ -16,17 +16,17 @@ fetch('Repo.json')
 
 function displayApps() {
     appList.innerHTML = '';  // Очистить предыдущие приложения
-    const filteredApps = apps.filter(app => app.AppName.toLowerCase().includes(searchInput.value.toLowerCase()));
+    const filteredApps = apps.filter(app => app.appName.toLowerCase().includes(searchInput.value.toLowerCase()));
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     filteredApps.slice(start, end).forEach(app => {
         appList.innerHTML += `
             <div class="app-item">
-                <img src="${app.ImageApp}" alt="${app.AppName}" style="width: 50px;">
+                <img src="${app.appImage}" alt="${app.appName}" style="width: 50px;">
                 <div>
-                    <h3>${app.AppName}</h3>
-                    <p>${app.VersionApp}</p>
-                    <p>${app.Description}</p>
+                    <h3>${app.appName}</h3>
+                    <p>${app.appVersion}</p>
+                    <p>${app.appDescription}</p>
                 </div>
             </div>
         `;
