@@ -24,4 +24,22 @@ closeBanner.addEventListener('click', () => {
     banner.style.display = 'none'; // Скрываем баннер
 });
 
+function setViewportScale() {
+    const viewportMetaTag = document.querySelector('meta[name="viewport"]');
+    const width = window.innerWidth;
+
+    if (width > 768) { // Для больших экранов
+        viewportMetaTag.setAttribute('content', 'width=device-width, initial-scale=0.65');
+    } else { // Для более мелких экранов
+        viewportMetaTag.setAttribute('content', 'width=device-width, initial-scale=0.50');
+    }
+}
+
+// Устанавливаем масштаб при загрузке страницы
+setViewportScale();
+
+// Устанавливаем масштаб при изменении размера окна
+window.addEventListener('resize', setViewportScale);
+
+
 
