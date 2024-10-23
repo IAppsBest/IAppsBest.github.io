@@ -250,6 +250,7 @@ label {
         
         <button onclick="applyChanges()">Применить изменения</button>
         <button onclick="installJSON()">Установить .JSON</button>
+        <button onclick="parseJSON()">Парсить .JSON</button>
     </div>
 
     <div class="form-container">
@@ -430,6 +431,33 @@ label {
             var url = URL.createObjectURL(blob);
 
             var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Repo.json';
+            a.click();
+        }
+
+        function parseJSON() {
+            if (!jsonData || !jsonData.appRepositories) {
+                alert('Сначала загрузите .JSON и примените изменения!');
+                return;
+            }
+        
+            // Отфильтровать необходимые поля из appRepositories
+            const filteredData = jsonData.appRepositories.map(app => ({
+                appName: app.appName,
+                appImage: app.appImage,
+                appVersion: app.appVersion,
+                appDescription: app.appDescription
+            }));
+        
+            // Преобразовать отфильтрованные данные в строку JSON
+            const jsonString = JSON.stringify(filteredData, null, 4);
+        
+            // Создать Blob и скачать файл
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+        
+            const a = document.createElement('a');
             a.href = url;
             a.download = 'Repo.json';
             a.click();
