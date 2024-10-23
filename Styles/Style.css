@@ -586,7 +586,7 @@ body {
 .pagination {
     display: flex;
     justify-content: center;
-    margin: 5px 0 5px;
+    margin: 5px 0 20px;
 }
 
 .pagination button {
