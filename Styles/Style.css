@@ -463,8 +463,8 @@ body {
 
 .app-container {
     max-width: 500px;
-    margin: 5px auto;
-    padding: 20px;
+    margin: 1px;
+    padding: 5px;
     width: 100%;
 }
 
