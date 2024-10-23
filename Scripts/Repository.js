@@ -15,16 +15,26 @@ fetch('Repo.json')
         setupPagination();
     });
 
+// Обработчик клика для кнопки "Полный список"
 document.getElementById('full-list-btn').addEventListener('click', () => {
     displayMode = 'full'; // Установить режим на полный список
     currentPage = 1; // Сбросить на первую страницу
     displayApps();
+    
+    // Устанавливаем активную кнопку
+    document.querySelector('.full-button').classList.add('active');
+    document.querySelector('.time-button').classList.remove('active'); // Удаляем активность с другой кнопки
 });
 
+// Обработчик клика для кнопки "Список по времени"
 document.getElementById('time-list-btn').addEventListener('click', () => {
     displayMode = 'time'; // Установить режим на список по времени
     currentPage = 1; // Сбросить на первую страницу
     displayApps();
+
+    // Устанавливаем активную кнопку
+    document.querySelector('.time-button').classList.add('active');
+    document.querySelector('.full-button').classList.remove('active'); // Удаляем активность с другой кнопки
 });
 
 function displayApps() {
