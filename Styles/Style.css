@@ -480,7 +480,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: 200px;
+    width: 200px; /* Ширина кнопок */
     text-align: center;
 }
 
@@ -627,7 +627,7 @@ body {
 @media (max-width: 600px) {
     .full-button, .time-button, .activate_banner_button {
         width: 100%; /* Устанавливаем ширину кнопок на 100% */
-        max-width: 300px; /* Максимальная ширина кнопок */
+        max-width: 200px; /* Максимальная ширина кнопок */
         height: 2rem; /* Уменьшаем высоту кнопок */
         font-size: 0.9rem; /* Уменьшаем размер шрифта */
     }
@@ -644,6 +644,10 @@ body {
 
     .time-button {
         margin-bottom: 0.5rem; /* Устанавливаем фиксированный отступ между кнопками */
+    }
+
+    .activate_banner_button {
+        width: 100%; /* Устанавливаем ширину кнопки "Купить" равной ширине первой или второй кнопки */
     }
 }
 
