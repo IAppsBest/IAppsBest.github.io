@@ -441,14 +441,16 @@ body {
 /* Общие стили кнопок */
 .full_time_buttons {
     display: flex;
-    flex-direction: column; /* Вертикальное расположение кнопок */
-    align-items: center; /* Центрирование кнопок по горизонтали */
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Установим ширину контейнера */
 }
 
 .button-wrapper {
-    display: flex; /* Горизонтальное расположение первых двух кнопок */
-    justify-content: center; /* Центрируем кнопки */
-    margin-bottom: 0.5rem; /* Отступ между первой/второй кнопкой и кнопкой "Купить" */
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Устанавливаем ширину для первой и второй кнопок */
+    margin-bottom: 0.5rem;
 }
 
 .activate_banner_button {
@@ -456,7 +458,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
-    margin: 0rem;
+    margin: 0;
     cursor: pointer;
     height: 2.5rem;
     padding: 0 1rem;
@@ -464,7 +466,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: calc(400px + 1.0rem); /* Ширина кнопки "Купить" */
+    width: 100%; /* Кнопка "Купить" теперь занимает 100% ширины родителя */
     text-align: center;
 }
 
@@ -473,7 +475,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
-    margin: 0 0.5rem; /* Отступ между кнопками по горизонтали */
+    margin: 0 0.5rem;
     cursor: pointer;
     height: 2.5rem;
     padding: 0 1rem;
@@ -481,7 +483,8 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: 200px; /* Ширина кнопок */
+    flex: 1; /* Кнопки "Полный список" и "Список по времени" растягиваются равномерно */
+    max-width: 200px; /* Ограничим максимальную ширину кнопок */
     text-align: center;
 }
 
@@ -627,15 +630,15 @@ body {
 /* Медиазапросы для адаптивного дизайна */
 @media (max-width: 600px) {
     .full-button, .time-button {
-        width: calc(50% - 0.5rem); /* Задаем ширину кнопок на 50% от родительского элемента */
-        height: 2rem; /* Уменьшаем высоту кнопок */
-        font-size: 0.9rem; /* Уменьшаем размер шрифта */
+        width: calc(50% - 0.5rem); /* Ширина кнопок изменяется относительно ширины контейнера */
+        height: 2rem;
+        font-size: 0.9rem;
     }
 
     .activate_banner_button {
-        width: calc(50% + 1rem); /* Устанавливаем ширину кнопки "Купить" равной ширине первой или второй кнопки */
-        height: 2rem; /* Уменьшаем высоту кнопок */
-        font-size: 0.9rem; /* Уменьшаем размер шрифта */
+        width: calc(100%); /* Кнопка "Купить" теперь растягивается на всю ширину */
+        height: 2rem;
+        font-size: 0.9rem;
     }
 }
 
