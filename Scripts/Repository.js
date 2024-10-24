@@ -48,21 +48,24 @@ function displayApps() {
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    filteredApps.slice(start, end).forEach(app => {
+    filteredApps.slice(start, end).forEach((app, index) => {
         const formattedDescription = app.appDescription.replace(/\n/g, '<br>');
-        appList.innerHTML += `
-            <div class="app-item">
-                <div class="app-header">
-                    <img src="${app.appImage}" alt="${app.appName}" style="width: 50px;">
-                    <div>
-                        <h3>${app.appName}</h3>
-                        <p>${app.appVersion}</p>
-                    </div>
+        const delay = index * 0.5;  // Задержка в 0.5 секунд для каждого элемента
+        const appItem = document.createElement('div');
+        appItem.className = 'app-item';
+        appItem.style.animationDelay = ${delay}s;
+        appItem.innerHTML = `
+            <div class="app-header">
+                <img src="${app.appImage}" alt="${app.appName}" style="width: 50px;">
+                <div>
+                    <h3>${app.appName}</h3>
+                    <p>${app.appVersion}</p>
                 </div>
-                <hr>
-                <p class="app-description">${formattedDescription}</p>
             </div>
+            <hr>
+            <p class="app-description">${formattedDescription}</p>
         `;
+        appList.appendChild(appItem);
     });
     setupPagination(filteredApps);
 }
