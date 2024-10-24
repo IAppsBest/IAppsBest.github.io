@@ -25,11 +25,11 @@ activateBanner.addEventListener('click', () => {
 
 // Функция для закрытия баннера
 closeBanner.addEventListener('click', () => {
-    banner.classList.add('hide');
-    banner.classList.remove('show');
+    banner.style.display = 'none';
     setTimeout(() => {
-        banner.style.display = 'none'; // Скрываем баннер после завершения анимации
-    }, 1700); // Скрытие после завершения анимации (1.5 сек)
+        banner.classList.add('hide');
+        banner.classList.remove('show'); // Скрываем баннер после завершения анимации
+    }, 10); // Скрытие после завершения анимации (1.5 сек)
 });
 
 
