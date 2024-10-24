@@ -515,7 +515,7 @@ body {
     transition: transform 0.2s ease-in-out;
     width: 100%;
     box-sizing: border-box;
-    max-width: 500px
+    max-width: 750px
 }
 
 .app-header {
@@ -553,7 +553,7 @@ body {
 }
 
 .app-container {
-    max-width: 500px;
+    max-width: 750px;
     margin: 20px auto;
     width: 100%;
 }
