@@ -58,8 +58,8 @@ function displayApps() {
                         <h3>${app.appName}</h3>
                         <p>${app.appVersion}</p>
                     </div>
-                    <hr>
                 </div>
+                <hr>
                 <p class="app-description">${formattedDescription}</p>
             </div>
         `;
