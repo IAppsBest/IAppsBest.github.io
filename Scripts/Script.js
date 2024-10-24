@@ -29,7 +29,7 @@ closeBanner.addEventListener('click', () => {
     banner.classList.remove('show');
     setTimeout(() => {
         banner.style.display = 'none'; // Скрываем баннер после завершения анимации
-    }, 1500); // Скрытие после завершения анимации (1.5 сек)
+    }, 1700); // Скрытие после завершения анимации (1.5 сек)
 });
 
 
