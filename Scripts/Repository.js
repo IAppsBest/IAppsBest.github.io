@@ -77,6 +77,10 @@ function setupPagination(filteredApps = apps) {
         pageBtn.addEventListener('click', () => {
             currentPage = page;
             displayApps();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Плавный скролл наверх
+            });
         });
         if (currentPage === page) {
             pageBtn.disabled = true;
@@ -90,6 +94,10 @@ function setupPagination(filteredApps = apps) {
         firstPageBtn.addEventListener('click', () => {
             currentPage = 1;
             displayApps();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         pagination.appendChild(firstPageBtn);
     }
@@ -100,6 +108,10 @@ function setupPagination(filteredApps = apps) {
         prevPageBtn.addEventListener('click', () => {
             currentPage--;
             displayApps();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         pagination.appendChild(prevPageBtn);
     }
@@ -117,6 +129,10 @@ function setupPagination(filteredApps = apps) {
         nextPageBtn.addEventListener('click', () => {
             currentPage++;
             displayApps();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         pagination.appendChild(nextPageBtn);
     }
@@ -127,6 +143,10 @@ function setupPagination(filteredApps = apps) {
         lastPageBtn.addEventListener('click', () => {
             currentPage = totalPages;
             displayApps();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
         pagination.appendChild(lastPageBtn);
     }
@@ -135,4 +155,8 @@ function setupPagination(filteredApps = apps) {
 searchInput.addEventListener('input', () => {
     currentPage = 1;
     displayApps();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 });
