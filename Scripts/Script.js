@@ -20,7 +20,7 @@ activateBanner.addEventListener('click', () => {
     setTimeout(() => {
         banner.classList.add('show');
         banner.classList.remove('hide');
-    }, 10); // Задержка для плавного старта анимации
+    }, 3000); // Задержка для плавного старта анимации
 });
 
 // Функция для закрытия баннера
