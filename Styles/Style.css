@@ -642,6 +642,21 @@ body {
     }
 }
 
+/* Медиазапросы для адаптивного дизайна */
+@media (max-width: 195px) {
+    .full-button, .time-button {
+        width: calc(50% - 0.5rem); /* Ширина кнопок изменяется относительно ширины контейнера */
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .activate_banner_button {
+        width: 100%; /* Кнопка "Купить" теперь растягивается на всю ширину */
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+}
+
 @keyframes fadeInAnimation {
     0% {
         opacity: 0;
