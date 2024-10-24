@@ -513,7 +513,7 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
-    width: 100%;
+    width: 125%;
     box-sizing: border-box;
 }
 
@@ -553,8 +553,8 @@ body {
 
 .app-container {
     max-width: 500px;
-    margin: 1px auto;
-    width: 100%;
+    margin: 20px auto;
+    width: 125%;
 }
 
 
