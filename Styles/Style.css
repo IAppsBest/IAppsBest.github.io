@@ -74,12 +74,18 @@ hr {
     z-index: 1000;
     opacity: 0;
     transform: scale(0.9);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transition: opacity 1.5s ease, transform 1.5s ease; /* Плавное изменение на протяжении 1.5 секунд */
 }
 
 #banner.show {
     opacity: 1;
     transform: scale(1);
+}
+
+
+#banner.hide {
+    opacity: 0;
+    transform: scale(0.5); /* Уменьшение до исходного состояния */
 }
 
 .banner-content {
