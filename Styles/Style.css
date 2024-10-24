@@ -33,6 +33,13 @@ body {
     box-sizing: border-box;
 }
 
+hr {
+    border: none; /* Убираем стандартную рамку */
+    border-top: 1px solid #ccc; /* Устанавливаем верхнюю границу для разделителя */
+    margin: 1rem 0; /* Задаем отступы сверху и снизу */
+    width: 100%; /* Устанавливаем ширину разделителя */
+}
+
 .certificates {
     padding: 2rem;
     max-width: 1200px;
