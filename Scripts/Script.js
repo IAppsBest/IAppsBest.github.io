@@ -17,11 +17,19 @@ closeButton.addEventListener('click', () => {
 // Функция для активации баннера
 activateBanner.addEventListener('click', () => {
     banner.style.display = 'flex'; // Показываем баннер
+    setTimeout(() => {
+        banner.classList.add('show');
+        banner.classList.remove('hide');
+    }, 10); // Задержка, чтобы CSS-анимация применилась
 });
 
 // Функция для закрытия баннера
 closeBanner.addEventListener('click', () => {
-    banner.style.display = 'none'; // Скрываем баннер
+    banner.classList.add('hide');
+    banner.classList.remove('show');
+    setTimeout(() => {
+        banner.style.display = 'none'; // Убираем баннер после завершения анимации
+    }, 500); // Время совпадает с transition-duration
 });
 
 
