@@ -61,6 +61,7 @@ function displayApps() {
                 </div>
                 <hr>
                 <p class="app-description">${formattedDescription}</p>
+                <hr>
             </div>
         `;
     });
