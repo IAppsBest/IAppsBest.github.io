@@ -50,7 +50,7 @@ function displayApps() {
     const end = start + itemsPerPage;
     filteredApps.slice(start, end).forEach((app, index) => {
         const formattedDescription = app.appDescription.replace(/\n/g, '<br>');
-        const delay = index * 0.5;  // Задержка в 0.5 секунд для каждого элемента
+        const delay = index * 0.15;  // Задержка в 0.5 секунд для каждого элемента
         const appItem = document.createElement('div');
         appItem.className = 'app-item';
         appItem.style.animationDelay = `${delay}s`;
