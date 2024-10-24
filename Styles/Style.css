@@ -543,6 +543,8 @@ hr {
     width: 100%;
     box-sizing: border-box;
     max-width: 500px;
+    opacity: 0; /* Изначально элемент невидим */
+    animation: fadeInUp 0.8s ease forwards; /* Применение анимации */
 }
 
 .app-header {
@@ -555,6 +557,7 @@ hr {
     width: 100%;
 }
 
+/* Анимация при наведении на карточку */
 .app-item:hover {
     transform: scale(1.03);
 }
@@ -703,6 +706,18 @@ hr {
 
 .hide {
     animation: fadeOutAnimation ease-in-out 0.5s forwards;
+}
+
+/* Анимация для появления */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px); /* Элемент изначально находится немного ниже */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Плавно перемещается на место */
+    }
 }
 
 @keyframes fadeOutAnimation {
