@@ -4,7 +4,7 @@ const searchInput = document.getElementById('search');
 let apps = [];
 let currentPage = 1;
 const itemsPerPage = 20;
-const maxVisiblePages = 5;
+const maxVisiblePages = 3;
 let displayMode = 'full'; // Новая переменная для отслеживания режима отображения
 
 fetch('Repo.json')
