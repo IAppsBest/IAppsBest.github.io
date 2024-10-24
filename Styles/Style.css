@@ -513,9 +513,8 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s ease-in-out;
-    width: 80%;
     box-sizing: border-box;
-    min-width: 60%;
+    min-width: 75%;
 }
 
 .app-header {
@@ -553,10 +552,9 @@ body {
 }
 
 .app-container {
-    min-width: 60%;
+    min-width: 75%;
     margin: 10px auto;
     padding: 10px auto;
-    width: 80%;
 }
 
 
