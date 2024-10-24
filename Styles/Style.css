@@ -60,7 +60,6 @@ hr {
     flex-wrap: wrap;
 }
 
-/* styles.css */
 #banner {
     position: fixed;
     top: 0;
@@ -73,8 +72,14 @@ hr {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    border: 1px solid var(--github-dark-border);
-    padding: 1rem;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#banner.show {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .banner-content {
@@ -83,8 +88,10 @@ hr {
     padding: 2rem;
     background-color: var(--github-dark);
     border-radius: 0.5rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     position: relative;
+    max-width: 800px;
+    width: 100%;
 }
 
 .banner-content h1 {
@@ -98,6 +105,7 @@ hr {
     gap: 1rem;
     justify-content: center;
     margin-top: 20px;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -107,6 +115,12 @@ hr {
     padding: 1rem;
     width: 250px;
     text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .card h3 {
