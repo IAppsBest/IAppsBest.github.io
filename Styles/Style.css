@@ -466,7 +466,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: 100%; /* Кнопка "Купить" теперь занимает 100% ширины родителя */
+    width: 400px; /* Кнопка "Купить" теперь занимает 100% ширины родителя */
     text-align: center;
 }
 
@@ -628,7 +628,7 @@ body {
 }
 
 /* Медиазапросы для адаптивного дизайна */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     .full-button, .time-button {
         width: calc(50% - 0.5rem); /* Ширина кнопок изменяется относительно ширины контейнера */
         height: 2rem;
@@ -636,7 +636,7 @@ body {
     }
 
     .activate_banner_button {
-        width: calc(100%); /* Кнопка "Купить" теперь растягивается на всю ширину */
+        width: calc(100%-1rem); /* Кнопка "Купить" теперь растягивается на всю ширину */
         height: 2rem;
         font-size: 0.9rem;
     }
