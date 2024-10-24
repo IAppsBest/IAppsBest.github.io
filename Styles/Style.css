@@ -458,7 +458,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 0.4rem;
-    margin: 0 1rem;
+    margin: 0;
     cursor: pointer;
     height: 2.5rem;
     padding: 0 1rem;
@@ -466,7 +466,7 @@ body {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: 400px; /* Кнопка "Купить" теперь занимает 100% ширины родителя */
+    width: calc(400px + 1rem); /* Кнопка "Купить" теперь занимает 100% ширины родителя */
     text-align: center;
 }
 
@@ -636,7 +636,7 @@ body {
     }
 
     .activate_banner_button {
-        width: calc(100%-1rem); /* Кнопка "Купить" теперь растягивается на всю ширину */
+        width: calc(100%+1rem); /* Кнопка "Купить" теперь растягивается на всю ширину */
         height: 2rem;
         font-size: 0.9rem;
     }
