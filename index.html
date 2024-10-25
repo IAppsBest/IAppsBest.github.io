@@ -119,7 +119,15 @@
             </div>
         </div>
 
-        <input type="text" id="search" placeholder="Search for apps...">
+        <div class="search-settings-wrapper" style="position: relative;">
+    <input type="text" id="search" placeholder="Search for apps...">
+    <button id="settingsBtn" class="settings-icon">⚙</button>
+    <div id="settingsMenu" class="settings-menu">
+        <label><input type="radio" name="itemsPerPage" value="20" checked> Показ 20 приложений</label><br>
+        <label><input type="radio" name="itemsPerPage" value="50"> Показ 50 приложений</label><br>
+        <label><input type="radio" name="itemsPerPage" value="100"> Показ 100 приложений</label>
+    </div>
+</div>
 
         <div class="full_time_buttons">
             <div class="button-wrapper">
