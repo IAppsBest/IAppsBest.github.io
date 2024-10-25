@@ -27,6 +27,54 @@ body {
     min-height: 100vh;
 }
 
+/* Шестерёнка в строке поиска */
+.search-settings-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--github);
+    cursor: pointer;
+}
+
+.settings-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--github-dark-lighter);
+    border: 1px solid var(--github-dark-border);
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 100;
+}
+
+.settings-menu label {
+    display: block;
+    color: var(--github);
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.settings-menu input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Открытие меню при клике */
+.settings-menu.active {
+    display: block;
+}
+
 * {
     margin: 0;
     padding: 0;
