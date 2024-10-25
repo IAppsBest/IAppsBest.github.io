@@ -5,7 +5,7 @@ let apps = [];
 let currentPage = 1;
 const itemsPerPage = 20;
 const maxVisiblePages = 3;
-let displayMode = 'full'; // Новая переменная для отслеживания режима отображения
+let displayMode = 'full';
 
 fetch('Repo.json')
     .then(response => response.json())
@@ -15,33 +15,28 @@ fetch('Repo.json')
         setupPagination();
     });
 
-// Обработчик клика для кнопки "Полный список"
 document.getElementById('full-list-btn').addEventListener('click', () => {
-    displayMode = 'full'; // Установить режим на полный список
-    currentPage = 1; // Сбросить на первую страницу
+    displayMode = 'full';
+    currentPage = 1;
     displayApps();
     
-    // Устанавливаем активную кнопку
     document.querySelector('.full-button').classList.add('active');
-    document.querySelector('.time-button').classList.remove('active'); // Удаляем активность с другой кнопки
+    document.querySelector('.time-button').classList.remove('active');
 });
 
-// Обработчик клика для кнопки "Список по времени"
 document.getElementById('time-list-btn').addEventListener('click', () => {
-    displayMode = 'time'; // Установить режим на список по времени
-    currentPage = 1; // Сбросить на первую страницу
+    displayMode = 'time';
+    currentPage = 1;
     displayApps();
 
-    // Устанавливаем активную кнопку
     document.querySelector('.time-button').classList.add('active');
-    document.querySelector('.full-button').classList.remove('active'); // Удаляем активность с другой кнопки
+    document.querySelector('.full-button').classList.remove('active');
 });
 
 function displayApps() {
     appList.innerHTML = '';
     let filteredApps = apps.filter(app => app.appName.toLowerCase().includes(searchInput.value.toLowerCase()));
 
-    // Сортировка, если выбран режим по времени
     if (displayMode === 'time') {
         filteredApps.sort((a, b) => new Date(b.appUpdateTime) - new Date(a.appUpdateTime));
     }
@@ -50,7 +45,7 @@ function displayApps() {
     const end = start + itemsPerPage;
     filteredApps.slice(start, end).forEach((app, index) => {
         const formattedDescription = app.appDescription.replace(/\n/g, '<br>');
-        const delay = index * 0.15;  // Задержка в 0.5 секунд для каждого элемента
+        const delay = index * 0.15;
         const appItem = document.createElement('div');
         appItem.className = 'app-item';
         appItem.style.animationDelay = `${delay}s`;
@@ -82,7 +77,7 @@ function setupPagination(filteredApps = apps) {
             displayApps();
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // Плавный скролл наверх
+                behavior: 'smooth'
             });
         });
         if (currentPage === page) {
