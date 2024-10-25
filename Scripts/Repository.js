@@ -3,9 +3,24 @@ const pagination = document.getElementById('pagination');
 const searchInput = document.getElementById('search');
 let apps = [];
 let currentPage = 1;
-const itemsPerPage = 20;
 const maxVisiblePages = 3;
 let displayMode = 'full';
+let itemsPerPage = 20; // Начальное значение количества элементов на странице
+
+// Показ/скрытие меню шестерёнки
+document.getElementById('settingsBtn').addEventListener('click', function () {
+    const settingsMenu = document.getElementById('settingsMenu');
+    settingsMenu.classList.toggle('active'); // Открываем/закрываем меню
+});
+
+// Обработка выбора количества элементов на странице
+document.querySelectorAll('input[name="itemsPerPage"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+        itemsPerPage = parseInt(this.value, 10); // Обновляем значение itemsPerPage
+        currentPage = 1; // Возвращаемся на первую страницу
+        displayApps(); // Перерисовываем приложения
+    });
+});
 
 fetch('Repo.json')
     .then(response => response.json())
