@@ -66,15 +66,16 @@ hr {
     margin-left: 10px;
 }
 
-.settings-button {
-    background-color: #1c1c1c;
-    color: #fff;
+#settingsBtn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
     border: none;
-    padding: 10px;
-    cursor: pointer;
+    color: white;
     font-size: 1.5rem;
-    border-radius: 50%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .settings-button:focus {
@@ -648,9 +649,15 @@ hr {
     word-wrap: break-word;
 }
 
+.search-container {
+    position: relative;
+    display: flex;
+}
+
 #search {
     display: block;
     width: 100%;
+    padding-right: 40px; /* Оставляем место для шестерёнки справа */
     max-width: 500px;
     margin: 80px auto 10px auto;
     padding: 12px;
