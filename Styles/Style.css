@@ -34,10 +34,10 @@ body {
 }
 
 hr {
-    border: none; /* Убираем стандартную рамку */
-    border-top: 1px solid #ccc; /* Устанавливаем верхнюю границу для разделителя */
-    margin: 0.5rem 0; /* Задаем отступы сверху и снизу */
-    width: 100%; /* Устанавливаем ширину разделителя */
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0.5rem 0;
+    width: 100%;
 }
 
 .certificates {
@@ -62,7 +62,7 @@ hr {
 
 #banner {
     opacity: 0;
-    transform: scale(0.5); /* Начальное уменьшенное состояние */
+    transform: scale(0.5);
     transition: opacity 1.5s ease, transform 1.5s ease;
     display: flex;
     justify-content: center;
@@ -70,7 +70,7 @@ hr {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.5); /* Центрируем и задаем начальный размер */
+    transform: translate(-50%, -50%) scale(0.5);
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
@@ -80,12 +80,12 @@ hr {
 
 #banner.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1); /* Плавное появление в центре */
+    transform: translate(-50%, -50%) scale(1);
 }
 
 #banner.hide {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5); /* Плавное исчезновение с уменьшением в центр */
+    transform: translate(-50%, -50%) scale(0.5);
 }
 
 .banner-content {
@@ -465,18 +465,17 @@ hr {
     fill: var(--github);
 }
 
-/* Общие стили кнопок */
 .full_time_buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Установим ширину контейнера */
+    width: 100%;
 }
 
 .button-wrapper {
     display: flex;
     justify-content: center;
-    width: 100%; /* Устанавливаем ширину для первой и второй кнопок */
+    width: 100%;
     margin-bottom: 0.5rem;
 }
 
@@ -493,7 +492,7 @@ hr {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    width: calc(400px + 1rem); /* Кнопка "Купить" теперь занимает 100% ширины родителя */
+    width: calc(400px + 1rem);
     text-align: center;
 }
 
@@ -510,8 +509,8 @@ hr {
     color: gray;
     border: 2px solid gray;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-    flex: 1; /* Кнопки "Полный список" и "Список по времени" растягиваются равномерно */
-    max-width: 200px; /* Ограничим максимальную ширину кнопок */
+    flex: 1;
+    max-width: 200px;
     text-align: center;
 }
 
@@ -543,8 +542,8 @@ hr {
     width: 100%;
     box-sizing: border-box;
     max-width: 500px;
-    opacity: 0; /* Изначально элемент невидим */
-    animation: fadeInUp 0.8s ease forwards; /* Применение анимации */
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
 }
 
 .app-header {
@@ -557,7 +556,6 @@ hr {
     width: 100%;
 }
 
-/* Анимация при наведении на карточку */
 .app-item:hover {
     transform: scale(1.03);
 }
@@ -616,7 +614,6 @@ hr {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Пагинация */
 .pagination {
     display: flex;
     justify-content: center;
@@ -657,31 +654,29 @@ hr {
     transform: translateY(4px);
 }
 
-/* Медиазапросы для адаптивного дизайна */
 @media (max-width: 400px) {
     .full-button, .time-button {
-        width: calc(50% - 0.5rem); /* Ширина кнопок изменяется относительно ширины контейнера */
+        width: calc(50% - 0.5rem);
         height: 2rem;
         font-size: 0.9rem;
     }
 
     .activate_banner_button {
-        width: 95%; /* Кнопка "Купить" теперь растягивается на всю ширину */
+        width: 95%;
         height: 2rem;
         font-size: 0.9rem;
     }
 }
 
-/* Медиазапросы для адаптивного дизайна */
 @media (max-width: 195px) {
     .full-button, .time-button {
-        width: calc(50% - 0.5rem); /* Ширина кнопок изменяется относительно ширины контейнера */
+        width: calc(50% - 0.5rem);
         height: 2rem;
         font-size: 0.9rem;
     }
 
     .activate_banner_button {
-        width: 100%; /* Кнопка "Купить" теперь растягивается на всю ширину */
+        width: 100%;
         height: 2rem;
         font-size: 0.9rem;
     }
@@ -708,15 +703,14 @@ hr {
     animation: fadeOutAnimation ease-in-out 0.5s forwards;
 }
 
-/* Анимация для появления */
 @keyframes fadeInUp {
     0% {
         opacity: 0;
-        transform: translateY(30px); /* Элемент изначально находится немного ниже */
+        transform: translateY(30px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0); /* Плавно перемещается на место */
+        transform: translateY(0);
     }
 }
 
