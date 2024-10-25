@@ -32,7 +32,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 500px;
-    margin: 80px auto 0 auto;
+    margin: 80px auto 10px auto;
 }
 
 /* Шестерёнка будет внутри строки поиска */
