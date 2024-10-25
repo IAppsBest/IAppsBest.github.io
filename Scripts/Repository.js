@@ -1,30 +1,11 @@
 const appList = document.getElementById('app-list');
 const pagination = document.getElementById('pagination');
 const searchInput = document.getElementById('search');
-const settingsBtn = document.getElementById('settings-btn');
-const dropdown = document.getElementById('dropdown');
 let apps = [];
 let currentPage = 1;
-let itemsPerPage = 20;
+const itemsPerPage = 20;
 const maxVisiblePages = 3;
 let displayMode = 'full';
-
-// Открытие и закрытие меню
-settingsBtn.addEventListener('click', () => {
-    dropdown.classList.toggle('visible');
-});
-
-// Изменение количества приложений
-const radios = document.querySelectorAll('input[name="items"]');
-
-radios.forEach(radio => {
-    radio.addEventListener('change', (event) => {
-        itemsPerPage = parseInt(event.target.value);
-        console.log(`Показано приложений: ${itemsPerPage}`); // Для проверки в консоли
-        dropdown.classList.remove('visible'); // Закрываем меню после выбора
-        // Здесь можно добавить функцию для обновления отображения списка приложений
-    });
-});
 
 fetch('Repo.json')
     .then(response => response.json())
