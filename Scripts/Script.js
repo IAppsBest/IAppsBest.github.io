@@ -14,22 +14,18 @@ closeButton.addEventListener('click', () => {
     navigationMenu.classList.add('hide');
 });
 
-// Функция для активации баннера
 activateBanner.addEventListener('click', () => {
-    banner.style.display = 'flex'; // Показываем баннер
+    banner.style.display = 'flex';
     setTimeout(() => {
         banner.classList.add('show');
         banner.classList.remove('hide');
-    }, 10); // Задержка для плавного старта анимации
+    }, 10);
 });
 
-// Функция для закрытия баннера
 closeBanner.addEventListener('click', () => {
     banner.style.display = 'none';
     setTimeout(() => {
         banner.classList.add('hide');
-        banner.classList.remove('show'); // Скрываем баннер после завершения анимации
-    }, 10); // Скрытие после завершения анимации (1.5 сек)
+        banner.classList.remove('show');
+    }, 10);
 });
-
-
