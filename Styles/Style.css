@@ -27,7 +27,7 @@ body {
     min-height: 100vh;
 }
 
-/* Шестерёнка в строке поиска */
+/* Контейнер для строки поиска и шестерёнки */
 .search-settings-wrapper {
     position: relative;
     width: 100%;
@@ -35,18 +35,42 @@ body {
     margin: 20px auto;
 }
 
+/* Шестерёнка будет внутри строки поиска */
 .settings-icon {
     position: absolute;
     top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
+    right: 15px; /* Отступ справа */
+    transform: translateY(-50%); /* Центрируем по вертикали */
     background: none;
     border: none;
     font-size: 1.5rem;
     color: var(--github);
     cursor: pointer;
+    padding: 0;
 }
 
+/* Поле поиска */
+#search {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px; /* Оставляем место для иконки справа */
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #1c1c1c;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Эффект при фокусе на строке поиска */
+#search:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Меню настроек */
 .settings-menu {
     display: none;
     position: absolute;
@@ -640,26 +664,6 @@ hr {
     color: #bbb;
     margin-top: 10px;
     word-wrap: break-word;
-}
-
-#search {
-    display: block;
-    width: 100%;
-    max-width: 500px;
-    margin: 80px auto 10px auto;
-    padding: 12px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    border: 1px solid #444;
-    background-color: #1c1c1c;
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease;
-}
-
-#search:focus {
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .pagination {
