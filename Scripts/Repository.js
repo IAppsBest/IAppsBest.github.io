@@ -65,12 +65,12 @@ fetch('Repo.json')
         apps = data;
         displayApps();
         setupPagination();
-        updateFullListButton();
+        updateActivateBannerButton();
     });
 
-function updateFullListButton() {
-    const fullListButton = document.getElementById('full-list-btn');
-    fullListButton.textContent = `Полный список [${apps.length}]`;
+function updateActivateBannerButton() {
+    const ActivateBannerButton = document.getElementById('activate_banner');
+    ActivateBannerButton.textContent = `Купить доступ [${apps.length} приложений]`;
 }
 
 document.getElementById('full-list-btn').addEventListener('click', () => {
