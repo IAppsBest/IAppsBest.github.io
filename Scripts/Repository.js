@@ -70,7 +70,7 @@ fetch('Repo.json')
 
 function updateActivateBannerButton() {
     const ActivateBannerButton = document.getElementById('activate_banner');
-    ActivateBannerButton.textContent = `Купить доступ [${apps.length} приложений]`;
+    ActivateBannerButton.textContent = `Купить доступ [${apps.length} Приложений]`;
 }
 
 document.getElementById('full-list-btn').addEventListener('click', () => {
