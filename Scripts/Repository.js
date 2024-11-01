@@ -65,7 +65,13 @@ fetch('Repo.json')
         apps = data;
         displayApps();
         setupPagination();
+        updateFullListButton();
     });
+
+function updateFullListButton() {
+    const fullListButton = document.getElementById('full-list-btn');
+    fullListButton.textContent = `Полный список [${apps.length}]`;
+}
 
 document.getElementById('full-list-btn').addEventListener('click', () => {
     displayMode = 'full';
