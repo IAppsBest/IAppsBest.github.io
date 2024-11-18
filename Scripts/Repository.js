@@ -59,7 +59,7 @@ document.querySelectorAll('input[name="itemsPerPage"]').forEach(radio => {
     });
 });
 
-fetch('Repo.json')
+fetch('Repo_Parse.json')
     .then(response => response.json())
     .then(data => {
         apps = data;
