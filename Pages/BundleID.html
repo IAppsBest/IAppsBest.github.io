@@ -6,22 +6,14 @@
     <title>App Search</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
-        /* Стили из основной страницы */
+        /* Основные стили */
         :root {
             --notification: #58A6FF;
             --github-dark: #010409;
             --github-dark-lighter: #0D1117;
             --github-dark-border: #30363D;
-            --github-button-hover: #8B949E;
-            --background: #171B20;
-            --color: #828B94;
             --github: #C9D1D9;
-            --navigation-hover: #292F36;
-            --navbar-height: 4rem;
-
             --hover-color: #282C34;
-            --focus-color: #007bff;
-            --highlight-color: #58A6FF;
         }
 
         body {
@@ -29,62 +21,68 @@
             font-size: 16px;
             background-color: var(--github-dark);
             color: var(--github);
-            user-select: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             min-height: 100vh;
+            margin: 0;
         }
 
-        #search {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            padding-right: 40px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            border: 1px solid var(--github-dark-border);
+        main {
+            width: 90%;
+            max-width: 800px;
             background-color: var(--github-dark-lighter);
-            color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease;
-        }
-
-        #search:focus {
-            outline: none;
+            padding: 20px;
+            border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        button {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 0.4rem;
-            height: 2.5rem;
-            padding: 0 1rem;
-            background-color: var(--github-dark-lighter);
-            color: gray;
-            border: 1px solid var(--github-dark-border);
-            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-            flex: 1;
-            margin: 0 5px;
+        h1 {
             text-align: center;
-            text-decoration: none;
+            color: var(--notification);
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], select {
+            flex: 1 1 calc(50% - 10px);
+            padding: 12px;
+            border: 1px solid var(--github-dark-border);
+            border-radius: 8px;
+            background-color: var(--github-dark-lighter);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        button {
+            flex: 1 1 100%;
+            padding: 12px;
+            background-color: var(--notification);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
-            background-color: var(--github-dark-border);
+            background-color: var(--hover-color);
             transform: scale(1.05);
         }
 
-        /* Стили таблицы */
         table {
             width: 100%;
             border-collapse: collapse;
             border-radius: 8px;
             overflow: hidden;
             background-color: var(--github-dark-lighter);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             margin-top: 20px;
         }
 
@@ -93,13 +91,11 @@
             text-align: left;
             color: var(--github);
             border: 1px solid var(--github-dark-border);
-            font-size: 1rem;
         }
 
         th {
             background-color: var(--github-dark-border);
             font-weight: bold;
-            text-transform: uppercase;
         }
 
         tr:nth-child(odd) {
@@ -121,8 +117,16 @@
 </head>
 <body>
     <main>
+        <h1>App Search</h1>
         <form id="searchform">
             <input type="text" id="search" placeholder="Enter app name" required>
+            <select id="country">
+                <option value="us" selected>United States</option>
+                <option value="ru">Russia</option>
+                <option value="gb">United Kingdom</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+            </select>
             <button type="submit">Search</button>
         </form>
         <table>
