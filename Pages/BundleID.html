@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #007aff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"], select {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007aff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            max-width: 100px;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>App Search</h1>
+    </header>
+    <main>
+        <form id="searchform">
+            <input type="text" id="search" placeholder="Enter app name" required>
+            <select id="country">
+                <option value="us" selected>United States</option>
+                <option value="ru">Russia</option>
+                <option value="gb">United Kingdom</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>App Icon</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody id="results"></tbody>
+        </table>
+    </main>
+    <script type="text/javascript">
+        function getBundleId(searchvalue) {
+            var country = document.getElementById("country").value;
+            $.getJSON(
+                `https://itunes.apple.com/search?limit=10&media=software&term=${searchvalue}&country=${country}&callback=?`,
+                function (json) {
+                    $("#results").html(""); // Очищаем предыдущие результаты
+                    json.results.forEach((app) => {
+                        var appName = app.trackName;
+                        var appId = app.trackId;
+                        var artworkUrl = app.artworkUrl100;
+                        var artworkUrl_l = app.artworkUrl512;
+                        var artistName = app.artistName;
+                        var bundleId = app.bundleId;
+
+                        var result = `
+                            <tr>
+                                <td>
+                                    <a href="${artworkUrl_l}" download="${appName}.png" target="_blank">
+                                        <img src="${artworkUrl}" alt="${appName}">
+                                    </a>
+                                </td>
+                                <td>
+                                    <h3>${appName}</h3>
+                                    <h4 id="app_${appId}" class="bundleid" onclick="copyToClipboard('${appId}')">${bundleId}</h4>
+                                    <p>${artistName}</p>
+                                </td>
+                            </tr>`;
+                        $("#results").append(result);
+                    });
+                }
+            );
+        }
+
+        $("#searchform").submit(function (event) {
+            event.preventDefault();
+            var searchfield = $("#search");
+            getBundleId(searchfield.val());
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Copied to clipboard: " + text);
+            });
+        }
+    </script>
+</body>
+</html>
