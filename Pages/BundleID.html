@@ -58,23 +58,28 @@
             background-color: var(--github-dark-lighter);
             color: #fff;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--notification);
         }
 
         button {
             flex: 1 1 100%;
             padding: 12px;
-            background-color: var(--notification);
-            border: none;
+            background-color: transparent;
+            border: 1px solid var(--notification);
             border-radius: 8px;
-            color: #fff;
+            color: var(--notification);
             font-size: 1.2rem;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: var(--hover-color);
-            transform: scale(1.05);
+            background-color: var(--github-dark-border);
         }
 
         table {
@@ -84,6 +89,7 @@
             overflow: hidden;
             background-color: var(--github-dark-lighter);
             margin-top: 20px;
+            display: none; /* По умолчанию скрыта */
         }
 
         th, td {
@@ -129,7 +135,7 @@
             </select>
             <button type="submit">Search</button>
         </form>
-        <table>
+        <table id="results-table">
             <thead>
                 <tr>
                     <th>App Icon</th>
@@ -176,6 +182,7 @@
                                 </td>
                             </tr>`;
                         $("#results").append(result);
+                        $("#results-table").fadeIn();
                     });
                 }
             );
