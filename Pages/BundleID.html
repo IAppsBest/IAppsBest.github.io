@@ -6,96 +6,123 @@
     <title>App Search</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
+        /* Стили из основной страницы */
+        :root {
+            --notification: #58A6FF;
+            --github-dark: #010409;
+            --github-dark-lighter: #0D1117;
+            --github-dark-border: #30363D;
+            --github-button-hover: #8B949E;
+            --background: #171B20;
+            --color: #828B94;
+            --github: #C9D1D9;
+            --navigation-hover: #292F36;
+            --navbar-height: 4rem;
+
+            --hover-color: #282C34;
+            --focus-color: #007bff;
+            --highlight-color: #58A6FF;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        header {
-            background-color: #007aff;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-        }
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-        form {
+            font-family: "Segoe UI", "Noto Sans", sans-serif;
+            font-size: 16px;
+            background-color: var(--github-dark);
+            color: var(--github);
+            user-select: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        input[type="text"], select {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        #search {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 1px solid var(--github-dark-border);
+            background-color: var(--github-dark-lighter);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease;
         }
+
+        #search:focus {
+            outline: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            background-color: #007aff;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.4rem;
+            height: 2.5rem;
+            padding: 0 1rem;
+            background-color: var(--github-dark-lighter);
+            color: gray;
+            border: 1px solid var(--github-dark-border);
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            flex: 1;
+            margin: 0 5px;
+            text-align: center;
+            text-decoration: none;
         }
+
         button:hover {
-            background-color: #005bb5;
+            background-color: var(--github-dark-border);
+            transform: scale(1.05);
         }
+
+        /* Стили таблицы */
         table {
             width: 100%;
             border-collapse: collapse;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
+            background-color: var(--github-dark-lighter);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            padding: 12px;
             text-align: left;
+            color: var(--github);
+            border: 1px solid var(--github-dark-border);
+            font-size: 1rem;
         }
+
         th {
-            background-color: #f2f2f2;
+            background-color: var(--github-dark-border);
+            font-weight: bold;
+            text-transform: uppercase;
         }
-        td {
-            vertical-align: middle;
+
+        tr:nth-child(odd) {
+            background-color: var(--github-dark);
         }
-        img {
-            max-width: 100px;
-            border-radius: 10px; /* Закругленные иконки */
-            display: block;
-            margin: 0 auto; /* Центровка иконок */
-        }
-        th:first-child, td:first-child {
-            text-align: center;
-            width: 120px; /* Фиксированная ширина столбца App Icon */
-        }
+
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: var(--hover-color);
+            transition: background-color 0.2s ease;
+        }
+
+        img {
+            max-width: 80px;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>App Search</h1>
-    </header>
     <main>
         <form id="searchform">
             <input type="text" id="search" placeholder="Enter app name" required>
-            <select id="country">
-                <option value="us" selected>United States</option>
-                <option value="ru">Russia</option>
-                <option value="gb">United Kingdom</option>
-                <option value="fr">France</option>
-                <option value="de">Germany</option>
-            </select>
             <button type="submit">Search</button>
         </form>
         <table>
