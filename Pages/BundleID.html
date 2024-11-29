@@ -24,6 +24,7 @@
             margin: 0 auto;
             background: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
         }
         form {
             display: flex;
@@ -52,6 +53,8 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
         }
         th, td {
             border: 1px solid #ddd;
@@ -61,8 +64,18 @@
         th {
             background-color: #f2f2f2;
         }
+        td {
+            vertical-align: middle;
+        }
         img {
             max-width: 100px;
+            border-radius: 10px; /* Закругленные иконки */
+            display: block;
+            margin: 0 auto; /* Центровка иконок */
+        }
+        th:first-child, td:first-child {
+            text-align: center;
+            width: 120px; /* Фиксированная ширина столбца App Icon */
         }
         tr:hover {
             background-color: #f1f1f1;
@@ -109,6 +122,11 @@
                         var artworkUrl_l = app.artworkUrl512;
                         var artistName = app.artistName;
                         var bundleId = app.bundleId;
+                        var minimumIos = app.minimumOsVersion || "N/A";
+                        var lastVersion = app.version || "N/A";
+                        var lastUpdate = app.currentVersionReleaseDate
+                            ? new Date(app.currentVersionReleaseDate).toLocaleDateString()
+                            : "N/A";
 
                         var result = `
                             <tr>
@@ -119,8 +137,11 @@
                                 </td>
                                 <td>
                                     <h3>${appName}</h3>
-                                    <h4 id="app_${appId}" class="bundleid" onclick="copyToClipboard('${appId}')">${bundleId}</h4>
-                                    <p>${artistName}</p>
+                                    <p><strong>BundleID:</strong> <span id="bundle_${appId}" class="bundleid" onclick="copyToClipboard('${bundleId}')">${bundleId}</span></p>
+                                    <p><strong>Artist:</strong> ${artistName}</p>
+                                    <p><strong>Min iOS:</strong> ${minimumIos}</p>
+                                    <p><strong>Last Version:</strong> ${lastVersion}</p>
+                                    <p><strong>Last Update:</strong> ${lastUpdate}</p>
                                 </td>
                             </tr>`;
                         $("#results").append(result);
