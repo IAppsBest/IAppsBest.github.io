@@ -155,8 +155,7 @@
                     json.results.forEach((app) => {
                         var appName = app.trackName;
                         var appId = app.trackId;
-                        var artworkUrl = app.artworkUrl100;
-                        var artworkUrl_l = app.artworkUrl512;
+                        var artworkUrl = app.artworkUrl100.replace("100x100bb", "350x350");
                         var artistName = app.artistName;
                         var bundleId = app.bundleId;
                         var minimumIos = app.minimumOsVersion || "N/A";
@@ -168,9 +167,7 @@
                         var result = `
                             <tr>
                                 <td>
-                                    <a href="${artworkUrl_l}" download="${appName}.png" target="_blank">
-                                        <img src="${artworkUrl}" alt="${appName}">
-                                    </a>
+                                    <img src="${artworkUrl}" alt="${appName}" onclick="copyToClipboard('${artworkUrl}')" style="cursor: pointer;">
                                 </td>
                                 <td>
                                     <h3>${appName}</h3>
