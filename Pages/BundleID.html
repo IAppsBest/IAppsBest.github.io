@@ -6,7 +6,6 @@
     <title>App Search</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
-        /* Основные стили */
         :root {
             --notification: #58A6FF;
             --github-dark: #010409;
@@ -89,7 +88,7 @@
             overflow: hidden;
             background-color: var(--github-dark-lighter);
             margin-top: 20px;
-            display: none; /* По умолчанию скрыта */
+            display: none;
         }
 
         th, td {
@@ -151,7 +150,7 @@
             $.getJSON(
                 `https://itunes.apple.com/search?limit=10&media=software&term=${searchvalue}&country=${country}&callback=?`,
                 function (json) {
-                    $("#results").html(""); // Очищаем предыдущие результаты
+                    $("#results").html("");
                     json.results.forEach((app) => {
                         var appName = app.trackName;
                         var appId = app.trackId;
