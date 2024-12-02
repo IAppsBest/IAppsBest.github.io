@@ -148,7 +148,7 @@
         function getBundleId(searchvalue) {
             var country = document.getElementById("country").value;
             $.getJSON(
-                `https://itunes.apple.com/search?limit=10&media=software&term=${searchvalue}&country=${country}&callback=?`,
+                `https://itunes.apple.com/search?limit=20&media=software&term=${searchvalue}&country=${country}&callback=?`,
                 function (json) {
                     $("#results").html("");
                     json.results.forEach((app) => {
