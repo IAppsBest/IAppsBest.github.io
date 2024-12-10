@@ -147,10 +147,9 @@
     <script type="text/javascript">
     function getBundleId(searchvalue) {
         var country = document.getElementById("country").value;
-        var isBundleId = searchvalue.includes("."); // Простая проверка, похож ли ввод на BundleID
+        var isBundleId = searchvalue.includes(".");
 
         if (isBundleId) {
-            // Поиск по BundleID
             $.getJSON(
                 `https://itunes.apple.com/lookup?bundleId=${searchvalue}&country=${country}&callback=?`,
                 function (json) {
@@ -166,9 +165,8 @@
                 }
             );
         } else {
-            // Поиск по названию
             $.getJSON(
-                `https://itunes.apple.com/search?limit=50&media=software&term=${searchvalue}&country=${country}&callback=?`,
+                `https://itunes.apple.com/search?limit=20&media=software&term=${searchvalue}&country=${country}&callback=?`,
                 function (json) {
                     $("#results").html("");
                     if (json.resultCount > 0) {
