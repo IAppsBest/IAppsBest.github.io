@@ -1,0 +1,829 @@
+:root {
+    --notification: #58A6FF;
+    --github-dark: #010409;
+    --github-dark-lighter: #0D1117;
+    --github-dark-border: #30363D;
+    --github-button-hover: #8B949E;
+    --background: #171B20;
+    --color: #828B94;
+    --github: #C9D1D9;
+    --navigation-hover: #292F36;
+    --navbar-height: 4rem;
+
+    --hover-color: #282C34;
+    --focus-color: #007bff;
+    --highlight-color: #58A6FF;
+}
+
+body {
+    font-family: "Segoe UI", "Noto Sans", sans-serif;
+    font-size: 16px;
+    background-color: var(--github-dark);
+    color: var(--github);
+    user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.search-settings-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 80px auto 10px auto;
+}
+
+.settings-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--github);
+    cursor: pointer;
+    padding: 0;
+}
+
+#search {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid var(--github-dark-border);
+    background-color: var(--github-dark-lighter);
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+#search:focus {
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 99;
+    opacity: 0;
+    transition: opacity 1.0s ease;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.settings-menu {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 1.0s ease, transform 1.0s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    background-color: var(--github-dark-lighter);
+    border: 1px solid var(--github-dark-border);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.settings-menu.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.settings-menu.hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--github);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+.settings-options {
+    margin-top: 20px;
+}
+
+.settings-options label {
+    display: block;
+    color: var(--github);
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.settings-options input[type="radio"] {
+    margin-right: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+hr {
+    border: 1px solid var(--github-dark-border);
+    width: 100%;
+    margin: 0.5rem 0;
+    width: 100%;
+}
+
+.certificates {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 4rem;
+}
+
+.slider__section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.cards__wrapper {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.repository-banner {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 1.0s ease, transform 1.0s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    background-color: var(--github-dark-lighter);
+    border: 1px solid var(--github-dark-border);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 90%;
+    max-width: 800px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.repository-banner.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.repository-banner.hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.repository-banner p, .repository-banner ul {
+    margin-top: 10px;
+    color: var(--github);
+}
+
+.centered-text {
+    text-align: center;
+    margin-top: 10px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.purchase-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: var(--github-dark-lighter);
+    color: gray;
+    border: 1px solid var(--github-dark-border);
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    flex: 1;
+    margin: 0 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.purchase-button:hover {
+    background-color: var(--github-dark-border);
+    transform: scale(1.05);
+}
+
+.slider {
+    margin-top: 2rem;
+    background: var(--github-dark-lighter);
+    border: 1px solid var(--github-dark-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.slide {
+    margin-bottom: 1rem;
+}
+
+.slide h3 {
+    color: var(--github);
+}
+
+.slide p {
+    color: var(--color);
+}
+
+.footer {
+    background: var(--github-dark-lighter);
+    color: var(--color);
+    padding: 2rem;
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer__container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.footer__info, .footer__links, .footer__contact {
+    flex: 1;
+    min-width: 250px;
+    margin: 1rem;
+}
+
+.footer__links ul {
+    list-style-type: none;
+}
+
+.footer__links a {
+    color: var(--github);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer__links a:hover {
+    color: var(--highlight-color);
+}
+
+.social-media a {
+    margin: 0 0.5rem;
+    color: var(--github);
+}
+
+.footer__bottom {
+    margin-top: 2rem;
+    color: var(--color);
+}
+
+.menu__wrapper {
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100vw;
+    z-index: 2;
+    gap: 1.5rem; 
+    background-color: var(--github-dark);
+    height: var(--navbar-height);
+    padding: 0px 1rem;
+    border-bottom: 1px solid var(--github-dark-border);
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.logo__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.page__title {
+    color: var(--github);
+    padding: 0.5rem 0.75rem;
+    align-items: center;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    transition: all 0.45s ease-in-out;
+    text-decoration: none;
+}
+
+.page__title:hover {
+    background: var(--hover-color);
+}
+
+.notification-mark {
+    width: 0.5rem;
+    height: 0.5rem;
+    top: -0.2rem;
+    right: -0.2rem;
+    border-radius: 50%;
+    position: absolute;
+    background: var(--notification);
+}
+
+.logo {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+.logo svg {
+    fill: var(--github);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.action-button {
+    position: relative;
+    display: grid;
+    grid-auto-columns: max-content;
+    width: 2rem;
+    height: 2rem;
+    transition: all 0.45s ease-in-out;
+    color: var(--github-dark-lighter);
+    background: transparent;
+    border: 1px solid var(--github-dark-border);
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background: var(--github-dark-lighter);
+    border: 1px solid var(--github);
+}
+
+.action-button svg {
+    fill: var(--github-button-hover);
+}
+
+.avatar-profile {
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    border: 1px solid var(--github-dark-border);
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.navigation__menu {
+    background-color: var(--background);
+    z-index: 3;
+    border-left: 1px solid var(--github-dark-border);
+    height: 100vh;
+    opacity: 1;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0.75rem;
+    right: 0;
+    position: fixed;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    animation: fadeInAnimation ease-in-out 0.5s forwards;
+}
+
+.navigation__menu__items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style-type: none;
+    margin: 0;
+    margin-top: 1rem;
+    padding: 0;
+    color: var(--github-button-hover);
+}
+
+.navigation__menu__items > li {
+    display: flex;
+    gap: 0.625rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    align-items: center;
+    white-space: nowrap;
+    cursor: pointer;
+    color: var(--color);
+    padding: 0px 0.5rem;
+    transition: all 0.45s ease-in-out;
+}
+
+.navigation__menu__items > li:hover {
+    background-color: var(--navigation-hover);
+    color: var(--github);
+}
+
+.navigation__menu__items > li > svg {
+    min-width: 1rem;
+    fill: var(--github);
+}
+
+.navigation__menu__items > .separator {
+    display: flex;
+    align-items: center;
+    height: 0.4rem;
+    padding: 0;
+}
+
+.navigation__menu__items > .separator:hover  {
+    background-color: var(--background);
+}
+
+.navigation__menu__items > .separator > hr {
+    border: 1px solid var(--github-dark-border);
+    width: 100%;
+}
+
+.avatar-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.avatar-wrapper .avatar-profile {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.avatar-name-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.avatar-name-alias {
+    color: var(--github);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.avatar-name {
+    color: var(--color);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    margin-left: auto;
+    cursor: pointer;
+    height: 2rem;
+    width: 2rem;
+    transition: all 0.45s ease-in-out;
+}
+
+.close-button:hover {
+    background-color: var(--navigation-hover);
+}
+
+.close-button svg {
+    height: 1rem;
+    width: 1rem;
+    fill: var(--github);
+}
+
+.full_time_buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.activate_banner_button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    margin: 0;
+    cursor: pointer;
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: var(--github-dark-lighter);
+    color: gray;
+    border: 1px solid var(--github-dark-border);
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: calc(400px + 1rem);
+    text-align: center;
+}
+
+.full-button, .time-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    height: 2.5rem;
+    padding: 0 1rem;
+    background-color: var(--github-dark-lighter);
+    color: gray;
+    border: 1px solid var(--github-dark-border);
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    flex: 1;
+    max-width: 200px;
+    text-align: center;
+}
+
+.full-button:hover, .time-button:hover, .activate_banner_button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.full-button.active, .time-button.active, .activate_banner_button.active {
+    background-color: rgba(46, 46, 46, 0.7);
+    color: white;
+    border: 2px solid #2e2e2e;
+    transform: translateY(2px);
+}
+
+.full-button:active, .time-button:active, .activate_banner_button:active {
+    background-color: rgba(46, 46, 46, 0.9);
+    transform: translateY(4px);
+}
+
+.app-item {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--github-dark-lighter);
+    border-radius: 15px;
+    border: 1px solid var(--github-dark-border);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 500px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.app-header p, .app-header h3 {
+    width: 100%;
+}
+
+.app-item:hover {
+    transform: scale(1.03);
+}
+
+.app-header img {
+    flex-shrink: 0;
+    border-radius: 15px;
+    margin-right: 20px;
+    width: 50px;
+    height: auto;
+}
+
+.app-header h3 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #fff;
+}
+
+.app-header p {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin: 0;
+}
+
+.app-container {
+    max-width: 500px;
+    margin: 10px auto;
+    width: 100%;
+}
+
+
+.app-description {
+    font-size: 1rem;
+    color: #bbb;
+    margin-top: 10px;
+    word-wrap: break-word;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 40px;
+}
+
+.pagination button {
+    background-color: transparent;
+    color: gray;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+.pagination button[disabled] {
+    background-color: transparent;
+    color: lightgray;
+    border: 2px solid lightgray;
+    cursor: not-allowed;
+}
+
+.pagination button.active {
+    background-color: #2e2e2e;
+    color: white;
+    border: 2px solid #2e2e2e;
+    transform: translateY(2px);
+}
+
+.pagination button:active {
+    transform: translateY(4px);
+}
+
+@media (max-width: 800px) {
+    .settings-menu {
+        width: 90%;
+    }
+
+    .settings-options label {
+        font-size: 14px;
+    }
+
+    .close-btn {
+        font-size: 18px;
+    }
+
+    .repository-banner {
+        width: 95%;
+    }
+}
+
+@media (max-width: 500px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .purchase-button {
+        width: 100%;
+        margin: 5px 0;
+        height: 2.5rem;
+        min-height: 2.5rem;
+        line-height: 2.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .full-button, .time-button {
+        width: calc(50% - 0.5rem);
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .activate_banner_button {
+        width: 95%;
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .page__title {
+        display: none;
+    }
+}
+
+@media (max-width: 195px) {
+    .full-button, .time-button {
+        width: calc(50% - 0.5rem);
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+
+    .activate_banner_button {
+        width: 100%;
+        height: 2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+        max-width: 0;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+        max-width: 20rem;
+    }
+}
+
+.none {
+    display: none;
+}
+
+.hide {
+    animation: fadeOutAnimation ease-in-out 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutAnimation {
+    0% {
+        opacity: 1;
+        max-width: 20rem;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        max-width: 0;
+        visibility: hidden;
+    }
+}

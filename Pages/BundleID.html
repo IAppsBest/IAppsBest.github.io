@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        :root {
+            --notification: #58A6FF;
+            --github-dark: #010409;
+            --github-dark-lighter: #0D1117;
+            --github-dark-border: #30363D;
+            --github: #C9D1D9;
+            --hover-color: #282C34;
+        }
+
+        body {
+            font-family: "Segoe UI", "Noto Sans", sans-serif;
+            font-size: 16px;
+            background-color: var(--github-dark);
+            color: var(--github);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            background-color: var(--github-dark-lighter);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--notification);
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], select {
+            flex: 1 1 calc(50% - 10px);
+            padding: 12px;
+            border: 1px solid var(--github-dark-border);
+            border-radius: 8px;
+            background-color: var(--github-dark-lighter);
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--notification);
+        }
+
+        button {
+            flex: 1 1 100%;
+            padding: 12px;
+            background-color: transparent;
+            border: 1px solid var(--notification);
+            border-radius: 8px;
+            color: var(--notification);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--github-dark-border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--github-dark-lighter);
+            margin-top: 20px;
+            display: none;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            color: var(--github);
+            border: 1px solid var(--github-dark-border);
+        }
+
+        th {
+            background-color: var(--github-dark-border);
+            font-weight: bold;
+        }
+
+        tr:nth-child(odd) {
+            background-color: var(--github-dark);
+        }
+
+        tr:hover {
+            background-color: var(--hover-color);
+            transition: background-color 0.2s ease;
+        }
+
+        img {
+            max-width: 80px;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>App Search</h1>
+        <form id="searchform">
+            <input type="text" id="search" placeholder="Enter app name" required>
+            <select id="country">
+                <option value="us" selected>United States</option>
+                <option value="ru">Russia</option>
+                <option value="gb">United Kingdom</option>
+                <option value="fr">France</option>
+                <option value="de">Germany</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+        <table id="results-table">
+            <thead>
+                <tr>
+                    <th>App Icon</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody id="results"></tbody>
+        </table>
+    </main>
+    <script type="text/javascript">
+    function getBundleId(searchvalue) {
+        var country = document.getElementById("country").value;
+        var isBundleId = searchvalue.includes("."); // Простая проверка, похож ли ввод на BundleID
+
+        if (isBundleId) {
+            // Поиск по BundleID
+            $.getJSON(
+                `https://itunes.apple.com/lookup?bundleId=${searchvalue}&country=${country}&callback=?`,
+                function (json) {
+                    $("#results").html("");
+                    if (json.resultCount > 0) {
+                        json.results.forEach((app) => {
+                            displayApp(app);
+                        });
+                        $("#results-table").fadeIn();
+                    } else {
+                        $("#results").html("<p>Приложение с таким BundleID не найдено.</p>");
+                    }
+                }
+            );
+        } else {
+            // Поиск по названию
+            $.getJSON(
+                `https://itunes.apple.com/search?limit=50&media=software&term=${searchvalue}&country=${country}&callback=?`,
+                function (json) {
+                    $("#results").html("");
+                    if (json.resultCount > 0) {
+                        json.results.forEach((app) => {
+                            displayApp(app);
+                        });
+                        $("#results-table").fadeIn();
+                    } else {
+                        $("#results").html("<p>Приложение с таким названием не найдено.</p>");
+                    }
+                }
+            );
+        }
+    }
+
+    function displayApp(app) {
+        var appName = app.trackName;
+        var appId = app.trackId;
+        var artworkUrl = app.artworkUrl100.replace("100x100bb", "350x350");
+        var artistName = app.artistName;
+        var bundleId = app.bundleId;
+        var minimumIos = app.minimumOsVersion || "N/A";
+        var lastVersion = app.version || "N/A";
+        var lastUpdate = app.currentVersionReleaseDate
+            ? new Date(app.currentVersionReleaseDate).toLocaleDateString()
+            : "N/A";
+
+        var result = `
+            <tr>
+                <td>
+                    <img src="${artworkUrl}" alt="${appName}" onclick="copyToClipboard('${artworkUrl}')" style="cursor: pointer;">
+                </td>
+                <td>
+                    <h3>${appName}</h3>
+                    <p><strong>BundleID:</strong> <span id="bundle_${appId}" class="bundleid" onclick="copyToClipboard('${bundleId}')">${bundleId}</span></p>
+                    <p><strong>Artist:</strong> ${artistName}</p>
+                    <p><strong>Min iOS:</strong> ${minimumIos}</p>
+                    <p><strong>Last Version:</strong> ${lastVersion}</p>
+                    <p><strong>Last Update:</strong> ${lastUpdate}</p>
+                </td>
+            </tr>`;
+        $("#results").append(result);
+    }
+
+    $("#searchform").submit(function (event) {
+        event.preventDefault();
+        var searchfield = $("#search");
+        getBundleId(searchfield.val());
+    });
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Copied to clipboard: " + text);
+        });
+    }
+</script>
+</body>
+</html>

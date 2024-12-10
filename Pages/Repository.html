@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление в Репозиторий</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.form-container {
+    width: 48%;
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    overflow: auto;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.form-container h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #fff;
+}
+
+.form-container > * {
+    margin-bottom: 10px;
+}
+
+input[type="file"],
+input[type="text"],
+textarea,
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+input[type="file"]:focus,
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #007bff;
+    background-color: #444;
+    outline: none;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 4"><path d="M4 4L0 0h8z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 8px;
+}
+
+button {
+    width: calc(100% - 22px);
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+}
+
+.custom-file-upload {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.custom-file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 100px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+label {
+    display: block;
+    color: #f0f0f0;
+}
+
+#jsonDataDisplay {
+    white-space: pre;
+    background-color: #333;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-family: monospace;
+    color: #fff;
+    overflow-x: auto;
+    max-height: 600px;
+}
+
+.json-key {
+    color: #ff8c00;
+}
+
+.json-string {
+    color: #98c379;
+}
+
+.json-boolean {
+    color: #d19a66;
+}
+
+.autocomplete-items {
+    border: 1px solid #555;
+    border-top: none;
+    position: absolute;
+    background-color: #2a2a2a;
+    max-height: 100px;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #555;
+    color: #fff;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover {
+    background-color: #3a3a3a;
+}
+
+@media screen and (min-width: 801px) {
+    .container {
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .form-container {
+        width: 95%;
+        margin-bottom: 20px;
+    }
+    #jsonDataDisplay {
+        width: 95%;
+        margin: 0 auto;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="form-container">
+        <h2>Форма для добавления данных</h2>
+        <button for="jsonFileInput" class="custom-file-upload">
+            Загрузить .JSON
+            <input type="file" id="jsonFileInput" accept=".json" onchange="loadJSON()">
+        </button>
+
+        <label for="appType">Тип:</label>
+        <select id="appType">
+            <option value="true">Платное</option>
+            <option value="false">Бесплатное</option>
+        </select>
+        
+        <label for="appCategory">Категория:</label>
+        <select id="appCategory">
+            <option value="0">Приложение</option>
+            <option value="1">Игра</option>
+        </select>
+        
+        <label for="appName">Название:</label>
+        <input type="text" id="appName" oninput="showMatches()">
+        <div id="matchesList" class="autocomplete-items"></div>
+        
+        <label for="appVersion">Версия:</label>
+        <input type="text" id="appVersion">
+
+        <label for="appVersion">Вес:</label>
+        <input type="text" id="appSize">
+
+        <label for="appVersion">Версия iOS:</label>
+        <input type="text" id="appVersionIOS">
+        
+        <label for="appImage">Ссылка на изображение:</label>
+        <input type="text" id="appImage">
+        
+        <label for="appPackage">Ссылка на приложение:</label>
+        <input type="text" id="appPackage">
+        
+        <label for="appDescription">Описание приложения:</label>
+        <textarea id="appDescription" rows="4"></textarea>
+        
+        <button onclick="applyChanges()">Применить изменения</button>
+        <button onclick="installJSON()">Установить .JSON</button>
+        <button onclick="parseJSON()">Парсить .JSON</button>
+    </div>
+
+    <div class="form-container">
+        <h2>JSON данные</h2>
+        <pre id="jsonDataDisplay" style="display: none;"></pre>
+    </div>
+</div>
+
+    <script>
+        var jsonData;
+        
+        function loadJSON() {
+            var input = document.getElementById('jsonFileInput');
+            var file = input.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                jsonData = JSON.parse(reader.result);
+                displayJSON();
+            };
+
+            reader.readAsText(file);
+        }
+
+        function displayJSON() {
+            if (jsonData) {
+                var jsonDataDisplay = document.getElementById('jsonDataDisplay');
+                jsonDataDisplay.innerHTML = '';
+
+                var formattedJSON = JSON.stringify(jsonData, null, 4);
+
+                var preElement = document.createElement('pre');
+                preElement.classList.add('json-display');
+
+                preElement.innerHTML = syntaxHighlight(formattedJSON);
+
+                jsonDataDisplay.appendChild(preElement);
+                jsonDataDisplay.style.display = "block";
+            }
+        }
+
+        function showMatches() {
+            var input = document.getElementById('appName').value;
+            var matchesList = document.getElementById('matchesList');
+            matchesList.innerHTML = '';
+    
+            if (input.length < 2) return;
+    
+            var matches = jsonData.appRepositories.filter(item => item.appName.toLowerCase().startsWith(input.toLowerCase()));
+    
+            matches.slice(0, 5).forEach(match => {
+                var div = document.createElement('div');
+                div.classList.add('autocomplete-item');
+                div.textContent = match.appName;
+                div.onclick = function() {
+                    document.getElementById('appName').value = match.appName;
+                    document.getElementById('appDescription').value = match.appDescription || '';
+                    document.getElementById('appImage').value = match.appImage || '';
+                    document.getElementById('appPackage').value = match.appPackage || '';
+                    matchesList.innerHTML = '';
+                };
+                matchesList.appendChild(div);
+            });
+    
+            var inputField = document.getElementById('appName');
+            matchesList.style.width = inputField.offsetWidth + 'px';
+        }
+
+        document.addEventListener('click', function(event) {
+            var matchesList = document.getElementById('matchesList');
+            var inputField = document.getElementById('appName');
+            if (!matchesList.contains(event.target) && !inputField.contains(event.target)) {
+                matchesList.innerHTML = '';
+            }
+        });
+
+
+        function syntaxHighlight(json) {
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                var cls = 'json-key';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function appUpdateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timezoneOffset = now.getTimezoneOffset();
+            const timezoneHours = Math.floor(-timezoneOffset / 60);
+            const timezoneMinutes = -timezoneOffset - timezoneHours * 60;
+            return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}+${String(timezoneHours).padStart(2, '0')}${String(timezoneMinutes).padStart(2, '0')}`;
+        }
+    
+        function applyChanges() {
+            const currentTime = appUpdateTime();
+            var appType = JSON.parse(document.getElementById('appType').value);
+            var appCategory = document.getElementById('appCategory').value;
+            var appName = document.getElementById('appName').value;
+            var appVersion = document.getElementById('appVersion').value;
+            var appSize = document.getElementById('appSize').value;
+            var appVersionIOS = document.getElementById('appVersionIOS').value;
+            var appImage = document.getElementById('appImage').value;
+            var appPackage = document.getElementById('appPackage').value;
+            var appDescription = document.getElementById('appDescription').value;
+
+            if (!appName || !appVersion || !appImage || !appPackage || !appDescription || !appSize || !appVersionIOS) {
+                alert('Заполните все поля формы!');
+                return;
+            };
+            
+            if (!jsonData) {
+                alert('.JSON отсутствует или пуст!');
+                return;
+            }
+
+            var existingAppIndex = jsonData.appRepositories.findIndex(function(app) {
+                return app.appName.toLowerCase() === appName.toLowerCase();
+            });
+
+            if (existingAppIndex !== -1) {
+                jsonData.appRepositories[existingAppIndex] = {
+                    "lock": appType,
+                    "appType": "SELF_SIGN",
+                    "appCateIndex": appCategory,
+                    "appUpdateTime": currentTime,
+                    "appName": appName,
+                    "appVersion": `${appVersion} | ${appSize} MB | IOS ${appVersionIOS}`,
+                    "appImage": appImage,
+                    "appPackage": appPackage,
+                    "appDescription": appDescription
+                };
+                alert('Данные успешно изменены!');
+            } else {
+                var newApp = {
+                    "lock": appType,
+                    "appType": "SELF_SIGN",
+                    "appCateIndex": appCategory,
+                    "appUpdateTime": currentTime,
+                    "appName": appName,
+                    "appVersion": `${appVersion} | ${appSize} MB | IOS ${appVersionIOS}`,
+                    "appImage": appImage,
+                    "appPackage": appPackage,
+                    "appDescription": appDescription
+                };
+                jsonData.appRepositories.push(newApp);
+                alert('Приложение успешно добавлено!');
+            }
+        
+            displayJSON();
+        }
+
+        function installJSON() {
+            if (!jsonData) {
+                alert('Сначала загрузите .JSON и примените изменения!');
+                return;
+            }
+
+            var jsonString = JSON.stringify(jsonData, null, 4);
+
+            var blob = new Blob([jsonString], {type: 'application/json'});
+
+            var url = URL.createObjectURL(blob);
+
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Repo.json';
+            a.click();
+        }
+
+        function parseJSON() {
+            if (!jsonData || !jsonData.appRepositories) {
+                alert('Сначала загрузите .JSON и примените изменения!');
+                return;
+            }
+        
+            const filteredData = jsonData.appRepositories.map(app => ({
+                appName: app.appName,
+                appImage: app.appImage,
+                appVersion: app.appVersion,
+                appDescription: app.appDescription,
+                appUpdateTime: app.appUpdateTime
+            }));
+        
+            const jsonString = JSON.stringify(filteredData, null, 4);
+        
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+        
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Repo_Parse.json';
+            a.click();
+        }
+    </script>
+</body>
+</html>
