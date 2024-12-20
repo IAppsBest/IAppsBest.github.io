@@ -98,50 +98,40 @@
 
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
-    body {
-        font-size: 14px; /* Уменьшаем размер шрифта для читаемости */
-        transform: scale(0.5); /* Устанавливаем масштабирование 50% */
-        transform-origin: top left; /* Точка начала масштабирования */
-        width: 200%; /* Увеличиваем ширину контейнера */
-        height: 200%; /* Увеличиваем высоту контейнера */
-        overflow-x: hidden; /* Убираем горизонтальную прокрутку */
-        overflow-y: auto; /* Разрешаем вертикальную прокрутку */
-    }
-
     .app-container {
-        max-width: 100%; /* Подстраиваем контейнер под новую ширину */
-        padding: 10px; /* Сокращаем отступы для мобильных устройств */
+        transform: scale(0.5); /* Масштабируем контейнер до 50% */
+        transform-origin: top center; /* Центрируем точку масштабирования */
+        width: 200%; /* Компенсируем масштабирование */
+        margin: 0 auto; /* Центрируем контейнер */
     }
 
     .app-header {
-        flex-direction: row; /* Устанавливаем отображение в строку */
-        align-items: center; /* Выравниваем по центру по вертикали */
-        gap: 10px; /* Сокращаем промежуток между элементами */
+        flex-direction: row; /* Отображение в строку */
+        align-items: center;
+        gap: 10px;
     }
 
     #app-icon {
-        width: 50px; /* Уменьшаем иконку для масштабирования */
-        height: 50px;
+        width: 80px;
+        height: 80px;
     }
 
     #screenshots-container img {
-        width: 100px; /* Уменьшаем ширину скриншотов для соответствия масштабу */
+        width: 150px;
     }
 }
 
 /* Адаптивность для узких экранов (до 480px) */
 @media (max-width: 480px) {
-    body {
-        font-size: 12px; /* Ещё больше уменьшаем шрифт */
-        transform: scale(0.5); /* Масштаб остаётся 50% */
-    }
-
     .app-container {
-        padding: 5px; /* Сокращаем отступы */
+        transform: scale(0.5); /* Масштабирование остаётся 50% */
+        transform-origin: top center;
+        width: 200%; 
+        margin: 0 auto;
     }
 
     #screenshots-container img {
-        width: 80px; /* Ещё меньше для компактных экранов */
+        width: 120px;
     }
 }
 </style>
