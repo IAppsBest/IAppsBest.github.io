@@ -114,37 +114,67 @@
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
     const bundleId = params.get('bundle_id');
-    
+
     if (bundleId) {
-        fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.resultCount > 0) {
-                    const app = data.results[0];
-                    displayAppDetails(app);
-                } else {
-                    alert('Приложение не найдено.');
-                }
-            })
-            .catch(error => console.error('Ошибка:', error));
+        try {
+            // Основной запрос к iTunes API
+            const apiRequest = fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`);
+
+            // Параллельно можно добавить дополнительные запросы, если нужно
+            const [apiResponse] = await Promise.all([apiRequest]); // Сюда можно добавить другие запросы
+
+            if (!apiResponse.ok) throw new Error('Ошибка сети');
+
+            const data = await apiResponse.json();
+
+            if (data.resultCount > 0) {
+                const app = data.results[0];
+                displayAppDetails(app);
+            } else {
+                alert('Приложение не найдено.');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Не удалось загрузить данные. Проверьте подключение к интернету.');
+        }
     }
 });
 
 function displayAppDetails(app) {
-    document.getElementById("app-icon").src = app.artworkUrl512;
-    document.getElementById("app-name").textContent = app.trackName;
-    document.getElementById("app-category").textContent = app.primaryGenreName;
-    document.getElementById("app-developer").textContent = app.sellerName;
-    document.getElementById("app-description-text").textContent = app.description;
+    const tasks = [
+        // Загрузка иконки
+        new Promise(resolve => {
+            const img = document.getElementById("app-icon");
+            img.src = app.artworkUrl512;
+            img.onload = resolve; // Уведомление, когда загрузка завершена
+        }),
+        // Отображение текстовых данных
+        new Promise(resolve => {
+            document.getElementById("app-name").textContent = app.trackName;
+            document.getElementById("app-category").textContent = app.primaryGenreName;
+            document.getElementById("app-developer").textContent = app.sellerName;
+            document.getElementById("app-description-text").textContent = app.description;
+            resolve();
+        }),
+        // Загрузка скриншотов
+        new Promise(resolve => {
+            const screenshotsContainer = document.getElementById("screenshots-container");
+            app.screenshotUrls.forEach(screenshot => {
+                const img = document.createElement("img");
+                img.src = screenshot;
+                img.loading = "lazy"; // Ленивая загрузка
+                screenshotsContainer.appendChild(img);
+            });
+            resolve();
+        })
+    ];
 
-    const screenshotsContainer = document.getElementById("screenshots-container");
-    app.screenshotUrls.forEach(screenshot => {
-        const img = document.createElement("img");
-        img.src = screenshot;
-        screenshotsContainer.appendChild(img);
+    // Выполнить все задачи параллельно
+    Promise.all(tasks).then(() => {
+        console.log('Все данные загружены!');
     });
 }
     </script>
