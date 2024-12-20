@@ -4,7 +4,8 @@
         "appImage": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/82/e9/db/82e9db49-418c-8dca-e76f-3439005427e0/AppIcon-0-0-1x_U007epad-0-0-0-85-220.png/350x350.png",
         "appVersion": "6.99 | 57.8 MB | IOS 16.0",
         "appDescription": "▎Активирована подписка \"Plus\"",
-        "appUpdateTime": "2024-11-30T11:23:15+0530"
+        "appUpdateTime": "2024-11-30T11:23:15+0530",
+        "bundleId": "ru.yandex.mobile.music"
     },
     {
         "appName": "VK Music",
