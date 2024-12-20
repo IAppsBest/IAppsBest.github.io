@@ -145,78 +145,110 @@
                 <p id="app-developer">Developer</p>
             </div>
         </div>
-        <div class="app-description">
-            <p id="app-description-text">Description</p>
+
+        <hr> <!-- Разделитель -->
+
+        <div class="app-info">
+            <h2>Информация</h2>
+            <p id="min-ios-version"></p>
+            <p id="min-ipados-version"></p>
+            <p id="current-version"></p>
+            <p id="last-update"></p>
         </div>
+
+        <hr> <!-- Разделитель -->
+
         <div class="screenshots">
-            <h2>Screenshots</h2>
+            <h2>Скриншоты</h2>
             <div id="screenshots-container"></div>
         </div>
+
+        <hr> <!-- Разделитель -->
+
+        <div class="app-description">
+            <h2>Описание</h2>
+            <p id="app-description-text">Description</p>
+        </div>
+
+        <hr> <!-- Разделитель -->
+
+        <div class="app-release-notes">
+            <h2>Что нового</h2>
+            <p id="release-notes"></p>
+        </div>
     </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-    const params = new URLSearchParams(window.location.search);
-    const bundleId = params.get('bundle_id');
+            const params = new URLSearchParams(window.location.search);
+            const bundleId = params.get('bundle_id');
 
-    if (bundleId) {
-        try {
-            // Основной запрос к iTunes API
-            const apiRequest = fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`);
+            if (bundleId) {
+                try {
+                    const apiResponse = await fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`);
+                    if (!apiResponse.ok) throw new Error('Ошибка сети');
+                    const data = await apiResponse.json();
 
-            // Параллельно можно добавить дополнительные запросы, если нужно
-            const [apiResponse] = await Promise.all([apiRequest]); // Сюда можно добавить другие запросы
-
-            if (!apiResponse.ok) throw new Error('Ошибка сети');
-
-            const data = await apiResponse.json();
-
-            if (data.resultCount > 0) {
-                const app = data.results[0];
-                displayAppDetails(app);
-            } else {
-                alert('Приложение не найдено.');
+                    if (data.resultCount > 0) {
+                        const app = data.results[0];
+                        displayAppDetails(app);
+                    } else {
+                        alert('Приложение не найдено.');
+                    }
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('Не удалось загрузить данные. Проверьте подключение к интернету.');
+                }
             }
-        } catch (error) {
-            console.error('Ошибка:', error);
-            alert('Не удалось загрузить данные. Проверьте подключение к интернету.');
-        }
-    }
-});
+        });
 
-function displayAppDetails(app) {
-    const tasks = [
-        // Загрузка иконки
-        new Promise(resolve => {
-            const img = document.getElementById("app-icon");
-            img.src = app.artworkUrl512;
-            img.onload = resolve; // Уведомление, когда загрузка завершена
-        }),
-        // Отображение текстовых данных
-        new Promise(resolve => {
-            document.getElementById("app-name").textContent = app.trackName;
-            document.getElementById("app-category").textContent = app.primaryGenreName;
-            document.getElementById("app-developer").textContent = app.sellerName;
-            document.getElementById("app-description-text").textContent = app.description;
-            resolve();
-        }),
-        // Загрузка скриншотов
-        new Promise(resolve => {
-            const screenshotsContainer = document.getElementById("screenshots-container");
-            app.screenshotUrls.forEach(screenshot => {
-                const img = document.createElement("img");
-                img.src = screenshot;
-                img.loading = "lazy"; // Ленивая загрузка
-                screenshotsContainer.appendChild(img);
+        function displayAppDetails(app) {
+            const tasks = [
+                // Загрузка иконки
+                new Promise(resolve => {
+                    const img = document.getElementById("app-icon");
+                    img.src = app.artworkUrl512;
+                    img.onload = resolve; // Уведомление, когда загрузка завершена
+                }),
+                // Отображение текстовых данных
+                new Promise(resolve => {
+                    document.getElementById("app-name").textContent = app.trackName;
+                    document.getElementById("app-category").textContent = app.primaryGenreName;
+                    document.getElementById("app-developer").textContent = app.sellerName;
+
+                    // Информация о приложении
+                    document.getElementById("min-ios-version").textContent = `Минимальная версия iOS: ${app.minimumOsVersion}`;
+                    document.getElementById("min-ipados-version").textContent = `Минимальная версия iPadOS: ${app.minimumOsVersion}`;
+                    document.getElementById("current-version").textContent = `Актуальная версия: ${app.version}`;
+                    document.getElementById("last-update").textContent = `Дата последнего обновления: ${new Date(app.currentVersionReleaseDate).toLocaleDateString('ru-RU')}`;
+
+                    // Короткое описание (ограничение по длине)
+                    const shortDescription = app.description.split(' ').slice(0, 30).join(' ') + '...';
+                    document.getElementById("app-description-text").textContent = shortDescription;
+
+                    // Release Notes
+                    document.getElementById("release-notes").textContent = app.releaseNotes || "Информация о релизе недоступна.";
+
+                    resolve();
+                }),
+                // Загрузка скриншотов
+                new Promise(resolve => {
+                    const screenshotsContainer = document.getElementById("screenshots-container");
+                    app.screenshotUrls.forEach(screenshot => {
+                        const img = document.createElement("img");
+                        img.src = screenshot;
+                        img.loading = "lazy"; // Ленивая загрузка
+                        screenshotsContainer.appendChild(img);
+                    });
+                    resolve();
+                })
+            ];
+
+            // Выполнить все задачи параллельно
+            Promise.all(tasks).then(() => {
+                console.log('Все данные загружены!');
             });
-            resolve();
-        })
-    ];
-
-    // Выполнить все задачи параллельно
-    Promise.all(tasks).then(() => {
-        console.log('Все данные загружены!');
-    });
-}
+        }
     </script>
 </body>
 </html>
