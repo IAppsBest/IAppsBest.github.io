@@ -239,8 +239,9 @@ label {
         <textarea id="appDescription" rows="4"></textarea>
         
         <button onclick="applyChanges()">Применить изменения</button>
-        <button onclick="installJSON()">Установить .JSON</button>
-        <button onclick="parseJSON()">Парсить .JSON</button>
+        <button onclick="installJSONWithBundle()">Установить .JSON с Bundle</button>
+        <button onclick="installJSONWithoutBundle()">Установить .JSON без Bundle</button>
+        <button onclick="parseJSON()">Парсить .JSON для GitHub</button>
     </div>
 
     <div class="form-container">
@@ -408,7 +409,7 @@ label {
             displayJSON();
         }
 
-        function installJSON() {
+        function installJSONWithBundle() {
             if (!jsonData) {
                 alert('Сначала загрузите .JSON и примените изменения!');
                 return;
@@ -423,6 +424,31 @@ label {
             var a = document.createElement('a');
             a.href = url;
             a.download = 'Repo.json';
+            a.click();
+        }
+
+        function installJSONWithoutBundle() {
+            if (!jsonData || !jsonData.appRepositories) {
+                alert('Сначала загрузите .JSON и примените изменения!');
+                return;
+            }
+        
+            // Копируем все данные из jsonData
+            const modifiedData = { ...jsonData };
+        
+            // Убираем поле appBundle из appRepositories
+            modifiedData.appRepositories = jsonData.appRepositories.map(({ appBundle, ...rest }) => rest);
+        
+            // Преобразуем результат в JSON
+            const jsonString = JSON.stringify(modifiedData, null, 4);
+        
+            // Создаем Blob и ссылку для скачивания
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+        
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Repo_Parse.json';
             a.click();
         }
 
