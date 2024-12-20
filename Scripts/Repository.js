@@ -127,7 +127,7 @@ function displayApps() {
             <p class="app-description">${formattedDescription}</p>
         `;
         appItem.onclick = () => {
-            window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.bundleId}`;
+            window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}`;
         };
         appList.appendChild(appItem);
     });
