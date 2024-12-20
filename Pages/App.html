@@ -16,7 +16,7 @@
         const bundleId = params.get('bundle_id');
 
         if (bundleId) {
-            fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=us`)
+            fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`)
                 .then(response => response.json())
                 .then(data => {
                     const app = data.results[0];
