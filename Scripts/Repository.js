@@ -126,6 +126,9 @@ function displayApps() {
             <hr>
             <p class="app-description">${formattedDescription}</p>
         `;
+        appItem.onclick = () => {
+            window.location.href = `App.html?bundle_id=${app.bundleId}`;
+        };
         appList.appendChild(appItem);
     });
 
