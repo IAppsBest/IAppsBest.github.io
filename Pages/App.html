@@ -32,13 +32,16 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0; /* Сбрасываем стандартные отступы */
+    padding: 0; /* Убираем внутренние отступы */
+    box-sizing: border-box; /* Учет отступов в расчете ширины */
 }
 
 /* Основной контейнер */
 .app-container {
     max-width: 800px; /* Ограничение ширины */
     width: 100%;
-    margin: auto; /* Центрируем по горизонтали */
+    margin: 0 auto; /* Центрируем по горизонтали */
     padding: 20px;
     background: var(--github-dark-lighter);
     border-radius: 8px;
