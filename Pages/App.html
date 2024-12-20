@@ -32,7 +32,6 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    box-sizing: border-box; /* Учет отступов в расчете ширины */
 }
 
 /* Основной контейнер */
@@ -105,9 +104,9 @@
 /* Адаптивность для планшетов */
 @media (max-width: 768px) {
     .app-container {
-        max-width: 90%; /* Уменьшаем ширину */
-        margin: 0 auto;
-        padding: 15px;
+        max-width: 100%; /* Уменьшаем ширину */
+        margin: auto;
+        padding: 20px;
     }
 
     .app-header {
