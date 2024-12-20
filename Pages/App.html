@@ -4,7 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Details</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.app-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-header {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+#app-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.app-description {
+    margin-top: 20px;
+}
+
+.screenshots {
+    margin-top: 30px;
+}
+
+#screenshots-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+#screenshots-container img {
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -26,4 +76,39 @@
     </div>
     <script src="app.js"></script>
 </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const bundleId = params.get('bundle_id');
+    
+    if (bundleId) {
+        fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.resultCount > 0) {
+                    const app = data.results[0];
+                    displayAppDetails(app);
+                } else {
+                    alert('Приложение не найдено.');
+                }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+});
+
+function displayAppDetails(app) {
+    document.getElementById("app-icon").src = app.artworkUrl512;
+    document.getElementById("app-name").textContent = app.trackName;
+    document.getElementById("app-category").textContent = app.primaryGenreName;
+    document.getElementById("app-developer").textContent = app.sellerName;
+    document.getElementById("app-description-text").textContent = app.description;
+
+    const screenshotsContainer = document.getElementById("screenshots-container");
+    app.screenshotUrls.forEach(screenshot => {
+        const img = document.createElement("img");
+        img.src = screenshot;
+        screenshotsContainer.appendChild(img);
+    });
+}
+    </script>
 </html>
