@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app-details">
+        <h1>Loading...</h1>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const bundleId = params.get('bundle_id');
+
+        if (bundleId) {
+            fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=us`)
+                .then(response => response.json())
+                .then(data => {
+                    const app = data.results[0];
+                    if (app) {
+                        const artworkUrl = app.artworkUrl100.replace('100x100bb', '350x350');
+                        const lastUpdate = app.currentVersionReleaseDate
+                            ? new Date(app.currentVersionReleaseDate).toLocaleDateString()
+                            : 'N/A';
+
+                        document.getElementById('app-details').innerHTML = `
+                            <div>
+                                <img src="${artworkUrl}" alt="${app.trackName}" style="width: 200px;">
+                                <h1>${app.trackName}</h1>
+                                <p><strong>Bundle ID:</strong> ${app.bundleId}</p>
+                                <p><strong>Artist:</strong> ${app.artistName}</p>
+                                <p><strong>Min iOS:</strong> ${app.minimumOsVersion || 'N/A'}</p>
+                                <p><strong>Version:</strong> ${app.version || 'N/A'}</p>
+                                <p><strong>Last Update:</strong> ${lastUpdate}</p>
+                                <p>${app.description}</p>
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('app-details').innerHTML = '<p>Приложение не найдено.</p>';
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('app-details').innerHTML = '<p>Ошибка загрузки данных.</p>';
+                });
+        } else {
+            document.getElementById('app-details').innerHTML = '<p>Отсутствует параметр bundle_id.</p>';
+        }
+    </script>
+</body>
+</html>
