@@ -195,76 +195,90 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            const params = new URLSearchParams(window.location.search);
-            const bundleId = params.get('bundle_id');
+    document.addEventListener("DOMContentLoaded", async () => {
+        const params = new URLSearchParams(window.location.search);
+        const bundleId = params.get('bundle_id');
 
-            if (bundleId) {
-                try {
-                    const apiResponse = await fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`);
-                    if (!apiResponse.ok) throw new Error('Ошибка сети');
-                    const data = await apiResponse.json();
+        if (bundleId) {
+            try {
+                // Функция для поиска приложения
+                const fetchAppData = async (country) => {
+                    const response = await fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=${country}`);
+                    if (!response.ok) throw new Error('Ошибка сети');
+                    const data = await response.json();
+                    return data;
+                };
 
-                    if (data.resultCount > 0) {
-                        const app = data.results[0];
-                        displayAppDetails(app);
-                    } else {
-                        alert('Приложение не найдено.');
-                    }
-                } catch (error) {
-                    console.error('Ошибка:', error);
-                    alert('Не удалось загрузить данные. Проверьте подключение к интернету.');
+                // Первичный запрос по стране "ru"
+                let data = await fetchAppData('ru');
+
+                // Если приложение не найдено, запрос по стране "us"
+                if (data.resultCount === 0) {
+                    console.warn('Приложение не найдено в регионе RU, выполняется повторный поиск в регионе US.');
+                    data = await fetchAppData('us');
                 }
+
+                // Обработка результата
+                if (data.resultCount > 0) {
+                    const app = data.results[0];
+                    displayAppDetails(app);
+                } else {
+                    alert('Приложение не найдено ни в регионе RU, ни в регионе US.');
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Не удалось загрузить данные. Проверьте подключение к интернету.');
             }
-        });
-
-        function displayAppDetails(app) {
-            const tasks = [
-                // Загрузка иконки
-                new Promise(resolve => {
-                    const img = document.getElementById("app-icon");
-                    img.src = app.artworkUrl512;
-                    img.onload = resolve; // Уведомление, когда загрузка завершена
-                }),
-                // Отображение текстовых данных
-                new Promise(resolve => {
-                    document.getElementById("app-name").textContent = app.trackName;
-                    document.getElementById("app-category").textContent = app.primaryGenreName;
-                    document.getElementById("app-developer").textContent = app.sellerName;
-
-                    // Информация о приложении
-                    document.getElementById("min-ios-version").textContent = `Минимальная версия iOS: ${app.minimumOsVersion}`;
-                    document.getElementById("min-ipados-version").textContent = `Минимальная версия iPadOS: ${app.minimumOsVersion}`;
-                    document.getElementById("current-version").textContent = `Актуальная версия: ${app.version}`;
-                    document.getElementById("last-update").textContent = `Дата последнего обновления: ${new Date(app.currentVersionReleaseDate).toLocaleDateString('ru-RU')}`;
-
-                    // Короткое описание (ограничение по длине)
-                    const shortDescription = app.description.split(' ').slice(0, 30).join(' ') + '...';
-                    document.getElementById("app-description-text").textContent = shortDescription;
-
-                    // Release Notes
-                    document.getElementById("release-notes").textContent = app.releaseNotes || "Информация о релизе недоступна.";
-
-                    resolve();
-                }),
-                // Загрузка скриншотов
-                new Promise(resolve => {
-                    const screenshotsContainer = document.getElementById("screenshots-container");
-                    app.screenshotUrls.forEach(screenshot => {
-                        const img = document.createElement("img");
-                        img.src = screenshot;
-                        img.loading = "lazy"; // Ленивая загрузка
-                        screenshotsContainer.appendChild(img);
-                    });
-                    resolve();
-                })
-            ];
-
-            // Выполнить все задачи параллельно
-            Promise.all(tasks).then(() => {
-                console.log('Все данные загружены!');
-            });
         }
-    </script>
+    });
+
+    function displayAppDetails(app) {
+        const tasks = [
+            // Загрузка иконки
+            new Promise(resolve => {
+                const img = document.getElementById("app-icon");
+                img.src = app.artworkUrl512;
+                img.onload = resolve; // Уведомление, когда загрузка завершена
+            }),
+            // Отображение текстовых данных
+            new Promise(resolve => {
+                document.getElementById("app-name").textContent = app.trackName;
+                document.getElementById("app-category").textContent = app.primaryGenreName;
+                document.getElementById("app-developer").textContent = app.sellerName;
+
+                // Информация о приложении
+                document.getElementById("min-ios-version").textContent = `Минимальная версия iOS: ${app.minimumOsVersion}`;
+                document.getElementById("min-ipados-version").textContent = `Минимальная версия iPadOS: ${app.minimumOsVersion}`;
+                document.getElementById("current-version").textContent = `Актуальная версия: ${app.version}`;
+                document.getElementById("last-update").textContent = `Дата последнего обновления: ${new Date(app.currentVersionReleaseDate).toLocaleDateString('ru-RU')}`;
+
+                // Короткое описание (ограничение по длине)
+                const shortDescription = app.description.split(' ').slice(0, 30).join(' ') + '...';
+                document.getElementById("app-description-text").textContent = shortDescription;
+
+                // Release Notes
+                document.getElementById("release-notes").textContent = app.releaseNotes || "Информация о релизе недоступна.";
+
+                resolve();
+            }),
+            // Загрузка скриншотов
+            new Promise(resolve => {
+                const screenshotsContainer = document.getElementById("screenshots-container");
+                app.screenshotUrls.forEach(screenshot => {
+                    const img = document.createElement("img");
+                    img.src = screenshot;
+                    img.loading = "lazy"; // Ленивая загрузка
+                    screenshotsContainer.appendChild(img);
+                });
+                resolve();
+            })
+        ];
+
+        // Выполнить все задачи параллельно
+        Promise.all(tasks).then(() => {
+            console.log('Все данные загружены!');
+        });
+    }
+</script>
 </body>
 </html>
