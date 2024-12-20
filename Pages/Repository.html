@@ -359,6 +359,7 @@ label {
             var appType = JSON.parse(document.getElementById('appType').value);
             var appCategory = document.getElementById('appCategory').value;
             var appName = document.getElementById('appName').value;
+            var appBundle = document.getElementById('appBundle').value;
             var appVersion = document.getElementById('appVersion').value;
             var appSize = document.getElementById('appSize').value;
             var appVersionIOS = document.getElementById('appVersionIOS').value;
@@ -366,7 +367,7 @@ label {
             var appPackage = document.getElementById('appPackage').value;
             var appDescription = document.getElementById('appDescription').value;
 
-            if (!appName || !appVersion || !appImage || !appPackage || !appDescription || !appSize || !appVersionIOS) {
+            if (!appName || !appBundle || !appVersion || !appImage || !appPackage || !appDescription || !appSize || !appVersionIOS) {
                 alert('Заполните все поля формы!');
                 return;
             };
@@ -387,6 +388,7 @@ label {
                     "appCateIndex": appCategory,
                     "appUpdateTime": currentTime,
                     "appName": appName,
+                    "appBundle": appBundle,
                     "appVersion": `${appVersion} | ${appSize} MB | IOS ${appVersionIOS}`,
                     "appImage": appImage,
                     "appPackage": appPackage,
@@ -400,6 +402,7 @@ label {
                     "appCateIndex": appCategory,
                     "appUpdateTime": currentTime,
                     "appName": appName,
+                    "appBundle": appBundle,
                     "appVersion": `${appVersion} | ${appSize} MB | IOS ${appVersionIOS}`,
                     "appImage": appImage,
                     "appPackage": appPackage,
