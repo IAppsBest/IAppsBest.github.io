@@ -23,91 +23,94 @@
     }
 
     body {
-        font-family: "Segoe UI", "Noto Sans", sans-serif;
-        font-size: 16px;
-        background-color: var(--github-dark);
-        color: var(--github);
-        user-select: none;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+    font-family: "Segoe UI", "Noto Sans", sans-serif;
+    font-size: 16px;
+    background-color: var(--github-dark);
+    color: var(--github);
+    user-select: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-    .app-container {
-        max-width: 100%;
-        width: 800px;
-        margin: auto;
-        padding: 20px;
-        background: var(--github-dark-lighter);
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        border: 1px solid var(--github-dark-border);
-        transition: background 0.3s ease, border 0.3s ease;
-        overflow-x: hidden; /* Убираем горизонтальную прокрутку */
-    }
+/* Основной контейнер */
+.app-container {
+    max-width: 800px; /* Ограничение ширины */
+    width: 100%;
+    margin: auto; /* Центрируем по горизонтали */
+    padding: 20px;
+    background: var(--github-dark-lighter);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--github-dark-border);
+    transition: background 0.3s ease, border 0.3s ease;
+    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+}
 
-    .app-header {
-        display: flex;
-        flex-wrap: wrap; /* Для адаптивности на узких экранах */
-        gap: 20px;
-        align-items: center;
-    }
+/* Заголовок: иконка и текст */
+.app-header {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали */
+    gap: 20px;
+    text-align: left; /* Выравнивание текста */
+    flex-wrap: nowrap; /* Элементы в одну строку */
+}
 
-    #app-icon {
-        width: 100px;
-        height: 100px;
-        border-radius: 16px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-        transition: box-shadow 0.3s ease;
-    }
+#app-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+}
 
-    #app-icon:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
-    }
+#app-icon:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
 
-    .app-description {
-        margin-top: 20px;
-    }
+/* Описание приложения */
+.app-description {
+    margin-top: 20px;
+}
 
-    .screenshots {
-        margin-top: 30px;
-    }
+/* Скриншоты */
+.screenshots {
+    margin-top: 30px;
+}
 
-    #screenshots-container {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto; /* Горизонтальная прокрутка для скриншотов */
-        padding: 10px;
-        background: var(--hover-color);
-        border-radius: 8px;
-        transition: background 0.3s ease;
-    }
+#screenshots-container {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Горизонтальная прокрутка */
+    padding: 10px;
+    background: var(--hover-color);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
 
-    #screenshots-container img {
-        width: 200px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+#screenshots-container img {
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    #screenshots-container img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
-    }
+#screenshots-container img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
 
-/* Адаптивность для мобильных устройств */
+/* Адаптивность для планшетов */
 @media (max-width: 768px) {
     .app-container {
-        transform: scale(0.5); /* Масштабируем контейнер до 50% */
-        transform-origin: top center; /* Центрируем точку масштабирования */
-        width: 200%; /* Компенсируем масштабирование */
-        margin: 0 auto; /* Центрируем контейнер */
+        max-width: 90%; /* Уменьшаем ширину */
+        margin: 0 auto;
+        padding: 15px;
     }
 
     .app-header {
-        flex-direction: row; /* Отображение в строку */
-        align-items: center;
+        flex-wrap: wrap; /* Разрешаем перенос текста */
         gap: 10px;
     }
 
@@ -121,13 +124,21 @@
     }
 }
 
-/* Адаптивность для узких экранов (до 480px) */
+/* Адаптивность для мобильных устройств */
 @media (max-width: 480px) {
     .app-container {
-        transform: scale(0.5); /* Масштабирование остаётся 50% */
-        transform-origin: top center;
-        width: 200%; 
-        margin: 0 auto;
+        padding: 15px;
+        max-width: 100%; /* Убираем ограничение ширины */
+    }
+
+    .app-header {
+        flex-direction: column; /* Переносим элементы в столбик */
+        align-items: center;
+    }
+
+    #app-icon {
+        width: 70px;
+        height: 70px;
     }
 
     #screenshots-container img {
