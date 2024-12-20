@@ -219,6 +219,9 @@ label {
         <label for="appName">Название:</label>
         <input type="text" id="appName" oninput="showMatches()">
         <div id="matchesList" class="autocomplete-items"></div>
+
+        <label for="appVersion">BundleId:</label>
+        <input type="text" id="appBundle">
         
         <label for="appVersion">Версия:</label>
         <input type="text" id="appVersion">
@@ -300,7 +303,7 @@ label {
                     document.getElementById('appName').value = match.appName;
                     document.getElementById('appDescription').value = match.appDescription || '';
                     document.getElementById('appImage').value = match.appImage || '';
-                    document.getElementById('appPackage').value = match.appPackage || '';
+                    document.getElementById('appBundle').value = match.appBundle || '';
                     matchesList.innerHTML = '';
                 };
                 matchesList.appendChild(div);
