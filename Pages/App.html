@@ -97,27 +97,29 @@
     }
 
     /* Адаптивность для мобильных устройств */
-    @media (max-width: 768px) {
-        .app-container {
-            width: 100%; /* Растягиваем на всю ширину экрана */
-            padding: 15px;
-        }
-
-        .app-header {
-            flex-direction: column; /* Элементы выстраиваются в колонку */
-            gap: 10px;
-            text-align: center;
-        }
-
-        #app-icon {
-            width: 80px;
-            height: 80px; /* Уменьшаем размер иконки */
-        }
-
-        #screenshots-container img {
-            width: 150px; /* Уменьшаем ширину скриншотов */
-        }
+    /* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .app-container {
+        width: 100%; /* Растягиваем на всю ширину экрана */
+        padding: 15px;
     }
+
+    .app-header {
+        flex-direction: row; /* Устанавливаем отображение в строку */
+        align-items: center; /* Выравниваем по центру по вертикали */
+        gap: 20px; /* Оставляем промежуток между элементами */
+        text-align: left; /* Выравнивание текста слева */
+    }
+
+    #app-icon {
+        width: 80px;
+        height: 80px; /* Уменьшаем размер иконки */
+    }
+
+    #screenshots-container img {
+        width: 150px; /* Уменьшаем ширину скриншотов */
+    }
+}
 
     @media (max-width: 480px) {
         body {
