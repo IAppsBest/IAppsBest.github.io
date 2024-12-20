@@ -7,47 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app-details">
-        <h1>Loading...</h1>
+    <div class="app-container">
+        <div class="app-header">
+            <img id="app-icon" src="" alt="App Icon">
+            <div>
+                <h1 id="app-name">App Name</h1>
+                <p id="app-category">Category</p>
+                <p id="app-developer">Developer</p>
+            </div>
+        </div>
+        <div class="app-description">
+            <p id="app-description-text">Description</p>
+        </div>
+        <div class="screenshots">
+            <h2>Screenshots</h2>
+            <div id="screenshots-container"></div>
+        </div>
     </div>
-
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const bundleId = params.get('bundle_id');
-
-        if (bundleId) {
-            fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=ru`)
-                .then(response => response.json())
-                .then(data => {
-                    const app = data.results[0];
-                    if (app) {
-                        const artworkUrl = app.artworkUrl100.replace('100x100bb', '350x350');
-                        const lastUpdate = app.currentVersionReleaseDate
-                            ? new Date(app.currentVersionReleaseDate).toLocaleDateString()
-                            : 'N/A';
-
-                        document.getElementById('app-details').innerHTML = `
-                            <div>
-                                <img src="${artworkUrl}" alt="${app.trackName}" style="width: 200px;">
-                                <h1>${app.trackName}</h1>
-                                <p><strong>Bundle ID:</strong> ${app.bundleId}</p>
-                                <p><strong>Artist:</strong> ${app.artistName}</p>
-                                <p><strong>Min iOS:</strong> ${app.minimumOsVersion || 'N/A'}</p>
-                                <p><strong>Version:</strong> ${app.version || 'N/A'}</p>
-                                <p><strong>Last Update:</strong> ${lastUpdate}</p>
-                                <p>${app.description}</p>
-                            </div>
-                        `;
-                    } else {
-                        document.getElementById('app-details').innerHTML = '<p>Приложение не найдено.</p>';
-                    }
-                })
-                .catch(() => {
-                    document.getElementById('app-details').innerHTML = '<p>Ошибка загрузки данных.</p>';
-                });
-        } else {
-            document.getElementById('app-details').innerHTML = '<p>Отсутствует параметр bundle_id.</p>';
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
