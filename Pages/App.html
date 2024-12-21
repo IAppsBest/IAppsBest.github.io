@@ -268,7 +268,7 @@
         document.getElementById("file-size").textContent = `Размер файла: ${fileSize}`;
         document.getElementById("min-ios-version").textContent = `Минимальная версия: ${minIOSVersion}`;
         document.getElementById("update-time").textContent = `Последнее обновление: ${appUpdateTimeFormatted}`;
-        document.getElementById("app-description-modifications").textContent = `${appDescription}`;
+        document.getElementById("app-description-modifications").innerHTML = appDescription.replace(/\n/g, '<br>');
     }
 
     const tasks = [
