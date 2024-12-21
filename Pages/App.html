@@ -252,12 +252,22 @@
     
         // Удаляем слово "iOS" из минимальной версии, если оно присутствует
         const minIOSVersion = IOSVersion.replace(/iOS\s*/i, '');
+
+        // Создаем объект Date из строки
+        const date = new Date(appUpdateTime);
+    
+        // Форматируем дату в нужный формат
+        const appUpdateTimeFormatted = date.toLocaleDateString('ru-RU', {
+            day: '2-digit',    // Два знака для дня
+            month: 'short',    // Краткое название месяца (например, дек)
+            year: 'numeric'    // Полный год
+        });
     
         // Присваиваем значения разделенных частей в элементы страницы
         document.getElementById("current-version").textContent = `Актуальная версия: ${currentVersion}`;
         document.getElementById("file-size").textContent = `Размер файла: ${fileSize}`;
         document.getElementById("min-ios-version").textContent = `Минимальная версия: ${minIOSVersion}`;
-        document.getElementById("update-time").textContent = `Последнее обновление: ${appUpdateTime}`;
+        document.getElementById("update-time").textContent = `Последнее обновление: ${appUpdateTimeFormatted} г.`;
         document.getElementById("app-description-modifications").textContent = `${appDescription}`;
     }
 
