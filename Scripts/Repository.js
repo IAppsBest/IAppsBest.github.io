@@ -129,9 +129,12 @@ function displayApps() {
         appItem.onclick = () => {
             document.body.style.transition = "opacity 0.5s ease"; // Плавная анимация
             document.body.style.opacity = "0"; // Начало исчезновения
-        
+
+            sessionStorage.setItem('app_version', app.appVersion);
+            sessionStorage.setItem('bundle_id', app.appBundle);
+      
             setTimeout(() => {
-                window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}&app_version=${app.appVersion}`;
+                window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html`;
             }, 500); // Ждем завершения анимации
         };
 
