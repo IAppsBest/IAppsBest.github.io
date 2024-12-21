@@ -131,7 +131,7 @@ function displayApps() {
             document.body.style.opacity = "0"; // Начало исчезновения
         
             setTimeout(() => {
-                window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}`;
+                window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}&app_version=${app.appVersion}`;
             }, 500); // Ждем завершения анимации
         };
 
