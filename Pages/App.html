@@ -251,7 +251,7 @@
         const [currentVersion, fileSize, IOSVersion] = appVersion.split(' | ');
     
         // Удаляем слово "iOS" из минимальной версии, если оно присутствует
-        const minIOSVersion = minIOSVersion.replace(/iOS\s*/i, '');
+        const minIOSVersion = IOSVersion.replace(/iOS\s*/i, '');
     
         // Присваиваем значения разделенных частей в элементы страницы
         document.getElementById("current-version").textContent = `Актуальная версия: ${currentVersion}`;
