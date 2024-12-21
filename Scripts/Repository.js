@@ -127,7 +127,12 @@ function displayApps() {
             <p class="app-description">${formattedDescription}</p>
         `;
         appItem.onclick = () => {
-            window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}`;
+            document.body.style.transition = "opacity 0.5s ease"; // Плавная анимация
+            document.body.style.opacity = "0"; // Начало исчезновения
+        
+            setTimeout(() => {
+                window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}`;
+            }, 500); // Ждем завершения анимации
         };
         appList.appendChild(appItem);
     });
