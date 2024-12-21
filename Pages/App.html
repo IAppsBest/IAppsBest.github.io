@@ -137,9 +137,14 @@
     }
 
     .app-header {
-        flex-direction: column; /* Переносим элементы в столбик */
-        align-items: center;
+        flex-wrap: wrap; /* Разрешаем перенос текста */
+        gap: 10px;
     }
+
+    /*.app-header {
+        flex-direction: column;
+        align-items: center;
+    }*/
 
     #app-icon {
         width: 70px;
