@@ -234,52 +234,60 @@
     });
 
     function displayAppDetails(app) {
-        const tasks = [
-            // Загрузка иконки
-            new Promise(resolve => {
-                const img = document.getElementById("app-icon");
-                img.src = app.artworkUrl512;
-                img.onload = resolve; // Уведомление, когда загрузка завершена
-            }),
-            // Отображение текстовых данных
-            new Promise(resolve => {
-                document.getElementById("app-name").textContent = app.trackName;
-                document.getElementById("app-category").textContent = app.primaryGenreName;
-                document.getElementById("app-developer").textContent = app.sellerName;
+    // Получение параметра appVersion из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const appVersion = urlParams.get('app_version'); // Получаем параметр app_version
 
-                // Информация о приложении
-                document.getElementById("min-ios-version").textContent = `Минимальная версия iOS: ${app.minimumOsVersion}`;
-                document.getElementById("min-ipados-version").textContent = `Минимальная версия iPadOS: ${app.minimumOsVersion}`;
-                document.getElementById("current-version").textContent = `Актуальная версия: ${app.version}`;
-                document.getElementById("last-update").textContent = `Дата последнего обновления: ${new Date(app.currentVersionReleaseDate).toLocaleDateString('ru-RU')}`;
+    // Разделяем appVersion на части
+    if (appVersion) {
+        const [currentVersion, fileSize, minIOSVersion] = appVersion.split(' | ');
 
-                // Короткое описание (ограничение по длине)
-                const shortDescription = app.description.split(' ').slice(0, 30).join(' ') + '...';
-                document.getElementById("app-description-text").textContent = shortDescription;
-
-                // Release Notes
-                document.getElementById("release-notes").textContent = app.releaseNotes || "Информация о релизе недоступна.";
-
-                resolve();
-            }),
-            // Загрузка скриншотов
-            new Promise(resolve => {
-                const screenshotsContainer = document.getElementById("screenshots-container");
-                app.screenshotUrls.forEach(screenshot => {
-                    const img = document.createElement("img");
-                    img.src = screenshot;
-                    img.loading = "lazy"; // Ленивая загрузка
-                    screenshotsContainer.appendChild(img);
-                });
-                resolve();
-            })
-        ];
-
-        // Выполнить все задачи параллельно
-        Promise.all(tasks).then(() => {
-            console.log('Все данные загружены!');
-        });
+        // Присваиваем значения разделенных частей в элементы страницы
+        document.getElementById("current-version").textContent = `Актуальная версия: ${currentVersion}`;
+        document.getElementById("file-size").textContent = `Размер файла: ${fileSize}`;
+        document.getElementById("min-ios-version").textContent = `Минимальная версия iOS: ${minIOSVersion}`;
     }
+
+    const tasks = [
+        // Загрузка иконки
+        new Promise(resolve => {
+            const img = document.getElementById("app-icon");
+            img.src = app.artworkUrl512;
+            img.onload = resolve; // Уведомление, когда загрузка завершена
+        }),
+        // Отображение текстовых данных
+        new Promise(resolve => {
+            document.getElementById("app-name").textContent = app.trackName;
+            document.getElementById("app-category").textContent = app.primaryGenreName;
+            document.getElementById("app-developer").textContent = app.sellerName;
+
+            // Короткое описание (ограничение по длине)
+            const shortDescription = app.description.split(' ').slice(0, 30).join(' ') + '...';
+            document.getElementById("app-description-text").textContent = shortDescription;
+
+            // Release Notes
+            document.getElementById("release-notes").textContent = app.releaseNotes || "Информация о релизе недоступна.";
+
+            resolve();
+        }),
+        // Загрузка скриншотов
+        new Promise(resolve => {
+            const screenshotsContainer = document.getElementById("screenshots-container");
+            app.screenshotUrls.forEach(screenshot => {
+                const img = document.createElement("img");
+                img.src = screenshot;
+                img.loading = "lazy"; // Ленивая загрузка
+                screenshotsContainer.appendChild(img);
+            });
+            resolve();
+        })
+    ];
+
+    // Выполнить все задачи параллельно
+    Promise.all(tasks).then(() => {
+        console.log('Все данные загружены!');
+    });
+}
 </script>
 </body>
 </html>
