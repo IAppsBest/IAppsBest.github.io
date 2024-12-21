@@ -131,7 +131,9 @@ function displayApps() {
             document.body.style.opacity = "0"; // Начало исчезновения
 
             sessionStorage.setItem('app_version', app.appVersion);
-            sessionStorage.setItem('bundle_id', app.appBundle);
+            sessionStorage.setItem('app_bundle', app.appBundle);
+            sessionStorage.setItem('app_description', app.appDescription);
+            sessionStorage.setItem('app_update_time', app.appUpdateTime);
       
             setTimeout(() => {
                 window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html`;
