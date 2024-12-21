@@ -170,6 +170,14 @@
             <p id="current-version"></p>
             <p id="file-size"></p>
             <p id="min-ios-version"></p>
+            <p id="update-time"></p>
+        </div>
+
+        <hr> <!-- Разделитель -->
+
+        <div class="app-modifications">
+            <h2>Особенности</h2>
+            <p id="app-description-modifications"></p>
         </div>
 
         <hr> <!-- Разделитель -->
@@ -234,6 +242,8 @@
 
     function displayAppDetails(app) {
 
+    const appVersion = sessionStorage.getItem('app_version');
+    const appVersion = sessionStorage.getItem('app_version');
     const appVersion = sessionStorage.getItem('app_version');
 
     // Разделяем appVersion на части
