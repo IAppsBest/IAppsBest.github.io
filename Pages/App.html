@@ -205,13 +205,13 @@
     <script>                
     document.addEventListener("DOMContentLoaded", async () => {
         
-        const bundleId = sessionStorage.getItem('bundle_id');
+        const appBundle = sessionStorage.getItem('app_bundle');
 
         if (bundleId) {
             try {
                 // Функция для поиска приложения
                 const fetchAppData = async (country) => {
-                    const response = await fetch(`https://itunes.apple.com/lookup?bundleId=${bundleId}&country=${country}`);
+                    const response = await fetch(`https://itunes.apple.com/lookup?bundleId=${appBundle}&country=${country}`);
                     if (!response.ok) throw new Error('Ошибка сети');
                     const data = await response.json();
                     return data;
@@ -243,11 +243,11 @@
     function displayAppDetails(app) {
 
     const appVersion = sessionStorage.getItem('app_version');
-    const appVersion = sessionStorage.getItem('app_version');
-    const appVersion = sessionStorage.getItem('app_version');
+    const appDescription = sessionStorage.getItem('app_description');
+    const appUpdateTime = sessionStorage.getItem('app_update_time');
 
     // Разделяем appVersion на части
-    if (appVersion) {
+    if (appVersion && appDescription && appUpdateTime) {
         const [currentVersion, fileSize, IOSVersion] = appVersion.split(' | ');
     
         // Удаляем слово "iOS" из минимальной версии, если оно присутствует
@@ -257,6 +257,8 @@
         document.getElementById("current-version").textContent = `Актуальная версия: ${currentVersion}`;
         document.getElementById("file-size").textContent = `Размер файла: ${fileSize}`;
         document.getElementById("min-ios-version").textContent = `Минимальная версия: ${minIOSVersion}`;
+        document.getElementById("update-time").textContent = `Последнее обновление: ${appUpdateTime}`;
+        document.getElementById("app-description-modifications").textContent = `${appDescription}`;
     }
 
     const tasks = [
