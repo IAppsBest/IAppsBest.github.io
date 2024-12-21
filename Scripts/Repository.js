@@ -134,6 +134,12 @@ function displayApps() {
                 window.location.href = `https://IAppsBest.GitHub.io/Pages/App.html?bundle_id=${app.appBundle}`;
             }, 500); // Ждем завершения анимации
         };
+
+        // Сбрасываем прозрачность при возврате на страницу
+        window.addEventListener("pageshow", () => {
+            document.body.style.opacity = "1"; // Снова делаем страницу видимой
+        });
+        
         appList.appendChild(appItem);
     });
 
