@@ -40,7 +40,6 @@
 
 /* Основной контейнер */
 .app-container {
-    opacity: 0; /* Невидимость */
     max-width: 800px; /* Ограничение ширины */
     width: 100%;
     margin: auto; /* Центрируем по горизонтали */
@@ -49,22 +48,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     border: 1px solid var(--github-dark-border);
-    transition: background 0.3s ease, border 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
-    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
-}
-
-/* Состояние после загрузки */
-.app-container.visible {
-    opacity: 1; /* Полностью видимый */
-    max-width: 800px; /* Ограничение ширины */
-    width: 100%;
-    margin: auto; /* Центрируем по горизонтали */
-    padding: 20px;
-    background: var(--github-dark-lighter);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--github-dark-border);
-    transition: background 0.3s ease, border 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+    transition: background 0.3s ease, border 0.3s ease;
     overflow-x: hidden; /* Убираем горизонтальную прокрутку */
 }
         
@@ -211,15 +195,7 @@
         </div>
     </div>
 
-    <script>
-    // Добавляем класс "visible" для плавного появления контейнера
-    window.addEventListener("DOMContentLoaded", () => {
-        const container = document.querySelector(".app-container");
-        if (container) {
-            container.classList.add("visible");
-        }
-    });
-        
+    <script>        
     document.addEventListener("DOMContentLoaded", async () => {
         const params = new URLSearchParams(window.location.search);
         const bundleId = params.get('bundle_id');
