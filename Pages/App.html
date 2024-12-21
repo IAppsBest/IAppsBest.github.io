@@ -238,12 +238,15 @@
 
     // Разделяем appVersion на части
     if (appVersion) {
-        const [currentVersion, fileSize, minIOSVersion] = appVersion.split(' | ');
-
+        const [currentVersion, fileSize, IOSVersion] = appVersion.split(' | ');
+    
+        // Удаляем слово "iOS" из минимальной версии, если оно присутствует
+        const minIOSVersion = minIOSVersion.replace(/iOS\s*/i, '');
+    
         // Присваиваем значения разделенных частей в элементы страницы
         document.getElementById("current-version").textContent = `Актуальная версия: ${currentVersion}`;
         document.getElementById("file-size").textContent = `Размер файла: ${fileSize}`;
-        document.getElementById("min-ios-version").textContent = `Минимальная версия iOS: ${minIOSVersion}`;
+        document.getElementById("min-ios-version").textContent = `Минимальная версия: ${minIOSVersion}`;
     }
 
     const tasks = [
