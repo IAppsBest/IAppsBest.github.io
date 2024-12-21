@@ -196,8 +196,8 @@
 
     <script>                
     document.addEventListener("DOMContentLoaded", async () => {
-        const params = new URLSearchParams(window.location.search);
-        const bundleId = params.get('bundle_id');
+        
+        const bundleId = sessionStorage.getItem('bundle_id');
 
         if (bundleId) {
             try {
@@ -233,9 +233,8 @@
     });
 
     function displayAppDetails(app) {
-    // Получение параметра appVersion из URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const appVersion = urlParams.get('app_version'); // Получаем параметр app_version
+
+    const appVersion = sessionStorage.getItem('app_version');
 
     // Разделяем appVersion на части
     if (appVersion) {
